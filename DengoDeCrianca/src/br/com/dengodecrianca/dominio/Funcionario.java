@@ -23,6 +23,8 @@ public class Funcionario {
 		email = "";
 		cargo = "";
 		salario = BigDecimal.ZERO;
+		dataAdmissao = "";
+		dataDemissao = "";
 	}
 
 	public String getNome() {
