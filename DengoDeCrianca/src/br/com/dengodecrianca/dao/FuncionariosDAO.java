@@ -17,10 +17,16 @@ public class FuncionariosDAO {
 		if (funcionario.getEmail() != null && !funcionario.getEmail().equals("")) {
 			sql.append(" , email ");
 		}
+		if (funcionario.getFoto() != null) {
+			sql.append(" , foto");
+		}
 		sql.append(" ) "); 
 		sql.append(" values (?,?,?,?,?,?,?,? ");
 		if (funcionario.getEmail() != null && !funcionario.getEmail().equals("")) {
 			sql.append(" ,'"+funcionario.getEmail()+"' ");
+		}
+		if (funcionario.getFoto() != null) {
+			//faltam comandos
 		}
 		sql.append(" ) ");
 		

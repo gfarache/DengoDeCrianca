@@ -1,5 +1,6 @@
 package br.com.dengodecrianca.dominio;
 
+import java.io.ByteArrayInputStream;
 import java.math.BigDecimal;
 
 public class Funcionario {
@@ -13,6 +14,7 @@ public class Funcionario {
 	private BigDecimal salario = BigDecimal.ZERO;
 	private String dataAdmissao = "";
 	private String dataDemissao = "";
+	private ByteArrayInputStream foto = null;
 	
 	public void limpar() {
 		nome = "";
@@ -105,5 +107,13 @@ public class Funcionario {
 
 	public void setDataDemissao(String dataDemissao) {
 		this.dataDemissao = dataDemissao;
+	}
+
+	public ByteArrayInputStream getFoto() {
+		return foto;
+	}
+
+	public void setFoto(ByteArrayInputStream foto) {
+		this.foto = foto;
 	}
 }
