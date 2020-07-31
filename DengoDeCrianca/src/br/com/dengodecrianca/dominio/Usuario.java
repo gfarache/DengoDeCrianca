@@ -2,13 +2,15 @@ package br.com.dengodecrianca.dominio;
 
 public class Usuario {
 	private String nuusuario = ""; //CPF
-	private String nome = "";
+	private String login = "";
 	private String perfil = "";
+	private String senha = "";
 	
 	public void limpar() {
 		nuusuario = "";
-		nome = "";
+		login = "";
 		perfil = "";
+		senha = "";
 	}
 
 	public String getNuusuario() {
@@ -19,12 +21,12 @@ public class Usuario {
 		this.nuusuario = nuusuario;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getLogin() {
+		return login;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
 	public String getPerfil() {
@@ -33,6 +35,14 @@ public class Usuario {
 
 	public void setPerfil(String perfil) {
 		this.perfil = perfil;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 	
 }
