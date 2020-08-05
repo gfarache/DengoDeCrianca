@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.math.BigDecimal;
 
 public class Funcionario {
+	private String matricula = "";
 	private String nome = "";
 	private String cpf = "";
 	private String rg = "";
@@ -17,6 +18,7 @@ public class Funcionario {
 	private ByteArrayInputStream foto = null;
 	
 	public void limpar() {
+		matricula = "";
 		nome = "";
 		cpf = "";
 		rg = "";
@@ -27,6 +29,14 @@ public class Funcionario {
 		salario = BigDecimal.ZERO;
 		dataAdmissao = "";
 		dataDemissao = "";
+	}
+
+	public String getMatricula() {
+		return matricula;
+	}
+
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
 	}
 
 	public String getNome() {

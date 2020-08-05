@@ -1,6 +1,7 @@
 package br.com.dengodecrianca.dominio;
 
 public class Aluno {
+	private String matricula;
 	private String nome;
 	private String datanascimento;
 	private String cpf;
@@ -11,6 +12,7 @@ public class Aluno {
 	private String nomePai;
 	
 	public void limpar() {
+		matricula = "";
 		nome = "";
 		datanascimento = "";
 		cpf = "";
@@ -21,6 +23,14 @@ public class Aluno {
 		nomePai = "";
 	}
 	
+	public String getMatricula() {
+		return matricula;
+	}
+
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
+	}
+
 	public String getNome() {
 		return nome;
 	}
