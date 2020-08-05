@@ -1,8 +1,10 @@
 package br.com.dengodecrianca.util;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -194,6 +196,53 @@ public class Formatadores {
 		}
 		return codigo;
 	}
+	
+	public static String colocaFormatoMoeda(double valor) { // insere R$ na String
+		Locale.setDefault(new Locale("pt", "BR"));
+		DecimalFormat decimalFormatter = (DecimalFormat) DecimalFormat
+				.getCurrencyInstance(Locale.getDefault());
+
+		return decimalFormatter.format(valor);
+	}
+	
+	public static String colocaFormatoMoedaSemCifrao(double valor) { // Sem R$. Muda ponto por vírgula
+		Locale.setDefault(new Locale("pt", "BR"));
+		DecimalFormat decimalFormatter = (DecimalFormat) DecimalFormat
+				.getInstance();
+		decimalFormatter.setMaximumFractionDigits(2);
+		decimalFormatter.applyPattern("#,##0.00");
+
+		return decimalFormatter.format(valor);
+	}
+	
+	public static String converteValorToBanco(String valor) {
+
+		if(valor == null) {
+			return "0,00";
+		}
+		
+		boolean hasPonto = valor.contains(".");
+		boolean hasVirgula = valor.contains(",");
+		String valorFormat = valor;
+		
+		if (hasPonto && hasVirgula) {
+			valorFormat = valor.replace(".","");
+		} else if (hasPonto) {
+
+			String[] valores = valor.split("\\.");
+			
+			if (valores[1].length() == 1) {
+				valores[1] = valores[1]+"0";
+			}
+			
+			valorFormat = valores[0]+","+valores[1];
+		} //else if (!hasPonto && !hasVirgula) {
+			//Para valores INTEIROS quebrando e colocando a vírgula
+			//valorFormat = valor.substring(0,valor.length()-2)+","+valor.substring(valor.length()-2);
+			//valorFormat = valor+",00";
+		//}
+		return valorFormat;
+	}
 
 	public static void main(String[] args) {
 		String a = getHoraCompletaServidorToBanco();
@@ -201,6 +250,11 @@ public class Formatadores {
 		String b = getAnoAtual(data);
 		String c = getMesAtual(data);
 		String d = getDiaAtual(data);
+		double valor = 12.34;
+		String va = "11.112,34";
 		System.out.println(d + "/" + c + "/" + b + " - " + formataHoraToTela(a));
+		System.out.println(colocaFormatoMoeda(valor));
+		System.out.println(colocaFormatoMoedaSemCifrao(valor));
+		System.out.println(converteValorToBanco(va));
 	}
 }
