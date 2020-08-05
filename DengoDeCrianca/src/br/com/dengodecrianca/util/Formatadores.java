@@ -196,52 +196,101 @@ public class Formatadores {
 		}
 		return codigo;
 	}
-	
+
 	public static String colocaFormatoMoeda(double valor) { // insere R$ na String
 		Locale.setDefault(new Locale("pt", "BR"));
-		DecimalFormat decimalFormatter = (DecimalFormat) DecimalFormat
-				.getCurrencyInstance(Locale.getDefault());
+		DecimalFormat decimalFormatter = (DecimalFormat) DecimalFormat.getCurrencyInstance(Locale.getDefault());
 
 		return decimalFormatter.format(valor);
 	}
-	
+
 	public static String colocaFormatoMoedaSemCifrao(double valor) { // Sem R$. Muda ponto por vírgula
 		Locale.setDefault(new Locale("pt", "BR"));
-		DecimalFormat decimalFormatter = (DecimalFormat) DecimalFormat
-				.getInstance();
+		DecimalFormat decimalFormatter = (DecimalFormat) DecimalFormat.getInstance();
 		decimalFormatter.setMaximumFractionDigits(2);
 		decimalFormatter.applyPattern("#,##0.00");
 
 		return decimalFormatter.format(valor);
 	}
-	
+
 	public static String converteValorToBanco(String valor) {
 
-		if(valor == null) {
+		if (valor == null) {
 			return "0,00";
 		}
-		
+
 		boolean hasPonto = valor.contains(".");
 		boolean hasVirgula = valor.contains(",");
 		String valorFormat = valor;
-		
+
 		if (hasPonto && hasVirgula) {
-			valorFormat = valor.replace(".","");
+			valorFormat = valor.replace(".", "");
 		} else if (hasPonto) {
 
 			String[] valores = valor.split("\\.");
-			
+
 			if (valores[1].length() == 1) {
-				valores[1] = valores[1]+"0";
+				valores[1] = valores[1] + "0";
 			}
-			
-			valorFormat = valores[0]+","+valores[1];
-		} //else if (!hasPonto && !hasVirgula) {
-			//Para valores INTEIROS quebrando e colocando a vírgula
-			//valorFormat = valor.substring(0,valor.length()-2)+","+valor.substring(valor.length()-2);
-			//valorFormat = valor+",00";
-		//}
+
+			valorFormat = valores[0] + "," + valores[1];
+		} // else if (!hasPonto && !hasVirgula) {
+			// Para valores INTEIROS quebrando e colocando a vírgula
+			// valorFormat =
+			// valor.substring(0,valor.length()-2)+","+valor.substring(valor.length()-2);
+			// valorFormat = valor+",00";
+			// }
 		return valorFormat;
+	}
+
+	public static String colocaFormatoMoedaSemCifrao(String valor) {
+		String valorString = valor.replace(".", "").replace(",", "");
+		String sinal = "";
+
+		if (valorString.substring(0, 1).equals("-")) {
+			sinal = "-";
+			valorString = valorString.substring(1, valorString.length());
+		}
+
+		String valorFinal = "";
+		boolean fim = false;
+
+		if (Long.parseLong(valorString) == 0) {
+			valorFinal = "0,00";
+			fim = true;
+		} else {
+
+			String centavo = valorString.substring(valorString.length() - 2, valorString.length());
+			String valorParte = valorString.substring(0, valorString.length() - 2);
+
+			if (Long.parseLong(valorString) < 100) {
+				if (Integer.parseInt(centavo) < 10) {
+					centavo = "0" + Integer.parseInt(centavo);
+				}
+				valorFinal = "0," + centavo;
+				fim = true;
+			}
+
+			while (!fim) {
+				if (valorParte.length() > 3) {
+					if (valorFinal.length() > 0) {
+						valorFinal = valorParte.substring(valorParte.length() - 3, valorParte.length()) + "."
+								+ valorFinal;
+					} else {
+						valorFinal = valorParte.substring(valorParte.length() - 3, valorParte.length());
+					}
+					valorParte = valorParte.substring(0, valorParte.length() - 3);
+				} else {
+					if (valorFinal.length() > 0) {
+						valorFinal = valorParte + "." + valorFinal + "," + centavo;
+					} else {
+						valorFinal = valorParte + "," + centavo;
+					}
+					fim = true;
+				}
+			}
+		}
+		return sinal + valorFinal;
 	}
 
 	public static void main(String[] args) {
@@ -251,10 +300,11 @@ public class Formatadores {
 		String c = getMesAtual(data);
 		String d = getDiaAtual(data);
 		double valor = 12.34;
-		String va = "11.112,34";
+		String va = "11112.34";
 		System.out.println(d + "/" + c + "/" + b + " - " + formataHoraToTela(a));
 		System.out.println(colocaFormatoMoeda(valor));
 		System.out.println(colocaFormatoMoedaSemCifrao(valor));
 		System.out.println(converteValorToBanco(va));
+		System.out.println(colocaFormatoMoedaSemCifrao(va));
 	}
 }
