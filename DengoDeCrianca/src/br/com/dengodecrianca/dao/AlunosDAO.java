@@ -12,7 +12,7 @@ public class AlunosDAO {
 		StringBuilder sql = new StringBuilder();
 
 		sql.append(" insert into aluno ");
-		sql.append(" (nome, datanascimento, sexo, turno, nomemae ");
+		sql.append(" (matricula, nome, datanascimento, sexo, turno, nomemae, coativo ");
 
 		if (aluno.getNomePai() != null && !aluno.getNomePai().equals("")) {
 			sql.append(" ,nomepai ");
@@ -24,7 +24,7 @@ public class AlunosDAO {
 			sql.append(", rg ");
 		}
 
-		sql.append(" ) values (?,?,?,?,? ");
+		sql.append(" ) values (?,?,?,?,?,?,? ");
 
 		if (aluno.getNomePai() != null && !aluno.getNomePai().equals("")) {
 			sql.append(" , '" + aluno.getNomePai() + "' ");
@@ -39,11 +39,13 @@ public class AlunosDAO {
 		Connection con = ConnectionFactory.conectar();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 
-		pstmt.setString(1, aluno.getNome());
-		pstmt.setString(2, aluno.getDatanascimento());
-		pstmt.setString(3, aluno.getSexo());
-		pstmt.setString(4, aluno.getTurno());
-		pstmt.setString(5, aluno.getNomeMae());
+		pstmt.setString(1, aluno.getMatricula());
+		pstmt.setString(2, aluno.getNome());
+		pstmt.setString(3, aluno.getDatanascimento());
+		pstmt.setString(4, aluno.getSexo());
+		pstmt.setString(5, aluno.getTurno());
+		pstmt.setString(6, aluno.getNomeMae());
+		pstmt.setString(7, "A");
 
 		int i = pstmt.executeUpdate();
 		
@@ -51,6 +53,27 @@ public class AlunosDAO {
 			System.out.println("Aluno inserido com sucesso!");
 		} else {
 			System.out.println("Erro na inserção!");
+		}
+	}
+	
+	public void excluirAluno(Aluno aluno) throws SQLException {
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" update alunos ");
+		sql.append(" set coativo = 'I' ");
+		sql.append(" where matricula = ? ");
+		
+		Connection con = ConnectionFactory.conectar();
+		PreparedStatement pstmt = con.prepareStatement(sql.toString());
+		
+		pstmt.setString(1, aluno.getMatricula());
+		
+		int i = pstmt.executeUpdate();
+		
+		if (i > 0) {
+			System.out.println("Aluno removido com sucesso!");
+		} else {
+			System.out.println("Falha na remoção do aluno!");
 		}
 	}
 }

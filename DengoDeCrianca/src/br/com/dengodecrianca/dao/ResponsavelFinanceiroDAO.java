@@ -11,7 +11,7 @@ public class ResponsavelFinanceiroDAO {
 	public void salvarNovoRespFin(ResponsavelFinanceiro responsavel) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 
-		sql.append(" insert into responsavelfinanceiro ");
+		sql.append(" insert into resp_financeiro ");
 		sql.append(" (nome, cpf, rg, endereco, telefone, email, mensalidade) ");
 		sql.append(" values (?,?,?,?,?,?,?) ");
 		
@@ -34,5 +34,25 @@ public class ResponsavelFinanceiroDAO {
 			System.out.println("Erro na inserção!");
 		}
 	}
-
+	
+	public void excluirRespFinanceiro(ResponsavelFinanceiro responsavel) throws SQLException {
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" update resp_financeiro ");
+		sql.append(" set coativo = 'I' ");
+		sql.append(" where cpf = ? ");
+		
+		Connection con = ConnectionFactory.conectar();
+		PreparedStatement pstmt = con.prepareStatement(sql.toString());
+		
+		pstmt.setString(1, responsavel.getCpf());
+		
+		int i = pstmt.executeUpdate();
+		
+		if (i > 0) {
+			System.out.println("Responsável financeiro excluído com sucesso!");
+		} else {
+			System.out.println("Falha na remoção do responsável financeiro!");
+		}
+	}
 }

@@ -1,24 +1,24 @@
 package br.com.dengodecrianca.dominio;
 
 public class Usuario {
-	private String nuusuario = ""; //CPF
+	private String cpf = "";
 	private String login = "";
 	private String perfil = "";
 	private String senha = "";
 	
 	public void limpar() {
-		nuusuario = "";
+		cpf = "";
 		login = "";
 		perfil = "";
 		senha = "";
 	}
 
-	public String getNuusuario() {
-		return nuusuario;
+	public String getCpf() {
+		return cpf;
 	}
 
-	public void setNuusuario(String nuusuario) {
-		this.nuusuario = nuusuario;
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 	public String getLogin() {

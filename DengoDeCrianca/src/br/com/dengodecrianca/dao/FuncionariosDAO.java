@@ -12,7 +12,7 @@ public class FuncionariosDAO {
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append(" insert into funcionarios ");
-		sql.append(" (nome, rg, cpf, endereco, telefone, cargo, salario, dataadmissao ");
+		sql.append(" (nome, rg, cpf, endereco, telefone, cargo, salario, dataadmissao, coativo ");
 		
 		if (funcionario.getEmail() != null && !funcionario.getEmail().equals("")) {
 			sql.append(" , email ");
@@ -41,6 +41,7 @@ public class FuncionariosDAO {
 		pstmt.setString(6, funcionario.getCargo());
 		pstmt.setBigDecimal(7, funcionario.getSalario());
 		pstmt.setString(8, funcionario.getDataAdmissao());
+		pstmt.setString(9, "A");
 		
 		int i = pstmt.executeUpdate();
 		
@@ -52,9 +53,10 @@ public class FuncionariosDAO {
 	}
 	
 	public void excluirFuncionario(Funcionario funcionario) throws SQLException {
-StringBuilder sql = new StringBuilder();
+		StringBuilder sql = new StringBuilder();
 		
-		sql.append(" delete from funcionarios ");
+		sql.append(" update funcionarios ");
+		sql.append(" set coativo = 'I' ");
 		sql.append(" where cpf = ? ");
 		
 		Connection con = ConnectionFactory.conectar();
