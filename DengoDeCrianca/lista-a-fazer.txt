@@ -1,0 +1,9 @@
+------------------------
+Futuras implementações
+------------------------
+
+1. Envio de boleto por e-mail XX dias antes da data de vencimento;
+2. Envio de boleto por Whatsapp XX dias antes da data de vencimento;
+
+3. Verificar quais séries existentes e futuras da escola (matricula do aluno);
+

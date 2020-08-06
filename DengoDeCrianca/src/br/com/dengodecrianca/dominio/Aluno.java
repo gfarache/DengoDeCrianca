@@ -1,16 +1,22 @@
 package br.com.dengodecrianca.dominio;
 
+import java.io.ByteArrayInputStream;
+
 public class Aluno {
-	private String nome;
-	private String datanascimento;
-	private String cpf;
-	private String rg;
-	private String sexo;
-	private String turno;
-	private String nomeMae;
-	private String nomePai;
+	private String matricula = "";
+	private String nome = "";
+	private String datanascimento = "";
+	private String cpf = "";
+	private String rg = "";
+	private String sexo = "";
+	private String turno = "";
+	private String nomeMae = "";
+	private String coativo = "";
+	private String nomePai = "";
+	private ByteArrayInputStream foto = null;
 	
 	public void limpar() {
+		matricula = "";
 		nome = "";
 		datanascimento = "";
 		cpf = "";
@@ -18,9 +24,18 @@ public class Aluno {
 		sexo = "";
 		turno = "";
 		nomeMae = "";
+		coativo = "";
 		nomePai = "";
 	}
 	
+	public String getMatricula() {
+		return matricula;
+	}
+
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
+	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -77,11 +92,27 @@ public class Aluno {
 		this.nomeMae = nomeMae;
 	}
 	
+	public String getCoativo() {
+		return coativo;
+	}
+
+	public void setCoativo(String coativo) {
+		this.coativo = coativo;
+	}
+
 	public String getNomePai() {
 		return nomePai;
 	}
 	
 	public void setNomePai(String nomePai) {
 		this.nomePai = nomePai;
+	}
+
+	public ByteArrayInputStream getFoto() {
+		return foto;
+	}
+
+	public void setFoto(ByteArrayInputStream foto) {
+		this.foto = foto;
 	}
 }
