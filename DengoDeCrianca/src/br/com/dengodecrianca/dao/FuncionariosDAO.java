@@ -50,4 +50,24 @@ public class FuncionariosDAO {
 			System.out.println("Cadastro de funcionário falhou!");
 		}
 	}
+	
+	public void excluirFuncionario(Funcionario funcionario) throws SQLException {
+StringBuilder sql = new StringBuilder();
+		
+		sql.append(" delete from funcionarios ");
+		sql.append(" where cpf = ? ");
+		
+		Connection con = ConnectionFactory.conectar();
+		PreparedStatement pstmt = con.prepareStatement(sql.toString());
+		
+		pstmt.setString(1, funcionario.getCpf());		
+		
+		int i = pstmt.executeUpdate();
+		
+		if (i > 0) {
+			System.out.println("Funcionário removido com sucesso!");
+		} else {
+			System.out.println("Remoção de funcionário falhou!");
+		}
+	}
 }
