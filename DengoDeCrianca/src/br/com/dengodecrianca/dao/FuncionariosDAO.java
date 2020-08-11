@@ -52,7 +52,7 @@ public class FuncionariosDAO {
 		}
 	}
 	
-	public void excluirFuncionario(Funcionario funcionario) throws SQLException {
+	public void editarFuncionario(Funcionario funcionario) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append(" update funcionarios ");

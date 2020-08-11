@@ -56,7 +56,7 @@ public class AlunosDAO {
 		}
 	}
 	
-	public void excluirAluno(Aluno aluno) throws SQLException {
+	public void editarAluno(Aluno aluno) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append(" update alunos ");

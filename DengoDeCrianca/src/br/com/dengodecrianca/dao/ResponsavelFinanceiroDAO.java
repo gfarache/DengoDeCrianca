@@ -35,7 +35,7 @@ public class ResponsavelFinanceiroDAO {
 		}
 	}
 	
-	public void excluirRespFinanceiro(ResponsavelFinanceiro responsavel) throws SQLException {
+	public void editarRespFinanceiro(ResponsavelFinanceiro responsavel) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append(" update resp_financeiro ");
