@@ -10,6 +10,7 @@ public class ResponsavelFinanceiro {
 	private String telefone = "";
 	private String email = "";
 	private BigDecimal mensalidade = BigDecimal.ZERO;
+	private String coAtivo = "";
 	
 	public void limpar() {
 		nome = "";
@@ -75,5 +76,13 @@ public class ResponsavelFinanceiro {
 
 	public void setMensalidade(BigDecimal mensalidade) {
 		this.mensalidade = mensalidade;
+	}
+
+	public String getCoAtivo() {
+		return coAtivo;
+	}
+
+	public void setCoAtivo(String coAtivo) {
+		this.coAtivo = coAtivo;
 	}
 }

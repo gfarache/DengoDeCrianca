@@ -2,6 +2,7 @@ package br.com.dengodecrianca.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import br.com.dengodecrianca.conexao.ConnectionFactory;
@@ -41,7 +42,7 @@ public class AlunosDAO {
 
 		pstmt.setString(1, aluno.getMatricula());
 		pstmt.setString(2, aluno.getNome());
-		pstmt.setString(3, aluno.getDatanascimento());
+		pstmt.setString(3, aluno.getDataNascimento());
 		pstmt.setString(4, aluno.getSexo());
 		pstmt.setString(5, aluno.getTurno());
 		pstmt.setString(6, aluno.getNomeMae());
@@ -75,5 +76,49 @@ public class AlunosDAO {
 		} else {
 			System.out.println("Falha na remoção do aluno!");
 		}
+	}
+	
+	public Aluno buscarAluno(Aluno aluno) throws SQLException {
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" select matricula, respfin_cpf, nome, datanascimento, ");
+		sql.append(" cpf, rg, sexo, turno, nomemae, nomepai, coativo ");
+		sql.append(" where matricula = ? ");
+		
+		Connection con = ConnectionFactory.conectar();
+		PreparedStatement pstmt = con.prepareStatement(sql.toString());
+		
+		pstmt.setString(1, aluno.getMatricula());
+		
+		ResultSet rs = pstmt.executeQuery();
+		Aluno retorno = null;
+		
+		if (rs.next()) {
+			retorno = new Aluno();
+			String matricula = rs.getString("matricula");
+			String respfin_cpf = rs.getString("respfin_cpf");
+			String nome = rs.getString("nome");
+			String dataNascimento = rs.getString("datanascimento");
+			String cpf = rs.getString("cpf");
+			String rg = rs.getString("rg");
+			String sexo = rs.getString("sexo");
+			String turno = rs.getString("turno");
+			String nomeMae = rs.getString("nomemae");
+			String nomePai = rs.getString("nomepai");
+			String coativo = rs.getString("coativo");
+			
+			retorno.setMatricula(matricula);
+			retorno.setRespfin_cpf(respfin_cpf);
+			retorno.setNome(nome);
+			retorno.setDataNascimento(dataNascimento);
+			retorno.setCpf(cpf);
+			retorno.setRg(rg);
+			retorno.setSexo(sexo);
+			retorno.setTurno(turno);
+			retorno.setNomeMae(nomeMae);
+			retorno.setNomePai(nomePai);
+			retorno.setCoAtivo(coativo);
+		}		
+		return retorno;
 	}
 }

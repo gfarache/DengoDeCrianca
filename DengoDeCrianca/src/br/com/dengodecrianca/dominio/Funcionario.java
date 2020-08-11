@@ -8,6 +8,8 @@ public class Funcionario {
 	private String nome = "";
 	private String cpf = "";
 	private String rg = "";
+	private String dataNascimento = "";
+	private String sexo = "";
 	private String endereco = "";
 	private String telefone = "";
 	private String email = "";
@@ -16,6 +18,7 @@ public class Funcionario {
 	private String dataAdmissao = "";
 	private String dataDemissao = "";
 	private ByteArrayInputStream foto = null;
+	private String coAtivo = "";
 	
 	public void limpar() {
 		matricula = "";
@@ -61,6 +64,22 @@ public class Funcionario {
 
 	public void setRg(String rg) {
 		this.rg = rg;
+	}
+
+	public String getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(String dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
 	}
 
 	public String getEndereco() {
@@ -125,5 +144,13 @@ public class Funcionario {
 
 	public void setFoto(ByteArrayInputStream foto) {
 		this.foto = foto;
+	}
+
+	public String getCoAtivo() {
+		return coAtivo;
+	}
+
+	public void setCoAtivo(String coAtivo) {
+		this.coAtivo = coAtivo;
 	}
 }
