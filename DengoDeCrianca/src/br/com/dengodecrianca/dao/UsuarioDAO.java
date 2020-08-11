@@ -31,7 +31,7 @@ public class UsuarioDAO {
 		}
 	}
 	
-	public void editarUsuario(Usuario usuario) throws SQLException {
+	public void excluirUsuario(Usuario usuario) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append(" update usuarios ");
