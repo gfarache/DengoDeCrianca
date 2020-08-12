@@ -7,3 +7,5 @@ Futuras implementações
 
 3. Verificar quais séries existentes e futuras da escola (matricula do aluno);
 
+
+4. Criar tabela de registros de atividades diárias <-- Prioridade alta

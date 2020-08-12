@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import br.com.dengodecrianca.conexao.ConnectionFactory;
 import br.com.dengodecrianca.dominio.ResponsavelFinanceiro;
@@ -92,5 +93,43 @@ public class ResponsavelFinanceiroDAO {
 			retorno.setCoAtivo(coAtivo);			
 		}
 		return retorno;
+	}
+	
+	public ArrayList<ResponsavelFinanceiro> listarResponsavelFinanceiro() throws SQLException {
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" select nome, cpf, rg, endereco, telefone, email, mensalidade, coativo ");
+		sql.append(" from resp_financeiro ");
+		
+		Connection con = ConnectionFactory.conectar();
+		PreparedStatement pstmt = con.prepareStatement(sql.toString());
+		
+		ResultSet rs = pstmt.executeQuery();
+		ArrayList<ResponsavelFinanceiro> lista = new ArrayList<ResponsavelFinanceiro>();
+		
+		while (rs.next()) {
+			ResponsavelFinanceiro responsavel = new ResponsavelFinanceiro();
+			
+			String nome = rs.getString("nome");
+			String cpf = rs.getString("cpf");
+			String rg = rs.getString("rg");
+			String endereco = rs.getString("endereco");
+			String telefone = rs.getString("telefone");
+			String email = rs.getString("email");
+			BigDecimal mensalidade = rs.getBigDecimal("mensalidade");
+			String coAtivo = rs.getString("coativo");
+			
+			responsavel.setNome(nome);
+			responsavel.setCpf(cpf);
+			responsavel.setRg(rg);
+			responsavel.setEndereco(endereco);
+			responsavel.setTelefone(telefone);
+			responsavel.setEmail(email);
+			responsavel.setMensalidade(mensalidade);
+			responsavel.setCoAtivo(coAtivo);
+			
+			lista.add(responsavel);
+		}
+		return lista;
 	}
 }

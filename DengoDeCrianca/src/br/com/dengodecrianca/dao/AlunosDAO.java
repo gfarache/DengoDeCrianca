@@ -124,11 +124,11 @@ public class AlunosDAO {
 	}
 	
 	public ArrayList<Aluno> listar() throws SQLException {
-StringBuilder sql = new StringBuilder();
+		StringBuilder sql = new StringBuilder();
 		
 		sql.append(" select matricula, respfin_cpf, nome, datanascimento, ");
 		sql.append(" cpf, rg, sexo, turno, nomemae, nomepai, coativo ");
-		sql.append(" from aluno order by matricula ");
+		sql.append(" from aluno order by nome ");
 		
 		Connection con = ConnectionFactory.conectar();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());

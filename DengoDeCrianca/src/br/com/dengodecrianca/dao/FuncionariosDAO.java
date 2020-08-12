@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import br.com.dengodecrianca.conexao.ConnectionFactory;
 import br.com.dengodecrianca.dominio.Funcionario;
@@ -123,5 +124,56 @@ public class FuncionariosDAO {
 			retorno.setCoAtivo(coativo);
 		}		
 		return retorno;
+	}
+	
+	public ArrayList<Funcionario> listarFuncionarios() throws SQLException {
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" select matricula, nome, cpf, rg, datanascimento, sexo, endereco, ");
+		sql.append(" telefone, email, cargo, salario, dataadmissao, coativo ");
+		sql.append(" from funcionario order by nome ");
+		
+		Connection con = ConnectionFactory.conectar();
+		PreparedStatement pstmt = con.prepareStatement(sql.toString());
+		
+		ArrayList<Funcionario> lista = new ArrayList<Funcionario>();
+		
+		ResultSet rs = pstmt.executeQuery();
+		
+		while (rs.next()) {
+			Funcionario funcionario = new Funcionario();
+			
+			String matricula = rs.getString("matricula");
+			String nome = rs.getString("nome");
+			String cpf = rs.getString("cpf");
+			String rg = rs.getString("rg");
+			String dataNascimento = rs.getString("datanascimento");
+			String sexo = rs.getString("sexo");
+			String endereco = rs.getString("endereco");
+			String telefone = rs.getString("telefone");
+			String email = rs.getString("email");
+			String cargo = rs.getString("cargo");
+			BigDecimal salario = rs.getBigDecimal("salario");
+			String dataAdmissao = rs.getString("dataadmissao");
+			String coAtivo = rs.getString("coativo");
+			
+			funcionario.setMatricula(matricula);
+			funcionario.setNome(nome);
+			funcionario.setCpf(cpf);
+			funcionario.setRg(rg);
+			funcionario.setDataNascimento(dataNascimento);
+			funcionario.setSexo(sexo);
+			funcionario.setEndereco(endereco);
+			funcionario.setTelefone(telefone);
+			funcionario.setEmail(email);
+			funcionario.setCargo(cargo);
+			funcionario.setSalario(salario);
+			funcionario.setDataAdmissao(dataAdmissao);
+			funcionario.setCoAtivo(coAtivo);
+			
+			lista.add(funcionario);
+		}
+		
+		return lista;
 	}
 }

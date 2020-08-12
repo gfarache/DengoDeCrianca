@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import br.com.dengodecrianca.conexao.ConnectionFactory;
 import br.com.dengodecrianca.dominio.Usuario;
@@ -82,5 +83,37 @@ public class UsuarioDAO {
 			retorno.setCoAtivo(coAtivo);			
 		}		
 		return retorno;	
+	}
+	
+	public ArrayList<Usuario> listarUsuarios() throws SQLException {
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" select login, cpf, senha, perfil, coativo ");
+		sql.append(" from usuario order by login ");
+		
+		Connection con = ConnectionFactory.conectar();
+		PreparedStatement pstmt = con.prepareStatement(sql.toString());
+		
+		ResultSet rs = pstmt.executeQuery();		
+		ArrayList<Usuario> lista = new ArrayList<Usuario>();
+		
+		while (rs.next()) {
+			Usuario usuario = new Usuario();
+			
+			String login = rs.getString("login");
+			String cpf = rs.getString("cpf");
+			String senha = rs.getString("senha");
+			String perfil = rs.getString("perfil");
+			String coAtivo = rs.getString("coativo");
+			
+			usuario.setLogin(login);
+			usuario.setCpf(cpf);
+			usuario.setSenha(senha);
+			usuario.setPerfil(perfil);
+			usuario.setCoAtivo(coAtivo);
+			
+			lista.add(usuario);
+		}
+		return lista;
 	}
 }
