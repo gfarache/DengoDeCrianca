@@ -2,6 +2,8 @@ package br.com.dengodecrianca.dominio;
 
 import java.io.ByteArrayInputStream;
 
+import br.com.dengodecrianca.util.Formatadores;
+
 public class Aluno {
 	private String matricula = "";
 	private String respfin_cpf = "";
@@ -132,5 +134,20 @@ public class Aluno {
 
 	public void setCoAtivo(String coAtivo) {
 		this.coAtivo = coAtivo;
+	}
+	
+	@Override
+	public String toString() {
+		String saida = "Matricula: " + matricula + "\nNome: " + nome+"\nData de nascimento: "+Formatadores.formataDataToTela(dataNascimento);
+		return saida;
+	}
+	
+	public static void main(String[] args) {
+		Aluno a = new Aluno();
+		
+		a.setMatricula("2020MT001");
+		a.setNome("Gustavo Farache");
+		a.setDataNascimento("20180222");
+		System.out.println(a);
 	}
 }

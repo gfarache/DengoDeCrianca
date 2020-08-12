@@ -13,7 +13,7 @@ public class FuncionariosDAO {
 	public void salvarNovoFuncionario(Funcionario funcionario) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		
-		sql.append(" insert into funcionarios ");
+		sql.append(" insert into funcionario ");
 		sql.append(" (nome, rg, cpf, endereco, telefone, cargo, salario, dataadmissao, coativo ");
 		
 		if (funcionario.getEmail() != null && !funcionario.getEmail().equals("")) {
@@ -57,7 +57,7 @@ public class FuncionariosDAO {
 	public void excluirFuncionario(Funcionario funcionario) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		
-		sql.append(" update funcionarios ");
+		sql.append(" update funcionario ");
 		sql.append(" set coativo = 'I' ");
 		sql.append(" where cpf = ? ");
 		
