@@ -2,10 +2,13 @@ package br.com.dengodecrianca.dominio;
 
 import java.io.ByteArrayInputStream;
 
+import br.com.dengodecrianca.util.Formatadores;
+
 public class Aluno {
 	private String matricula = "";
+	private String respfin_cpf = "";
 	private String nome = "";
-	private String datanascimento = "";
+	private String dataNascimento = "";
 	private String cpf = "";
 	private String rg = "";
 	private String sexo = "";
@@ -14,11 +17,12 @@ public class Aluno {
 	private String coativo = "";
 	private String nomePai = "";
 	private ByteArrayInputStream foto = null;
+	private String coAtivo = "";
 	
 	public void limpar() {
 		matricula = "";
 		nome = "";
-		datanascimento = "";
+		dataNascimento = "";
 		cpf = "";
 		rg = "";
 		sexo = "";
@@ -36,6 +40,14 @@ public class Aluno {
 		this.matricula = matricula;
 	}
 
+	public String getRespfin_cpf() {
+		return respfin_cpf;
+	}
+
+	public void setRespfin_cpf(String respfin_cpf) {
+		this.respfin_cpf = respfin_cpf;
+	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -44,12 +56,12 @@ public class Aluno {
 		this.nome = nome;
 	}
 	
-	public String getDatanascimento() {
-		return datanascimento;
+	public String getDataNascimento() {
+		return dataNascimento;
 	}
 	
-	public void setDatanascimento(String datanascimento) {
-		this.datanascimento = datanascimento;
+	public void setDataNascimento(String dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 	
 	public String getCpf() {
@@ -114,5 +126,28 @@ public class Aluno {
 
 	public void setFoto(ByteArrayInputStream foto) {
 		this.foto = foto;
+	}
+
+	public String getCoAtivo() {
+		return coAtivo;
+	}
+
+	public void setCoAtivo(String coAtivo) {
+		this.coAtivo = coAtivo;
+	}
+	
+	@Override
+	public String toString() {
+		String saida = "Matricula: " + matricula + "\nNome: " + nome+"\nData de nascimento: "+Formatadores.formataDataToTela(dataNascimento);
+		return saida;
+	}
+	
+	public static void main(String[] args) {
+		Aluno a = new Aluno();
+		
+		a.setMatricula("2020MT001");
+		a.setNome("Gustavo Farache");
+		a.setDataNascimento("20180222");
+		System.out.println(a);
 	}
 }

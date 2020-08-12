@@ -1,8 +1,11 @@
 package br.com.dengodecrianca.dao;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import br.com.dengodecrianca.conexao.ConnectionFactory;
 import br.com.dengodecrianca.dominio.Funcionario;
@@ -11,7 +14,7 @@ public class FuncionariosDAO {
 	public void salvarNovoFuncionario(Funcionario funcionario) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		
-		sql.append(" insert into funcionarios ");
+		sql.append(" insert into funcionario ");
 		sql.append(" (nome, rg, cpf, endereco, telefone, cargo, salario, dataadmissao, coativo ");
 		
 		if (funcionario.getEmail() != null && !funcionario.getEmail().equals("")) {
@@ -55,7 +58,7 @@ public class FuncionariosDAO {
 	public void excluirFuncionario(Funcionario funcionario) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		
-		sql.append(" update funcionarios ");
+		sql.append(" update funcionario ");
 		sql.append(" set coativo = 'I' ");
 		sql.append(" where cpf = ? ");
 		
@@ -71,5 +74,106 @@ public class FuncionariosDAO {
 		} else {
 			System.out.println("Remoção de funcionário falhou!");
 		}
+	}
+	
+	public Funcionario buscarFuncionario(Funcionario funcionario) throws SQLException {
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" select matricula, cpf, rg, nome, datanascimento, sexo ");
+		sql.append(" endereco, telefone, email, cargo, salario, dataadmissao, datademissao, ");
+		sql.append(" coativo from funcionario where matricula = ? ");
+		
+		Connection con = ConnectionFactory.conectar();
+		PreparedStatement pstmt = con.prepareStatement(sql.toString());
+		
+		pstmt.setString(1, funcionario.getMatricula());
+		
+		ResultSet rs = pstmt.executeQuery();
+		Funcionario retorno = null;
+		
+		if (rs.next()) {
+			retorno = new Funcionario();
+			String matricula = rs.getString("matricula");
+			String cpf = rs.getString("cpf");
+			String rg = rs.getString("rg");
+			String nome = rs.getString("nome");
+			String dataNascimento = rs.getString("datanascimento");
+			String sexo = rs.getString("sexo");
+			String endereco = rs.getString("endereco");
+			String telefone = rs.getString("telefone");
+			String email = rs.getString("email");
+			String cargo = rs.getString("cargo");
+			BigDecimal salario = rs.getBigDecimal("salario");
+			String dataAdmissao = rs.getString("dataadmissao");
+			String dataDemissao = rs.getString("datademissao");
+			String coativo = rs.getString("coativo");
+			
+			retorno.setMatricula(matricula);
+			retorno.setCpf(cpf);
+			retorno.setRg(rg);
+			retorno.setNome(nome);
+			retorno.setDataNascimento(dataNascimento);
+			retorno.setSexo(sexo);
+			retorno.setEndereco(endereco);
+			retorno.setTelefone(telefone);
+			retorno.setEmail(email);
+			retorno.setCargo(cargo);
+			retorno.setSalario(salario);
+			retorno.setDataAdmissao(dataAdmissao);
+			retorno.setDataDemissao(dataDemissao);
+			retorno.setCoAtivo(coativo);
+		}		
+		return retorno;
+	}
+	
+	public ArrayList<Funcionario> listarFuncionarios() throws SQLException {
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" select matricula, nome, cpf, rg, datanascimento, sexo, endereco, ");
+		sql.append(" telefone, email, cargo, salario, dataadmissao, coativo ");
+		sql.append(" from funcionario order by nome ");
+		
+		Connection con = ConnectionFactory.conectar();
+		PreparedStatement pstmt = con.prepareStatement(sql.toString());
+		
+		ArrayList<Funcionario> lista = new ArrayList<Funcionario>();
+		
+		ResultSet rs = pstmt.executeQuery();
+		
+		while (rs.next()) {
+			Funcionario funcionario = new Funcionario();
+			
+			String matricula = rs.getString("matricula");
+			String nome = rs.getString("nome");
+			String cpf = rs.getString("cpf");
+			String rg = rs.getString("rg");
+			String dataNascimento = rs.getString("datanascimento");
+			String sexo = rs.getString("sexo");
+			String endereco = rs.getString("endereco");
+			String telefone = rs.getString("telefone");
+			String email = rs.getString("email");
+			String cargo = rs.getString("cargo");
+			BigDecimal salario = rs.getBigDecimal("salario");
+			String dataAdmissao = rs.getString("dataadmissao");
+			String coAtivo = rs.getString("coativo");
+			
+			funcionario.setMatricula(matricula);
+			funcionario.setNome(nome);
+			funcionario.setCpf(cpf);
+			funcionario.setRg(rg);
+			funcionario.setDataNascimento(dataNascimento);
+			funcionario.setSexo(sexo);
+			funcionario.setEndereco(endereco);
+			funcionario.setTelefone(telefone);
+			funcionario.setEmail(email);
+			funcionario.setCargo(cargo);
+			funcionario.setSalario(salario);
+			funcionario.setDataAdmissao(dataAdmissao);
+			funcionario.setCoAtivo(coAtivo);
+			
+			lista.add(funcionario);
+		}
+		
+		return lista;
 	}
 }

@@ -5,6 +5,7 @@ public class Usuario {
 	private String login = "";
 	private String perfil = "";
 	private String senha = "";
+	private String coAtivo = "";
 	
 	public void limpar() {
 		cpf = "";
@@ -43,6 +44,14 @@ public class Usuario {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getCoAtivo() {
+		return coAtivo;
+	}
+
+	public void setCoAtivo(String coAtivo) {
+		this.coAtivo = coAtivo;
 	}
 	
 }

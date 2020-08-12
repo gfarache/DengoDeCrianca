@@ -40,6 +40,14 @@ public class Formatadores {
 		SimpleDateFormat formatoTela = new SimpleDateFormat("dd");
 		return formatoTela.format(data);
 	}
+	
+	public static String formataDataToTela(String data) {
+		String dia = data.substring(6,8);
+		String mes = data.substring(4,6);
+		String ano = data.substring(0,4);
+		
+		return dia+"/"+mes+"/"+ano;
+	}
 
 	public static String formataDataToBanco(String data) {
 
@@ -306,5 +314,6 @@ public class Formatadores {
 		System.out.println(colocaFormatoMoedaSemCifrao(valor));
 		System.out.println(converteValorToBanco(va));
 		System.out.println(colocaFormatoMoedaSemCifrao(va));
+		System.out.println(formataDataToTela("20200811"));
 	}
 }
