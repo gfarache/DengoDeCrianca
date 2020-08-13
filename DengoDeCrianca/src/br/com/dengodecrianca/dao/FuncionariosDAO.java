@@ -15,7 +15,9 @@ public class FuncionariosDAO {
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append(" insert into funcionario ");
-		sql.append(" (nome, rg, cpf, endereco, telefone, cargo, salario, dataadmissao, coativo ");
+		sql.append(" (matricula, nome, rg, cpf, sexo, datanascimento, tipo_logradouro, nome_logradouro, numero_logradouro, ");
+		sql.append(" bairro_logradouro, municipio_logradouro, uf_logradouro, cep_logradouro, ");
+		sql.append(" telefone, cargo, salario, dataadmissao, coativo ");
 		
 		if (funcionario.getEmail() != null && !funcionario.getEmail().equals("")) {
 			sql.append(" , email ");
@@ -24,7 +26,7 @@ public class FuncionariosDAO {
 			sql.append(" , foto");
 		}
 		sql.append(" ) "); 
-		sql.append(" values (?,?,?,?,?,?,?,? ");
+		sql.append(" values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? ");
 		if (funcionario.getEmail() != null && !funcionario.getEmail().equals("")) {
 			sql.append(" ,'"+funcionario.getEmail()+"' ");
 		}
@@ -37,14 +39,23 @@ public class FuncionariosDAO {
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 		
 		pstmt.setString(1, funcionario.getNome());
-		pstmt.setString(2, funcionario.getRg());
-		pstmt.setString(3, funcionario.getCpf());
-		pstmt.setString(4, funcionario.getEndereco());
-		pstmt.setString(5, funcionario.getTelefone());
-		pstmt.setString(6, funcionario.getCargo());
-		pstmt.setBigDecimal(7, funcionario.getSalario());
-		pstmt.setString(8, funcionario.getDataAdmissao());
-		pstmt.setString(9, "A");
+		pstmt.setString(2, funcionario.getNome());
+		pstmt.setString(3, funcionario.getRg());
+		pstmt.setString(4, funcionario.getCpf());
+		pstmt.setString(5, funcionario.getSexo());
+		pstmt.setString(6, funcionario.getDataNascimento());
+		pstmt.setString(7, funcionario.getTipo_logradouro());
+		pstmt.setString(8, funcionario.getNome_logradouro());
+		pstmt.setString(9, funcionario.getNumero_logradouro());
+		pstmt.setString(10, funcionario.getBairro_logradouro());
+		pstmt.setString(11, funcionario.getMunicipio_logradouro());
+		pstmt.setString(12, funcionario.getUf_logradouro());
+		pstmt.setString(13, funcionario.getCep_logradouro());
+		pstmt.setString(14, funcionario.getTelefone());
+		pstmt.setString(15, funcionario.getCargo());
+		pstmt.setBigDecimal(16, funcionario.getSalario());
+		pstmt.setString(17, funcionario.getDataAdmissao());
+		pstmt.setString(18, "A");
 		
 		int i = pstmt.executeUpdate();
 		
