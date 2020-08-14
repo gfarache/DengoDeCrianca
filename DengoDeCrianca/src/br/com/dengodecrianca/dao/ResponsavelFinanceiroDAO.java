@@ -19,7 +19,7 @@ public class ResponsavelFinanceiroDAO {
 		sql.append(" bairro_logradouro, municipio_logradouro, uf_logradouro, cep_logradouro, ");
 		sql.append(" telefone, email, mensalidade) values (?,?,?,?,?,?,?) ");
 		
-		Connection con = ConnectionFactory.conectar();
+		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 
 		pstmt.setString(1, responsavel.getNome());
@@ -52,7 +52,7 @@ public class ResponsavelFinanceiroDAO {
 		sql.append(" set coativo = 'I' ");
 		sql.append(" where cpf = ? ");
 		
-		Connection con = ConnectionFactory.conectar();
+		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 		
 		pstmt.setString(1, responsavel.getCpf());
@@ -74,7 +74,7 @@ public class ResponsavelFinanceiroDAO {
 		sql.append(" telefone, email, mensalidade, coativo ");
 		sql.append(" from resp_financeiro where cpf = ? ");
 		
-		Connection con = ConnectionFactory.conectar();
+		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 		
 		pstmt.setString(1, responsavel.getCpf());
@@ -122,8 +122,9 @@ public class ResponsavelFinanceiroDAO {
 		sql.append(" select nome, cpf, rg, tipo_logradouro, nome_logradouro, numero_logradouro, ");
 		sql.append(" bairro_logradouro, municipio_logradouro, uf_logradouro, cep_logradouro, ");
 		sql.append(" telefone, email, mensalidade, coativo from resp_financeiro ");
+		sql.append(" order by nome "); 
 		
-		Connection con = ConnectionFactory.conectar();
+		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 		
 		ResultSet rs = pstmt.executeQuery();

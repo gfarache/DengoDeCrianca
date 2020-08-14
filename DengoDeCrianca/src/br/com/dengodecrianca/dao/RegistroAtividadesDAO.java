@@ -17,7 +17,7 @@ public class RegistroAtividadesDAO {
 		sql.append(" login, descricao, data) ");
 		sql.append(" values (?,?,?) ");
 		
-		Connection con = ConnectionFactory.conectar();
+		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 
 		pstmt.setString(1, registro.getLogin());
@@ -40,7 +40,7 @@ public class RegistroAtividadesDAO {
 		sql.append(" set login_ciente = ? ");
 		sql.append(" where id = ? ");
 		
-		Connection con = ConnectionFactory.conectar();
+		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 		
 		pstmt.setString(1, registro.getLogin_ciente());
@@ -61,7 +61,7 @@ public class RegistroAtividadesDAO {
 		sql.append(" select id, login, login_ciente, descricao, data ");
 		sql.append(" from registroatividades order by id ");
 		
-		Connection con = ConnectionFactory.conectar();
+		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 		
 		ResultSet rs = pstmt.executeQuery();

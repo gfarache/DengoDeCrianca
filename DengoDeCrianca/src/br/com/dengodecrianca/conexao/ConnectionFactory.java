@@ -9,9 +9,16 @@ public class ConnectionFactory {
 	private static final String SENHA = "root";
 	private static final String URL = "jdbc:mysql://localhost:3306/dengodecrianca";
 	
-	public static Connection conectar() throws SQLException {
-		Connection conexao = DriverManager.getConnection(URL, USUARIO, SENHA);
-		return conexao;
+	public static Connection getConnection() {
+		System.out.println("Conectando ao Banco!\n");
+		try {
+			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+			Connection con = DriverManager.getConnection(URL, USUARIO, SENHA);
+			return con;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
 	}
 	
 	/*public static void main(String[] args) {

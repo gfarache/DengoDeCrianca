@@ -35,7 +35,7 @@ public class FuncionariosDAO {
 		}
 		sql.append(" ) ");
 		
-		Connection con = ConnectionFactory.conectar();
+		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 		
 		pstmt.setString(1, funcionario.getNome());
@@ -73,7 +73,7 @@ public class FuncionariosDAO {
 		sql.append(" set coativo = 'I' ");
 		sql.append(" where cpf = ? ");
 		
-		Connection con = ConnectionFactory.conectar();
+		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 		
 		pstmt.setString(1, funcionario.getCpf());		
@@ -96,7 +96,7 @@ public class FuncionariosDAO {
 		sql.append(" cep_logradouro, telefone, email, cargo, salario, dataadmissao, ");
 		sql.append(" datademissao, coativo from funcionario where matricula = ? ");
 		
-		Connection con = ConnectionFactory.conectar();
+		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 		
 		pstmt.setString(1, funcionario.getMatricula());
@@ -160,7 +160,7 @@ public class FuncionariosDAO {
 		sql.append(" cep_logradouro, telefone, email, cargo, salario, dataadmissao, coativo ");
 		sql.append(" from funcionario order by nome ");
 		
-		Connection con = ConnectionFactory.conectar();
+		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 		
 		ArrayList<Funcionario> lista = new ArrayList<Funcionario>();
