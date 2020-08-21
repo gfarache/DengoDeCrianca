@@ -13,7 +13,7 @@ import br.com.dengodecrianca.dominio.ResponsavelFinanceiro;
 
 @ManagedBean(name = "MBResp_Fin")
 @ViewScoped
-public class Resp_FinBean {
+public class RespFinBean {
 	private ListDataModel<ResponsavelFinanceiro> item;
 
 	public ListDataModel<ResponsavelFinanceiro> getItem() {
