@@ -11,26 +11,22 @@
 	<ui:include src="/includes/menu.xhtml" />
 </ui:define>
 <ui:define name="conteudo">
-<p:dataTable emptyMessage="Nenhum registro encontrado!" value="#{MBAluno.item}" var="item" paginator="true"
+<p:dataTable emptyMessage="Nenhum registro encontrado!" value="#{MBResp_Fin.item}" var="item" paginator="true"
 rows="10" rowsPerPageTemplate="20,50,100">
-    <p:column headerText="Matrícula">
-        <h:outputText value="#{item.matricula}"/>
+    <p:column headerText="CPF">
+        <h:outputText value="#{item.cpf}"/>
     </p:column>
     	
+    <p:column headerText="RG">
+        <h:outputText value="#{item.rg}"/>
+    </p:column>
+    
     <p:column headerText="Nome">
         <h:outputText value="#{item.nome}"/>
     </p:column>
     	
-    <p:column headerText="Data Nascimento">
-        <h:outputText value="#{item.dataNascimento}"/>
-    </p:column>
- 
-    <p:column headerText="Sexo">
-        <h:outputText value="#{item.sexo}"/>
-    </p:column>
-    
-    <p:column headerText="Turno">
-        <h:outputText value="#{item.turno}"/>
+    <p:column headerText="Mensalidade">
+        <h:outputText value="#{item.mensalidade}"/>
     </p:column>
 </p:dataTable>
 </ui:define>

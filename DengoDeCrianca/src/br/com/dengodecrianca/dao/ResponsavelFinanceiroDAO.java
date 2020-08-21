@@ -15,9 +15,9 @@ public class ResponsavelFinanceiroDAO {
 		StringBuilder sql = new StringBuilder();
 
 		sql.append(" insert into resp_financeiro ");
-		sql.append(" (nome, cpf, rg, tipo_logradouro, nome_logradouro, numero_logradouro, ");
+		sql.append(" (nome, cpf, rg, parentesco, tipo_logradouro, nome_logradouro, numero_logradouro, ");
 		sql.append(" bairro_logradouro, municipio_logradouro, uf_logradouro, cep_logradouro, ");
-		sql.append(" telefone, email, mensalidade) values (?,?,?,?,?,?,?) ");
+		sql.append(" telefone, email, mensalidade, coativo) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
 		
 		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
@@ -25,16 +25,18 @@ public class ResponsavelFinanceiroDAO {
 		pstmt.setString(1, responsavel.getNome());
 		pstmt.setString(2, responsavel.getCpf());
 		pstmt.setString(3, responsavel.getRg());
-		pstmt.setString(4, responsavel.getTipo_logradouro());
-		pstmt.setString(5, responsavel.getNome_logradouro());
-		pstmt.setString(6, responsavel.getNumero_logradouro());
-		pstmt.setString(7, responsavel.getBairro_logradouro());
-		pstmt.setString(8, responsavel.getMunicipio_logradouro());
-		pstmt.setString(9, responsavel.getUf_logradouro());
-		pstmt.setString(10, responsavel.getCep_logradouro());
-		pstmt.setString(11, responsavel.getTelefone());
-		pstmt.setString(12, responsavel.getEmail());
-		pstmt.setBigDecimal(13, responsavel.getMensalidade());
+		pstmt.setString(4, responsavel.getParentesco());
+		pstmt.setString(5, responsavel.getTipo_logradouro());
+		pstmt.setString(6, responsavel.getNome_logradouro());
+		pstmt.setString(7, responsavel.getNumero_logradouro());
+		pstmt.setString(8, responsavel.getBairro_logradouro());
+		pstmt.setString(9, responsavel.getMunicipio_logradouro());
+		pstmt.setString(10, responsavel.getUf_logradouro());
+		pstmt.setString(11, responsavel.getCep_logradouro());
+		pstmt.setString(12, responsavel.getTelefone());
+		pstmt.setString(13, responsavel.getEmail());
+		pstmt.setBigDecimal(14, responsavel.getMensalidade());
+		pstmt.setString(15, responsavel.getCoAtivo());
 		
 		int i = pstmt.executeUpdate();
 		
@@ -166,5 +168,33 @@ public class ResponsavelFinanceiroDAO {
 			lista.add(responsavel);
 		}
 		return lista;
+	}
+	
+	public static void main(String[] args) {
+		ResponsavelFinanceiro r = new ResponsavelFinanceiro();
+		ResponsavelFinanceiroDAO dao = new ResponsavelFinanceiroDAO();
+		
+		r.setNome("Fabio Ferreira");
+		r.setCpf("54048568549");
+		r.setRg("05637-1 SSP/AM");
+		r.setParentesco("Pai");
+		r.setTipo_logradouro("Rua");
+		r.setNome_logradouro("78");
+		r.setNumero_logradouro("2-A");
+		r.setBairro_logradouro("Alvorada 2");
+		r.setMunicipio_logradouro("Manaus");
+		r.setUf_logradouro("AM");
+		r.setCep_logradouro("69233875");
+		r.setTelefone("92-91597-6862");
+		r.setEmail("fab@gmail.com");
+		r.setMensalidade(BigDecimal.valueOf(387.67));
+		r.setCoAtivo("A");
+		
+		try {
+			dao.salvarNovoRespFin(r);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }
