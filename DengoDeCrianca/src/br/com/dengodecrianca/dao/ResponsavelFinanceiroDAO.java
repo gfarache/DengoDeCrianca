@@ -11,7 +11,8 @@ import br.com.dengodecrianca.conexao.ConnectionFactory;
 import br.com.dengodecrianca.dominio.ResponsavelFinanceiro;
 
 public class ResponsavelFinanceiroDAO {
-	public void salvarNovoRespFin(ResponsavelFinanceiro responsavel) throws SQLException {
+	public boolean salvarNovoRespFin(ResponsavelFinanceiro responsavel) throws SQLException {
+		boolean result = false;
 		StringBuilder sql = new StringBuilder();
 
 		sql.append(" insert into resp_financeiro ");
@@ -42,9 +43,12 @@ public class ResponsavelFinanceiroDAO {
 		
 		if (i > 0) {
 			System.out.println("Responsável financeiro inserido com sucesso!");
+			result = true;
 		} else {
 			System.out.println("Erro na inserção!");
+			result = false;
 		}
+		return result;
 	}
 	
 	public void excluirRespFinanceiro(ResponsavelFinanceiro responsavel) throws SQLException {
@@ -121,7 +125,7 @@ public class ResponsavelFinanceiroDAO {
 	public ArrayList<ResponsavelFinanceiro> listarResponsavelFinanceiro() throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		
-		sql.append(" select nome, cpf, rg, tipo_logradouro, nome_logradouro, numero_logradouro, ");
+		sql.append(" select nome, cpf, rg, parentesco, tipo_logradouro, nome_logradouro, numero_logradouro, ");
 		sql.append(" bairro_logradouro, municipio_logradouro, uf_logradouro, cep_logradouro, ");
 		sql.append(" telefone, email, mensalidade, coativo from resp_financeiro ");
 		sql.append(" order by nome "); 
@@ -138,6 +142,7 @@ public class ResponsavelFinanceiroDAO {
 			String nome = rs.getString("nome");
 			String cpf = rs.getString("cpf");
 			String rg = rs.getString("rg");
+			String parentesco = rs.getString("parentesco");
 			String tpLogradouro = rs.getString("tipo_logradouro");
 			String noLogradouro = rs.getString("nome_logradouro");
 			String nuLogradouro = rs.getString("numero_logradouro");
@@ -153,6 +158,7 @@ public class ResponsavelFinanceiroDAO {
 			responsavel.setNome(nome);
 			responsavel.setCpf(cpf);
 			responsavel.setRg(rg);
+			responsavel.setParentesco(parentesco);
 			responsavel.setTipo_logradouro(tpLogradouro);
 			responsavel.setNome_logradouro(noLogradouro);
 			responsavel.setNumero_logradouro(nuLogradouro);
@@ -174,20 +180,20 @@ public class ResponsavelFinanceiroDAO {
 		ResponsavelFinanceiro r = new ResponsavelFinanceiro();
 		ResponsavelFinanceiroDAO dao = new ResponsavelFinanceiroDAO();
 		
-		r.setNome("Fabio Ferreira");
-		r.setCpf("54048568549");
-		r.setRg("05637-1 SSP/AM");
+		r.setNome("Gustavo Farache");
+		r.setCpf("77453816220");
+		r.setRg("1476993-0 SSP/AM");
 		r.setParentesco("Pai");
-		r.setTipo_logradouro("Rua");
-		r.setNome_logradouro("78");
-		r.setNumero_logradouro("2-A");
-		r.setBairro_logradouro("Alvorada 2");
+		r.setTipo_logradouro("Avenida");
+		r.setNome_logradouro("Genebra");
+		r.setNumero_logradouro("7");
+		r.setBairro_logradouro("Planalto");
 		r.setMunicipio_logradouro("Manaus");
 		r.setUf_logradouro("AM");
-		r.setCep_logradouro("69233875");
-		r.setTelefone("92-91597-6862");
-		r.setEmail("fab@gmail.com");
-		r.setMensalidade(BigDecimal.valueOf(387.67));
+		r.setCep_logradouro("69045380");
+		r.setTelefone("92-98223-0453");
+		r.setEmail("gfarache@gmail.com");
+		r.setMensalidade(BigDecimal.valueOf(800.00));
 		r.setCoAtivo("A");
 		
 		try {
