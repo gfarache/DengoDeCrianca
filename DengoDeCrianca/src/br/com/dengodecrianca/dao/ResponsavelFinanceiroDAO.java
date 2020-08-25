@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import br.com.dengodecrianca.conexao.ConnectionFactory;
 import br.com.dengodecrianca.dominio.ResponsavelFinanceiro;
+//import br.com.dengodecrianca.util.Formatadores;
 
 public class ResponsavelFinanceiroDAO {
 	public boolean salvarNovoRespFin(ResponsavelFinanceiro responsavel) throws SQLException {
@@ -156,6 +157,7 @@ public class ResponsavelFinanceiroDAO {
 			String coAtivo = rs.getString("coativo");
 			
 			responsavel.setNome(nome);
+			//responsavel.setCpf(Formatadores.colocaFormatoCpf(cpf));
 			responsavel.setCpf(cpf);
 			responsavel.setRg(rg);
 			responsavel.setParentesco(parentesco);

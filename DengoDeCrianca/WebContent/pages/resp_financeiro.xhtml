@@ -12,9 +12,10 @@
 	</ui:define>
 	<ui:define name="conteudo">
 		<h:form id="frmRespFin">
-			<p:dataTable id="tbRespFin" emptyMessage="Nenhum registro encontrado!"
-				value="#{MBRespFin.item}" var="item" paginator="true" rows="10"
-				rowsPerPageTemplate="5,20,50,100"
+			<p:dataTable id="tbRespFin"
+				emptyMessage="Nenhum registro encontrado!" value="#{MBRespFin.item}"
+				var="item" paginator="true" rows="10"
+				rowsPerPageTemplate="5,10,20,50,100"
 				currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros">
 				<f:facet name="header">Lista de Responsáveis Financeiros</f:facet>
 				<p:column headerText="CPF">
@@ -27,23 +28,27 @@
 					<h:outputText value="#{item.nome}" />
 				</p:column>
 				<p:column headerText="Mensalidade">
-					<h:outputText value="#{item.mensalidade}" />
+					<h:outputText value="R$ #{item.mensalidade}" />
 				</p:column>
 				<p:column headerText="Parentesco">
 					<h:outputText value="#{item.parentesco}" />
 				</p:column>
 				<p:column headerText="Endereço">
-					<h:outputText value="#{item.tipo_logradouro} #{item.nome_logradouro} #{item.numero_logradouro}, #{item.bairro_logradouro}" />
+					<h:outputText
+						value="#{item.tipo_logradouro} #{item.nome_logradouro} Nº #{item.numero_logradouro}, #{item.bairro_logradouro}" />
 				</p:column>
-				<p:column headerText="Município">
-					<h:outputText value="#{item.municipio_logradouro} - #{item.uf_logradouro}" />
+				<p:column headerText="Município - UF">
+					<h:outputText
+						value="#{item.municipio_logradouro} - #{item.uf_logradouro}" />
 				</p:column>
 				<p:column headerText="CEP">
 					<h:outputText value="#{item.cep_logradouro}" />
 				</p:column>
 				<f:facet name="footer">
-					<p:commandButton value="Adicionar Novo" actionListener="#{MBRespFin.prepararNovo}"
-						oncomplete="PF('dlgNovoRespFin').show();" update=":frmNovoRespFin:pnNovoRespFin"/>
+					<p:commandButton value="Adicionar Novo"
+						actionListener="#{MBRespFin.prepararNovo}"
+						oncomplete="PF('dlgNovoRespFin').show();"
+						update=":frmNovoRespFin:pnNovoRespFin" />
 				</f:facet>
 			</p:dataTable>
 		</h:form>
@@ -52,27 +57,150 @@
 			resizable="false" header="Novo Responsável Financeiro" modal="true"
 			appendTo="@(body)">
 			<h:form id="frmNovoRespFin">
-				<h:panelGrid id="pnNovoRespFin" columns="6">
+				<h:panelGrid id="pnNovoRespFin" columns="8">
+					<p:outputLabel value="Nome Completo: " />
+					<h:inputText size="25" maxlength="100"
+						value="#{MBRespFin.respFin.nome}" />
+
 					<p:outputLabel value="CPF: " />
 					<h:inputText size="15" maxlength="11"
 						value="#{MBRespFin.respFin.cpf}" />
 
 					<p:outputLabel value="RG: " />
-					<h:inputText size="20" maxlength="20"
+					<h:inputText size="12" maxlength="20"
 						value="#{MBRespFin.respFin.rg}" />
 
-					<p:outputLabel value="Nome Completo: " />
-					<h:inputText size="25" maxlength="100"
-						value="#{MBRespFin.respFin.nome}" />
-
 					<p:outputLabel value="Parentesco: " />
-					<h:inputText size="20" maxlength="20"
-						value="#{MBRespFin.respFin.parentesco}" />
+					<p:selectOneMenu value="#{MBRespFin.respFin.parentesco}">
+						<f:selectItem itemLabel="Mãe" itemValue="Mãe" />
+						<f:selectItem itemLabel="Pai" itemValue="Pai" />
+						<f:selectItem itemLabel="Avó" itemValue="Avó" />
+						<f:selectItem itemLabel="Avô" itemValue="Avô" />
+						<f:selectItem itemLabel="Madrasta" itemValue="Madrasta" />
+						<f:selectItem itemLabel="Padrasto" itemValue="Padrasto" />
+						<f:selectItem itemLabel="Tia" itemValue="Tia" />
+						<f:selectItem itemLabel="Tio" itemValue="Tio" />
+						<f:selectItem itemLabel="Irmã" itemValue="Irmã" />
+						<f:selectItem itemLabel="Irmão" itemValue="Irmão" />
+					</p:selectOneMenu>
+
+					<p:row>
+						<p:outputLabel>Endereço: </p:outputLabel>
+					</p:row>
+
+					<p:column>&nbsp;</p:column>
+					<p:column>&nbsp;</p:column>
+					<p:column>&nbsp;</p:column>
+					<p:column>&nbsp;</p:column>
+					<p:column>&nbsp;</p:column>
+					<p:column>&nbsp;</p:column>
+					<p:column>&nbsp;</p:column>
+
+					<p:outputLabel for="@next" value="Tipo: " />
+					<p:selectOneMenu id="advanced" value="#{TipoLogradouroBean.tipoLogradouro}"
+						panelStyle="width:180px" effect="fade" var="t" style="width:160px"
+						filter="true" filterMatchMode="startsWith">
+						<f:selectItems value="#{TipoLogradouroBean.tiposLogradouros}"
+							var="tipo" itemLabel="#{tipo.displayNome}" itemValue="#{tipo}" />
+
+						<p:column style="width:10%">&nbsp;</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Tipo" />
+							</f:facet>
+							<h:outputText value="#{t.displayNome}" />
+						</p:column>
+
+						<f:facet name="footer">
+							<p:separator />
+							<h:outputText
+								value="#{TipoLogradouroBean.tiposLogradouro.size()} tipos"
+								style="font-weight:bold;" />
+						</f:facet>
+					</p:selectOneMenu>
+
+
+					<p:outputLabel value="Nome: " />
+					<h:inputText size="20" maxlength="50"
+						value="#{MBRespFin.respFin.nome_logradouro}" />
+
+					<p:outputLabel value="Número: " />
+					<h:inputText size="5" maxlength="10"
+						value="#{MBRespFin.respFin.numero_logradouro}" />
+
+					<p:outputLabel value="Bairro: " />
+					<h:inputText size="10" maxlength="50"
+						value="#{MBRespFin.respFin.bairro_logradouro}" />
+
+					<p:outputLabel value="Cidade: " />
+					<h:inputText size="15" maxlength="30"
+						value="#{MBRespFin.respFin.municipio_logradouro}" />
+
+					<p:outputLabel value="UF: " />
+					<p:selectOneMenu size="15"
+						value="#{MBRespFin.respFin.uf_logradouro}">
+						<f:selectItem itemLabel="Acre" itemValue="AC" />
+						<f:selectItem itemLabel="Alagoas" itemValue="AL" />
+						<f:selectItem itemLabel="Amapá" itemValue="AP" />
+						<f:selectItem itemLabel="Amazonas" itemValue="AM" />
+						<f:selectItem itemLabel="Bahia" itemValue="BA" />
+						<f:selectItem itemLabel="Ceará" itemValue="CE" />
+						<f:selectItem itemLabel="Distrito Federal" itemValue="DF" />
+						<f:selectItem itemLabel="Espírito Santo" itemValue="ES" />
+						<f:selectItem itemLabel="Goiás" itemValue="GO" />
+						<f:selectItem itemLabel="Maranhão" itemValue="MA" />
+						<f:selectItem itemLabel="Mato Grosso" itemValue="MT" />
+						<f:selectItem itemLabel="Mato Grosso do Sul" itemValue="MS" />
+						<f:selectItem itemLabel="Minas Gerais" itemValue="MG" />
+						<f:selectItem itemLabel="Pará" itemValue="PA" />
+						<f:selectItem itemLabel="Paraíba" itemValue="PB" />
+						<f:selectItem itemLabel="Paraná" itemValue="PR" />
+						<f:selectItem itemLabel="Pernambuco" itemValue="PE" />
+						<f:selectItem itemLabel="Piauí" itemValue="PI" />
+						<f:selectItem itemLabel="Rio de Janeiro" itemValue="RJ" />
+						<f:selectItem itemLabel="Rio Grande do Norte" itemValue="RN" />
+						<f:selectItem itemLabel="Rio Grande do Sul" itemValue="RS" />
+						<f:selectItem itemLabel="Rondônia" itemValue="RO" />
+						<f:selectItem itemLabel="Roraima" itemValue="RR" />
+						<f:selectItem itemLabel="Santa Catarina" itemValue="SC" />
+						<f:selectItem itemLabel="São Paulo" itemValue="SP" />
+						<f:selectItem itemLabel="Sergipe" itemValue="SE" />
+						<f:selectItem itemLabel="Tocantins" itemValue="TO" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="CEP: " />
+					<h:inputText size="10" maxlength="10"
+						value="#{MBRespFin.respFin.cep_logradouro}" />
+					<p:column>&nbsp;</p:column>
+					<p:column>&nbsp;</p:column>
+
+					<p:column>&nbsp;</p:column>
+					<p:column>&nbsp;</p:column>
+					<p:column>&nbsp;</p:column>
+					<p:column>&nbsp;</p:column>
+					<p:column>&nbsp;</p:column>
+					<p:column>&nbsp;</p:column>
+					<p:column>&nbsp;</p:column>
+					<p:column>&nbsp;</p:column>
+
+					<p:outputLabel value="Telefone: " />
+					<h:inputText size="15" maxlength="20"
+						value="#{MBRespFin.respFin.telefone}" />
+
+					<p:outputLabel value="E-mail: " />
+					<h:inputText size="15" maxlength="50"
+						value="#{MBRespFin.respFin.email}" />
+
+					<p:outputLabel value="Mensalidade: " />
+					<h:inputText size="10" maxlength="8"
+						value="R$ #{MBRespFin.respFin.mensalidade}" />
 				</h:panelGrid>
 				<div align="center">
 					<h:panelGrid columns="2">
 						<p:commandButton value="Salvar"
-							actionListener="#{MBRespFin.novoRespFin}" oncomplete="PF('dlgNovoRespFin').hide();"
+							actionListener="#{MBRespFin.novoRespFin}"
+							oncomplete="PF('dlgNovoRespFin').hide();"
 							update=":frmRespFin:tbRespFin :msgGlobal" />
 						<p:commandButton value="Cancelar"
 							onclick="PF('dlgNovoRespFin').hide();" />
