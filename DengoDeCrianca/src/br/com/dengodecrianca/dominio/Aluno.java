@@ -18,6 +18,7 @@ public class Aluno {
 	private String nomePai = "";
 	private ByteArrayInputStream foto = null;
 	private String coAtivo = "";
+	private ResponsavelFinanceiro responsavel;
 	
 	public void limpar() {
 		matricula = "";
@@ -136,6 +137,14 @@ public class Aluno {
 		this.coAtivo = coAtivo;
 	}
 	
+	public ResponsavelFinanceiro getResponsavel() {
+		return responsavel;
+	}
+
+	public void setResponsavel(ResponsavelFinanceiro responsavel) {
+		this.responsavel = responsavel;
+	}
+
 	@Override
 	public String toString() {
 		String saida = "Matricula: " + matricula + "\nNome: " + nome+"\nData de nascimento: "+Formatadores.formataDataToTela(dataNascimento);

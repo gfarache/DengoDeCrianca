@@ -11,6 +11,8 @@ import br.com.dengodecrianca.dominio.Aluno;
 
 public class AlunosDAO {
 	public void salvarNovoAluno(Aluno aluno) throws SQLException {
+		
+		
 		StringBuilder sql = new StringBuilder();
 
 		sql.append(" insert into aluno ");

@@ -12,26 +12,26 @@
 	</ui:define>
 	<ui:define name="conteudo">
 		<h:form id="frmRespFin">
-			<p:dataTable id="tbRespFin"
-				emptyMessage="Nenhum registro encontrado!" value="#{MBRespFin.item}"
-				var="item" paginator="true" rows="10"
+			<p:dataTable id="tbRespFin" widgetVar="tabelaRespFin"
+				emptyMessage="Nenhum registro encontrado!" value="#{MBRespFin.itens}"
+				var="item" paginator="true" rows="10" filteredValue="#{MBRespFin.itensFiltrados}"
 				rowsPerPageTemplate="5,10,20,50,100"
 				currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros">
 				<f:facet name="header">Lista de Responsáveis Financeiros</f:facet>
-				<p:column headerText="CPF">
+				<p:column headerText="CPF" filterBy="#{item.cpf}">
 					<h:outputText value="#{item.cpf}" />
 				</p:column>
 				<p:column headerText="RG">
-					<h:outputText value="#{item.rg}" />
+					<h:outputText value="#{item.rg}"/>
 				</p:column>
-				<p:column headerText="Nome">
+				<p:column headerText="Nome" sortBy="#{item.nome}" filterBy="#{item.nome}">
 					<h:outputText value="#{item.nome}" />
 				</p:column>
-				<p:column headerText="Mensalidade">
-					<h:outputText value="R$ #{item.mensalidade}" />
-				</p:column>
-				<p:column headerText="Parentesco">
+				<p:column headerText="Parentesco" sortBy="#{item.parentesco}" filterBy="#{item.parentesco}">
 					<h:outputText value="#{item.parentesco}" />
+				</p:column>
+				<p:column headerText="Mensalidade" sortBy="#{item.mensalidade}" filterBy="#{item.mensalidade}">
+					<h:outputText value="R$ #{item.mensalidade}" />
 				</p:column>
 				<p:column headerText="Endereço">
 					<h:outputText
@@ -41,16 +41,34 @@
 					<h:outputText
 						value="#{item.municipio_logradouro} - #{item.uf_logradouro}" />
 				</p:column>
-				<p:column headerText="CEP">
-					<h:outputText value="#{item.cep_logradouro}" />
+				<p:column headerText="E-mail">
+					<h:outputText value="#{item.email}" />
 				</p:column>
-				<f:facet name="footer">
+				<p:column headerText="Opções">
+					<center>
+						<p:commandButton icon="ui-icon-trash" 
+						oncomplete="PF('dlgExcluirRespFin').show();"
+						update=":frmRespFinExcluir:pnRespFinExcluir" 
+						title="Excluir">
+							<f:setPropertyActionListener value="#{item}" target="#{MBRespFin.respFin}"/>
+						</p:commandButton>
+						<p:commandButton icon="ui-icon-pencil" 
+						oncomplete="PF('dlgEditarRespFin').show();"
+						update=":frmRespFinEditar:pnRespFinEditar" 
+						title="Editar">
+							<f:setPropertyActionListener value="#{item}" target="#{MBRespFin.respFin}"/>
+						</p:commandButton>
+					</center>
+				</p:column>
+				<!-- <f:facet name="footer">
 					<p:commandButton value="Adicionar Novo"
 						actionListener="#{MBRespFin.prepararNovo}"
 						oncomplete="PF('dlgNovoRespFin').show();"
 						update=":frmNovoRespFin:pnNovoRespFin" />
-				</f:facet>
+				</f:facet> -->
 			</p:dataTable>
+			
+			
 		</h:form>
 
 		<p:dialog widgetVar="dlgNovoRespFin" closable="false"
@@ -200,7 +218,7 @@
 					<h:panelGrid columns="2">
 						<p:commandButton value="Salvar"
 							actionListener="#{MBRespFin.novoRespFin}"
-							oncomplete="PF('dlgNovoRespFin').hide();"
+							oncomplete="PF('dlgNovoRespFin').hide(); PF('tabelaRespFin').clearFilters();"
 							update=":frmRespFin:tbRespFin :msgGlobal" />
 						<p:commandButton value="Cancelar"
 							onclick="PF('dlgNovoRespFin').hide();" />
@@ -208,6 +226,90 @@
 				</div>
 			</h:form>
 		</p:dialog>
+		
+		<p:dialog widgetVar="dlgExcluirRespFin" closable="false"
+			resizable="false" header="Excluir Responsável Financeiro" modal="true"
+			appendTo="@(body)">
+			<h:form id ="frmRespFinExcluir">
+				<h:panelGrid id="pnRespFinExcluir" columns="2">
+					<h:outputText value="CPF: "/>
+					<h:outputText size="25" maxlength="100" value="#{MBRespFin.respFin.cpf}"/>
+					
+					<h:outputText value="RG: "/>
+					<h:outputText size="25" maxlength="100" value="#{MBRespFin.respFin.rg}"/>
+					
+					<h:outputText value="Nome: "/>
+					<h:outputText size="25" maxlength="100" value="#{MBRespFin.respFin.nome}"/>
+				</h:panelGrid>
+				<h:panelGrid columns ="2">
+					<p:commandButton value="Excluir"
+							actionListener="#{MBRespFin.excluirRespFin}"
+							oncomplete="PF('dlgExcluirRespFin').hide(); PF('tabelaRespFin').clearFilters();"
+							update=":frmRespFin:tbRespFin :msgGlobal" />
+						<p:commandButton value="Cancelar"
+							onclick="PF('dlgExcluirRespFin').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog widgetVar="dlgEditarRespFin" closable="false"
+			resizable="false" header="Editar Responsável Financeiro" modal="true"
+			appendTo="@(body)">
+			<h:form id ="frmRespFinEditar">
+				<h:panelGrid id="pnRespFinEditar" columns="8">
+					<h:outputText value="CPF: "/>
+					<h:inputText value="#{MBRespFin.respFin.cpf}"/>
+					
+					<h:outputText value="RG: "/>
+					<h:inputText value="#{MBRespFin.respFin.rg}"/>
+					
+					<h:outputText value="Nome: "/>
+					<h:inputText value="#{MBRespFin.respFin.nome}"/>
+					
+					<h:outputText value="Parentesco: "/>
+					<h:inputText value="#{MBRespFin.respFin.parentesco}"/>
+					
+					<h:outputText value="Tipo Logradouro: "/>
+					<h:inputText value="#{MBRespFin.respFin.tipo_logradouro}"/>
+					
+					<h:outputText value="Nome: "/>
+					<h:inputText value="#{MBRespFin.respFin.nome_logradouro}"/>
+					
+					<h:outputText value="Número: "/>
+					<h:inputText value="#{MBRespFin.respFin.numero_logradouro}"/>
+					
+					<h:outputText value="Bairro: "/>
+					<h:inputText value="#{MBRespFin.respFin.bairro_logradouro}"/>
+					
+					<h:outputText value="Município: "/>
+					<h:inputText value="#{MBRespFin.respFin.municipio_logradouro}"/>
+					
+					<h:outputText value="UF: "/>
+					<h:inputText value="#{MBRespFin.respFin.uf_logradouro}"/>
+					
+					<h:outputText value="CEP: "/>
+					<h:inputText value="#{MBRespFin.respFin.cep_logradouro}"/>
+					
+					<h:outputText value="Telefone: "/>
+					<h:inputText value="#{MBRespFin.respFin.telefone}"/>
+					
+					<h:outputText value="E-mail:"/>
+					<h:inputText value="#{MBRespFin.respFin.email}"/>
+					
+					<h:outputText value="Mensalidade: "/>
+					<h:inputText value="#{MBRespFin.respFin.mensalidade}"/>
+				</h:panelGrid>
+				<h:panelGrid columns ="2">
+					<p:commandButton value="Editar"
+							actionListener="#{MBRespFin.editarRespFin}"
+							oncomplete="PF('dlgEditarRespFin').hide(); PF('tabelaRespFin').clearFilters();"
+							update=":frmRespFin:tbRespFin :msgGlobal" />
+						<p:commandButton value="Cancelar"
+							onclick="PF('dlgEditarRespFin').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+			
 
 	</ui:define>
 </ui:composition>

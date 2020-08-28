@@ -52,7 +52,8 @@ public class ResponsavelFinanceiroDAO {
 		return result;
 	}
 	
-	public void excluirRespFinanceiro(ResponsavelFinanceiro responsavel) throws SQLException {
+	public boolean excluirRespFinanceiro(ResponsavelFinanceiro responsavel) throws SQLException {
+		boolean result = false;
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append(" update resp_financeiro ");
@@ -68,9 +69,54 @@ public class ResponsavelFinanceiroDAO {
 		
 		if (i > 0) {
 			System.out.println("Responsável financeiro excluído com sucesso!");
+			result = true;
 		} else {
 			System.out.println("Falha na remoção do responsável financeiro!");
+			result = false;
 		}
+		return result;
+	}
+	
+	public boolean editarRespFinanceiro(ResponsavelFinanceiro responsavel) throws SQLException {
+		boolean result = false;
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" update resp_financeiro ");
+		sql.append(" set cpf = ?, parentesco = ?, nome = ?, rg = ?, ");
+		sql.append(" tipo_logradouro = ?, nome_logradouro = ?, numero_logradouro = ?, ");
+		sql.append(" bairro_logradouro = ?, municipio_logradouro = ?, uf_logradouro = ?, ");
+		sql.append(" cep_logradouro = ?, telefone = ?, email = ?, mensalidade = ? ");
+		sql.append(" where cpf = ? ");
+		
+		Connection con = ConnectionFactory.getConnection();
+		PreparedStatement pstmt = con.prepareStatement(sql.toString());
+		
+		pstmt.setString(1, responsavel.getCpf());
+		pstmt.setString(2, responsavel.getParentesco());
+		pstmt.setString(3, responsavel.getNome());
+		pstmt.setString(4, responsavel.getRg());
+		pstmt.setString(5, responsavel.getTipo_logradouro());
+		pstmt.setString(6, responsavel.getNome_logradouro());
+		pstmt.setString(7, responsavel.getNumero_logradouro());
+		pstmt.setString(8, responsavel.getBairro_logradouro());
+		pstmt.setString(9, responsavel.getMunicipio_logradouro());
+		pstmt.setString(10, responsavel.getUf_logradouro());
+		pstmt.setString(11, responsavel.getCep_logradouro());
+		pstmt.setString(12, responsavel.getTelefone());
+		pstmt.setString(13, responsavel.getEmail());
+		pstmt.setBigDecimal(14, responsavel.getMensalidade());
+		pstmt.setString(15, responsavel.getCpf());
+		
+		int i = pstmt.executeUpdate();
+		
+		if (i > 0) {
+			System.out.println("Responsável financeiro editado com sucesso!");
+			result = true;
+		} else {
+			System.out.println("Falha na edição do responsável financeiro!");
+			result = false;
+		}
+		return result;
 	}
 	
 	public ResponsavelFinanceiro buscarRespFinanceiro(ResponsavelFinanceiro responsavel) throws SQLException {
@@ -128,7 +174,7 @@ public class ResponsavelFinanceiroDAO {
 		
 		sql.append(" select nome, cpf, rg, parentesco, tipo_logradouro, nome_logradouro, numero_logradouro, ");
 		sql.append(" bairro_logradouro, municipio_logradouro, uf_logradouro, cep_logradouro, ");
-		sql.append(" telefone, email, mensalidade, coativo from resp_financeiro ");
+		sql.append(" telefone, email, mensalidade, coativo from resp_financeiro where coativo = 'A' ");
 		sql.append(" order by nome "); 
 		
 		Connection con = ConnectionFactory.getConnection();

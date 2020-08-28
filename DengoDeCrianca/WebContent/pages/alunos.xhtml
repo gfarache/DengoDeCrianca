@@ -11,8 +11,12 @@
 	<ui:include src="/includes/menu.xhtml" />
 </ui:define>
 <ui:define name="conteudo">
-<p:dataTable emptyMessage="Nenhum registro encontrado!" value="#{MBAluno.item}" var="item" paginator="true"
-rows="10" rowsPerPageTemplate="20,50,100">
+<p:dataTable id="tbAluno" widgetVar="tabelaAluno" 
+emptyMessage="Nenhum registro encontrado!" value="#{MBAluno.itens}"
+var="item" paginator="true" rows="10" filteredValue="#{MBAluno.itensFiltrados}" 
+rowsPerPageTemplate="20,50,100"
+currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros">
+
     <p:column headerText="Matrícula">
         <h:outputText value="#{item.matricula}"/>
     </p:column>

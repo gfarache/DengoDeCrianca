@@ -8,15 +8,21 @@
 
 	<h:form>
 		<center>
-			<h:graphicImage url="/figuras/marcaFundo.jpg" height="150px" width="150px"/>
-			<h3>Creche Escola Dengo de Criança</h3>
+			<h:graphicImage title="Dengo de Criança" url="/figuras/marcaFundo.jpg" height="200px" width="200px"/>
 		</center>
 
 		<p:menubar>
+			<p:submenu label="Matrículas">
+				<p:menuitem value="Nova" outcome="/pages/nova_matricula.xhtml" />
+				<p:menuitem value="Encerrar" url="#" />
+			</p:submenu>
 			<p:submenu label="Alunos">
-				<p:menuitem value="Cadastrar" url="#" />
-				<p:menuitem value="Editar" url="#" />
+				<p:menuitem value="Editar" outcome="/pages/alunos.xhtml" />
 				<p:menuitem value="Freqüência" url="#" />
+			</p:submenu>
+			<p:submenu label="Responsável Financeiro">
+				<p:menuitem value="Editar" outcome="/pages/resp_financeiro.xhtml" />
+				<p:menuitem value="Pagamentos" url="#" />
 			</p:submenu>
 			<p:submenu label="Documentos">
 				<p:submenu label="Contrato">

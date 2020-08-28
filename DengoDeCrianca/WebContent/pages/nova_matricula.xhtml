@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/templates/modeloSistema.xhtml">
+
+	<ui:define name="menu">
+		<ui:include src="/includes/menu.xhtml" />
+	</ui:define>
+	<ui:define name="conteudo">
+		<h:form>
+		<p:growl id="msg" />
+			<h3>Dados do Aluno</h3>
+			<div>
+				<!-- <table cellspacing="10" border="1"> -->
+				<table>
+					<tr>
+						<td><p:outputLabel for="nomeAluno" value="Nome Completo: " /></td>
+						<td><p:inputText id="nomeAluno" /></td>
+					</tr>
+					<tr>
+						<td><p:outputLabel for="dataNascimento"	value="Data de nascimento: " /></td>
+						<td><p:inputMask id="dataNascimento" value="#{maskView.data}" mask="99/99/9999" /></td>
+					</tr>
+					<tr>
+						<td><p:outputLabel for="cpf" value="CPF: " /></td>
+						<td><p:inputMask id="cpf" value="#{maskView.cpf}" mask="999.999.999-99" disabled="#{MBBooleanCheckBox.cpfCheck}" /></td>
+						<td><p:selectBooleanCheckbox id="cpfCheck" value="#{MBBooleanCheckBox.cpfCheck}" itemLabel="Habilitar" >
+								<p:ajax update="msg" listener="#{MBBooleanCheckBox.addMessageCPFAluno}" />
+							</p:selectBooleanCheckbox>
+						</td>
+					</tr>
+					<tr>
+						<td><p:outputLabel for="rg" value="RG: " /></td>
+						<td><p:inputText id="rg" /></td>
+						<td><p:selectBooleanCheckbox value="#{MBBooleanCheckBox.rgCheck}" itemLabel="Habilitar" >
+								<p:ajax update="msg" listener="#{MBBooleanCheckBox.addMessageRGAluno}" />
+							</p:selectBooleanCheckbox></td>
+					</tr>
+				</table>
+			</div>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
