@@ -84,7 +84,7 @@ public class AlunosDAO {
 	public Aluno buscarAluno(Aluno aluno) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		
-		sql.append(" select matricula, resp_financeiro_cpf, nome, dataNascimento, ");
+		sql.append(" select matricula, resp_financeiro_cpf, nome, datanascimento, ");
 		sql.append(" cpf, rg, sexo, turno, nomemae, nomepai, coativo ");
 		sql.append(" from aluno where matricula = ? ");
 		

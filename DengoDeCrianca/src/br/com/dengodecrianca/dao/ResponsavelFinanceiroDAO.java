@@ -17,9 +17,9 @@ public class ResponsavelFinanceiroDAO {
 		StringBuilder sql = new StringBuilder();
 
 		sql.append(" insert into resp_financeiro ");
-		sql.append(" (nome, cpf, rg, parentesco, tipo_logradouro, nome_logradouro, numero_logradouro, ");
-		sql.append(" bairro_logradouro, municipio_logradouro, uf_logradouro, cep_logradouro, ");
-		sql.append(" telefone, email, mensalidade, coativo) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
+		sql.append(" (nome, cpf, rg, parentesco, endereco, numero, bairro, ");
+		sql.append(" complemento, municipio, uf, cep, telefone, email, ");
+		sql.append(" mensalidade, coativo) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ");
 		
 		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
@@ -28,13 +28,13 @@ public class ResponsavelFinanceiroDAO {
 		pstmt.setString(2, responsavel.getCpf());
 		pstmt.setString(3, responsavel.getRg());
 		pstmt.setString(4, responsavel.getParentesco());
-		pstmt.setString(5, responsavel.getTipo_logradouro());
-		pstmt.setString(6, responsavel.getNome_logradouro());
-		pstmt.setString(7, responsavel.getNumero_logradouro());
-		pstmt.setString(8, responsavel.getBairro_logradouro());
-		pstmt.setString(9, responsavel.getMunicipio_logradouro());
-		pstmt.setString(10, responsavel.getUf_logradouro());
-		pstmt.setString(11, responsavel.getCep_logradouro());
+		pstmt.setString(5, responsavel.getEndereco());
+		pstmt.setString(6, responsavel.getNumero());
+		pstmt.setString(7, responsavel.getBairro());
+		pstmt.setString(8, responsavel.getComplemento());
+		pstmt.setString(9, responsavel.getMunicipio());
+		pstmt.setString(10, responsavel.getUf());
+		pstmt.setString(11, responsavel.getCep());
 		pstmt.setString(12, responsavel.getTelefone());
 		pstmt.setString(13, responsavel.getEmail());
 		pstmt.setBigDecimal(14, responsavel.getMensalidade());
@@ -83,9 +83,9 @@ public class ResponsavelFinanceiroDAO {
 		
 		sql.append(" update resp_financeiro ");
 		sql.append(" set cpf = ?, parentesco = ?, nome = ?, rg = ?, ");
-		sql.append(" tipo_logradouro = ?, nome_logradouro = ?, numero_logradouro = ?, ");
-		sql.append(" bairro_logradouro = ?, municipio_logradouro = ?, uf_logradouro = ?, ");
-		sql.append(" cep_logradouro = ?, telefone = ?, email = ?, mensalidade = ? ");
+		sql.append(" endereco = ?, numero = ?, bairro = ?, ");
+		sql.append(" complemento = ?, municipio = ?, uf = ?, ");
+		sql.append(" cep = ?, telefone = ?, email = ?, mensalidade = ? ");
 		sql.append(" where cpf = ? ");
 		
 		Connection con = ConnectionFactory.getConnection();
@@ -95,13 +95,13 @@ public class ResponsavelFinanceiroDAO {
 		pstmt.setString(2, responsavel.getParentesco());
 		pstmt.setString(3, responsavel.getNome());
 		pstmt.setString(4, responsavel.getRg());
-		pstmt.setString(5, responsavel.getTipo_logradouro());
-		pstmt.setString(6, responsavel.getNome_logradouro());
-		pstmt.setString(7, responsavel.getNumero_logradouro());
-		pstmt.setString(8, responsavel.getBairro_logradouro());
-		pstmt.setString(9, responsavel.getMunicipio_logradouro());
-		pstmt.setString(10, responsavel.getUf_logradouro());
-		pstmt.setString(11, responsavel.getCep_logradouro());
+		pstmt.setString(5, responsavel.getEndereco());
+		pstmt.setString(6, responsavel.getNumero());
+		pstmt.setString(7, responsavel.getBairro());
+		pstmt.setString(8, responsavel.getComplemento());
+		pstmt.setString(9, responsavel.getMunicipio());
+		pstmt.setString(10, responsavel.getUf());
+		pstmt.setString(11, responsavel.getCep());
 		pstmt.setString(12, responsavel.getTelefone());
 		pstmt.setString(13, responsavel.getEmail());
 		pstmt.setBigDecimal(14, responsavel.getMensalidade());
@@ -122,8 +122,8 @@ public class ResponsavelFinanceiroDAO {
 	public ResponsavelFinanceiro buscarRespFinanceiro(ResponsavelFinanceiro responsavel) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		
-		sql.append(" select nome, rg, tipo_logradouro, nome_logradouro, numero_logradouro, ");
-		sql.append(" bairro_logradouro, municipio_logradouro, uf_logradouro, cep_logradouro, ");
+		sql.append(" select nome, rg, endereco, numero, bairro, ");
+		sql.append(" complemento, municipio, uf, cep, ");
 		sql.append(" telefone, email, mensalidade, coativo ");
 		sql.append(" from resp_financeiro where cpf = ? ");
 		
@@ -140,13 +140,13 @@ public class ResponsavelFinanceiroDAO {
 			
 			String nome = rs.getString("nome");
 			String rg = rs.getString("rg");
-			String tpLogradouro = rs.getString("tipo_logradouro");
-			String noLogradouro = rs.getString("nome_logradouro");
-			String nuLogradouro = rs.getString("numero_logradouro");
-			String baLogradouro = rs.getString("bairro_logradouro");
-			String muLogradouro = rs.getString("municipio_logradouro");
-			String ufLogradouro = rs.getString("uf_logradouro");
-			String cepLogradouro = rs.getString("cep_logradouro");
+			String endereco = rs.getString("endereco");
+			String numero = rs.getString("numero");
+			String bairro = rs.getString("bairro");
+			String complemento = rs.getString("complemento");
+			String municipio = rs.getString("municipio");
+			String uf = rs.getString("uf");
+			String cep = rs.getString("cep");
 			String telefone = rs.getString("telefone");
 			String email = rs.getString("email");
 			BigDecimal mensalidade = rs.getBigDecimal("mensalidade");
@@ -154,13 +154,13 @@ public class ResponsavelFinanceiroDAO {
 			
 			retorno.setNome(nome);
 			retorno.setRg(rg);
-			retorno.setTipo_logradouro(tpLogradouro);
-			retorno.setNome_logradouro(noLogradouro);
-			retorno.setNumero_logradouro(nuLogradouro);
-			retorno.setBairro_logradouro(baLogradouro);
-			retorno.setMunicipio_logradouro(muLogradouro);
-			retorno.setUf_logradouro(ufLogradouro);
-			retorno.setCep_logradouro(cepLogradouro);
+			retorno.setEndereco(endereco);
+			retorno.setNumero(numero);
+			retorno.setBairro(bairro);
+			retorno.setComplemento(complemento);
+			retorno.setMunicipio(municipio);
+			retorno.setUf(uf);
+			retorno.setCep(cep);
 			retorno.setTelefone(telefone);
 			retorno.setEmail(email);
 			retorno.setMensalidade(mensalidade);
@@ -172,9 +172,9 @@ public class ResponsavelFinanceiroDAO {
 	public ArrayList<ResponsavelFinanceiro> listarResponsavelFinanceiro() throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		
-		sql.append(" select nome, cpf, rg, parentesco, tipo_logradouro, nome_logradouro, numero_logradouro, ");
-		sql.append(" bairro_logradouro, municipio_logradouro, uf_logradouro, cep_logradouro, ");
-		sql.append(" telefone, email, mensalidade, coativo from resp_financeiro where coativo = 'A' ");
+		sql.append(" select nome, cpf, rg, parentesco, endereco, numero, bairro, ");
+		sql.append(" complemento, municipio, uf, cep, telefone, email, ");
+		sql.append(" mensalidade, coativo from resp_financeiro where coativo = 'A' ");
 		sql.append(" order by nome "); 
 		
 		Connection con = ConnectionFactory.getConnection();
@@ -190,13 +190,13 @@ public class ResponsavelFinanceiroDAO {
 			String cpf = rs.getString("cpf");
 			String rg = rs.getString("rg");
 			String parentesco = rs.getString("parentesco");
-			String tpLogradouro = rs.getString("tipo_logradouro");
-			String noLogradouro = rs.getString("nome_logradouro");
-			String nuLogradouro = rs.getString("numero_logradouro");
-			String baLogradouro = rs.getString("bairro_logradouro");
-			String muLogradouro = rs.getString("municipio_logradouro");
-			String ufLogradouro = rs.getString("uf_logradouro");
-			String cepLogradouro = rs.getString("cep_logradouro");
+			String endereco = rs.getString("endereco");
+			String numero = rs.getString("numero");
+			String bairro = rs.getString("bairro");
+			String complemento = rs.getString("complemento");
+			String municipio = rs.getString("municipio");
+			String uf = rs.getString("uf");
+			String cep = rs.getString("cep");
 			String telefone = rs.getString("telefone");
 			String email = rs.getString("email");
 			BigDecimal mensalidade = rs.getBigDecimal("mensalidade");
@@ -207,13 +207,13 @@ public class ResponsavelFinanceiroDAO {
 			responsavel.setCpf(cpf);
 			responsavel.setRg(rg);
 			responsavel.setParentesco(parentesco);
-			responsavel.setTipo_logradouro(tpLogradouro);
-			responsavel.setNome_logradouro(noLogradouro);
-			responsavel.setNumero_logradouro(nuLogradouro);
-			responsavel.setBairro_logradouro(baLogradouro);
-			responsavel.setMunicipio_logradouro(muLogradouro);
-			responsavel.setUf_logradouro(ufLogradouro);
-			responsavel.setCep_logradouro(cepLogradouro);
+			responsavel.setEndereco(endereco);
+			responsavel.setNumero(numero);
+			responsavel.setBairro(bairro);
+			responsavel.setComplemento(complemento);
+			responsavel.setMunicipio(municipio);
+			responsavel.setUf(uf);
+			responsavel.setCep(cep);
 			responsavel.setTelefone(telefone);
 			responsavel.setEmail(email);
 			responsavel.setMensalidade(mensalidade);
@@ -232,13 +232,13 @@ public class ResponsavelFinanceiroDAO {
 		r.setCpf("77453816220");
 		r.setRg("1476993-0 SSP/AM");
 		r.setParentesco("Pai");
-		r.setTipo_logradouro("Avenida");
-		r.setNome_logradouro("Genebra");
-		r.setNumero_logradouro("7");
-		r.setBairro_logradouro("Planalto");
-		r.setMunicipio_logradouro("Manaus");
-		r.setUf_logradouro("AM");
-		r.setCep_logradouro("69045380");
+		r.setEndereco("Avenida Genebra");
+		r.setNumero("7");
+		r.setBairro("Planalto");
+		r.setComplemento("Quadra 12");
+		r.setMunicipio("Manaus");
+		r.setUf("AM");
+		r.setCep("69045380");
 		r.setTelefone("92-98223-0453");
 		r.setEmail("gfarache@gmail.com");
 		r.setMensalidade(BigDecimal.valueOf(800.00));

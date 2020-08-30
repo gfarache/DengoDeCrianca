@@ -12,33 +12,89 @@
 	</ui:define>
 	<ui:define name="conteudo">
 		<h:form>
-		<p:growl id="msg" />
-			<h3>Dados do Aluno</h3>
+		<p:growl id="msg" life="1000"/>
+			
 			<div>
-				<!-- <table cellspacing="10" border="1"> -->
-				<table>
+				<table border="1">
+				<tr>
+					<td colspan="15">
+						<center>Nova Matrícula</center>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4"><center>Dados do Aluno</center></td>
+					<td colspan="4"><center>Filiação do Aluno</center></td>
+					<td colspan="5"><center>Dados do Responsável Financeiro</center></td>
+				</tr>
 					<tr>
 						<td><p:outputLabel for="nomeAluno" value="Nome Completo: " /></td>
-						<td><p:inputText id="nomeAluno" /></td>
+						<td><p:inputText id="nomeAluno" value="#{MBAluno.aluno.nome}"/></td>
+						<td></td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						<td><p:outputLabel for="maeAluno" value="Nome da Mãe: "/></td>
+						<td><p:inputText id="maeAluno" value="#{MBAluno.aluno.nomeMae}"/></td>
+						<td colspan="2"></td>
+						<td><p:outputLabel for="cpfResponsavel" value="CPF do Responsável: " /></td>
+						<td><p:inputText id="cpfResponsavel" value="#{MBRespFin.respFin.cpf}"/></td>
+						<td></td>
+						<td></td>
 					</tr>
 					<tr>
 						<td><p:outputLabel for="dataNascimento"	value="Data de nascimento: " /></td>
-						<td><p:inputMask id="dataNascimento" value="#{maskView.data}" mask="99/99/9999" /></td>
+						<td><p:inputMask id="dataNascimento" value="#{MBAluno.aluno.dataNascimento}" mask="99/99/9999" /></td>
+						<td></td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						<td><p:outputLabel for="paiAluno" value="Nome do Pai: "/></td>
+						<td><p:inputText id="paiAluno" disabled="#{!MBBooleanCheckBox.paiCheck}" value="#{MBAluno.aluno.nomePai}"/></td>
+						<td><p:selectBooleanCheckbox value="#{MBBooleanCheckBox.paiCheck}" itemLabel="Habilitar" >
+								<f:ajax render="paiAluno" />
+								<p:ajax update="msg" listener="#{MBBooleanCheckBox.addMessagePaiCheck}" />
+							</p:selectBooleanCheckbox></td>
+						<td></td>
+						<td><p:outputLabel for="rgResponsavel" value="RG do Responsável: " /></td>
+						<td><p:inputText id="rgResponsavel" value="#{MBRespFin.respFin.rg}"/></td>
 					</tr>
 					<tr>
-						<td><p:outputLabel for="cpf" value="CPF: " /></td>
-						<td><p:inputMask id="cpf" value="#{maskView.cpf}" mask="999.999.999-99" disabled="#{MBBooleanCheckBox.cpfCheck}" /></td>
-						<td><p:selectBooleanCheckbox id="cpfCheck" value="#{MBBooleanCheckBox.cpfCheck}" itemLabel="Habilitar" >
+						<td><p:outputLabel for="rgAluno" value="RG: " /></td>
+						<td><p:inputText id="rgAluno" disabled="#{!MBBooleanCheckBox.rgCheck}" value="#{MBAluno.aluno.rg}"/></td>
+						<td><p:selectBooleanCheckbox value="#{MBBooleanCheckBox.rgCheck}" itemLabel="Habilitar" >
+								<f:ajax render="rgAluno" />
+								<p:ajax update="msg" listener="#{MBBooleanCheckBox.addMessageRGAluno}" />
+							</p:selectBooleanCheckbox></td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						
+					</tr>
+					<tr>
+						<td><p:outputLabel for="cpfAluno" value="CPF: " /></td>
+						<td><p:inputMask id="cpfAluno" value="#{MBAluno.aluno.cpf}" mask="999.999.999-99"
+								disabled="#{!MBBooleanCheckBox.cpfCheck}" /></td>
+						<td><p:selectBooleanCheckbox value="#{MBBooleanCheckBox.cpfCheck}" itemLabel="Habilitar" >
+								<f:ajax render="cpfAluno" />
 								<p:ajax update="msg" listener="#{MBBooleanCheckBox.addMessageCPFAluno}" />
 							</p:selectBooleanCheckbox>
 						</td>
+						<td></td>
+						<td></td>
 					</tr>
 					<tr>
-						<td><p:outputLabel for="rg" value="RG: " /></td>
-						<td><p:inputText id="rg" /></td>
-						<td><p:selectBooleanCheckbox value="#{MBBooleanCheckBox.rgCheck}" itemLabel="Habilitar" >
-								<p:ajax update="msg" listener="#{MBBooleanCheckBox.addMessageRGAluno}" />
-							</p:selectBooleanCheckbox></td>
+						<td><p:outputLabel for="sexo" value="Sexo: "/></td>
+						<td><p:selectOneMenu id="sexo" value="#{selectOneMenuView.sexoAluno}">
+								<f:selectItem itemLabel="Feminino" itemValue="F" />
+								<f:selectItem itemLabel="Masculino" itemValue="M" />
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td><p:outputLabel for="turno" value="Turno: "/></td>
+						<td><p:selectOneMenu id="turno" value="#{selectOneMenuView.turno}">
+							<f:selectItem itemLabel="Integral" itemValue="I" />
+							<f:selectItem itemLabel="Meio-período (manhã)" itemValue="MPM" />
+							<f:selectItem itemLabel="Meio-período (tarde)" itemValue="MPT" />
+						</p:selectOneMenu></td>
 					</tr>
 				</table>
 			</div>

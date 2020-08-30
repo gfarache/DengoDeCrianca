@@ -9,8 +9,9 @@ import javax.faces.context.FacesContext;
 @ViewScoped
 public class SelectBooleanView {
  
-    private boolean cpfCheck;  
-    private boolean rgCheck;
+    private boolean cpfCheck = false;
+    private boolean rgCheck = false;
+    private boolean paiCheck = false;
  
     public boolean isCpfCheck() {
 		return cpfCheck;
@@ -28,13 +29,26 @@ public class SelectBooleanView {
 		this.rgCheck = rgCheck;
 	}
 
+	public boolean isPaiCheck() {
+		return paiCheck;
+	}
+
+	public void setPaiCheck(boolean paiCheck) {
+		this.paiCheck = paiCheck;
+	}
+
 	public void addMessageCPFAluno() {
-        String checkCPF = cpfCheck ? "CPF Aluno Habilitado" : "CPF Aluno desabilitado";
+        String checkCPF = cpfCheck ? "Campo para CPF do aluno habilitado" : "Campo para CPF do aluno desabilitado";
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(checkCPF));        
     }
 	
 	public void addMessageRGAluno() {
-		String checkRG = rgCheck ? "RG Aluno Habilitado" : "RG Aluno desabilitado";
+		String checkRG = rgCheck ? "Campo para RG do aluno habilitado" : "Campo para RG do aluno desabilitado";
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(checkRG));
 	}
+	
+	public void addMessagePaiCheck() {
+        String checkPai = paiCheck ? "Campo para pai do aluno habilitado" : "Campo para pai do aluno desabilitado";
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(checkPai));        
+    }
 }
