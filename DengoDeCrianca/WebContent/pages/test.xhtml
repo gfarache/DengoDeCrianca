@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/templates/modeloSistema.xhtml">
+
+	<ui:define name="menu">
+		<ui:include src="/includes/menu.xhtml" />
+	</ui:define>
+	<ui:define name="conteudo">
+
+		<h:panelGrid columns="4" cellpadding="5">
+			<h:outputLabel value="Pesquisa Por: " />
+			<h:selectOneMenu id="tipopesquisa" styleClass="input-select"
+				required="true" requiredMessage="Selecione o tipo de consulta."
+				value="#{seuControle.tipoConsulta}">
+				<f:selectItem itemLabel=" -- Selecione --" itemValue="" />
+				<f:selectItem itemLabel=" Nome " itemValue="1" />
+				<f:selectItem itemLabel=" CPF" itemValue="2" />
+				<f:ajax render="consulta"></f:ajax>
+			</h:selectOneMenu>
+		</h:panelGrid>
+
+		<h:column>
+
+			<h:panelGrid id="consulta">
+				<p:inputText id="textoConsultaNome"
+					value="#{seuControle.txtConsulta}"
+					rendered="#{seuControle.tipoConsulta == 1}" style="width:250px"
+					required="true" requiredMessage="Digite um Nome para consulta.">
+				</p:inputText>
+				<p:message for="textoConsultaNome" />
+
+				<p:inputMask id="textoConsultaCpf"
+					value="#{seuControle.txtConsulta}" mask="999.999.999-99"
+					rendered="#{seuControle.tipoConsulta == 2}"
+					styleClass="input-menor" maxlength="14" required="true"
+					requiredMessage="Digite um CPF para consulta." />
+				<p:message for="textoConsultaCpf" />
+
+			</h:panelGrid>
+
+		</h:column>
+	</ui:define>
+</ui:composition>

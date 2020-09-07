@@ -14,13 +14,14 @@ public class Aluno {
 	private String sexo = "";
 	private String turno = "";
 	private String nomeMae = "";
-	private String coativo = "";
 	private String nomePai = "";
 	private ByteArrayInputStream foto = null;
 	private String coAtivo = "";
+	private ResponsavelFinanceiro responsavel;
 	
 	public void limpar() {
 		matricula = "";
+		respfin_cpf = "";
 		nome = "";
 		dataNascimento = "";
 		cpf = "";
@@ -28,7 +29,7 @@ public class Aluno {
 		sexo = "";
 		turno = "";
 		nomeMae = "";
-		coativo = "";
+		coAtivo = "";
 		nomePai = "";
 	}
 	
@@ -103,14 +104,6 @@ public class Aluno {
 	public void setNomeMae(String nomeMae) {
 		this.nomeMae = nomeMae;
 	}
-	
-	public String getCoativo() {
-		return coativo;
-	}
-
-	public void setCoativo(String coativo) {
-		this.coativo = coativo;
-	}
 
 	public String getNomePai() {
 		return nomePai;
@@ -136,6 +129,14 @@ public class Aluno {
 		this.coAtivo = coAtivo;
 	}
 	
+	public ResponsavelFinanceiro getResponsavel() {
+		return responsavel;
+	}
+
+	public void setResponsavel(ResponsavelFinanceiro responsavel) {
+		this.responsavel = responsavel;
+	}
+
 	@Override
 	public String toString() {
 		String saida = "Matricula: " + matricula + "\nNome: " + nome+"\nData de nascimento: "+Formatadores.formataDataToTela(dataNascimento);
@@ -145,7 +146,7 @@ public class Aluno {
 	public static void main(String[] args) {
 		Aluno a = new Aluno();
 		
-		a.setMatricula("2020MT001");
+		a.setMatricula("2020-001");
 		a.setNome("Gustavo Farache");
 		a.setDataNascimento("20180222");
 		System.out.println(a);

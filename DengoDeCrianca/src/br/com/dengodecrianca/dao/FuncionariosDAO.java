@@ -15,7 +15,9 @@ public class FuncionariosDAO {
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append(" insert into funcionario ");
-		sql.append(" (nome, rg, cpf, endereco, telefone, cargo, salario, dataadmissao, coativo ");
+		sql.append(" (matricula, nome, rg, cpf, sexo, datanascimento, tipo_logradouro, nome_logradouro, numero_logradouro, ");
+		sql.append(" bairro_logradouro, municipio_logradouro, uf_logradouro, cep_logradouro, ");
+		sql.append(" telefone, cargo, salario, dataadmissao, coativo ");
 		
 		if (funcionario.getEmail() != null && !funcionario.getEmail().equals("")) {
 			sql.append(" , email ");
@@ -24,7 +26,7 @@ public class FuncionariosDAO {
 			sql.append(" , foto");
 		}
 		sql.append(" ) "); 
-		sql.append(" values (?,?,?,?,?,?,?,? ");
+		sql.append(" values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? ");
 		if (funcionario.getEmail() != null && !funcionario.getEmail().equals("")) {
 			sql.append(" ,'"+funcionario.getEmail()+"' ");
 		}
@@ -33,18 +35,27 @@ public class FuncionariosDAO {
 		}
 		sql.append(" ) ");
 		
-		Connection con = ConnectionFactory.conectar();
+		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 		
 		pstmt.setString(1, funcionario.getNome());
-		pstmt.setString(2, funcionario.getRg());
-		pstmt.setString(3, funcionario.getCpf());
-		pstmt.setString(4, funcionario.getEndereco());
-		pstmt.setString(5, funcionario.getTelefone());
-		pstmt.setString(6, funcionario.getCargo());
-		pstmt.setBigDecimal(7, funcionario.getSalario());
-		pstmt.setString(8, funcionario.getDataAdmissao());
-		pstmt.setString(9, "A");
+		pstmt.setString(2, funcionario.getNome());
+		pstmt.setString(3, funcionario.getRg());
+		pstmt.setString(4, funcionario.getCpf());
+		pstmt.setString(5, funcionario.getSexo());
+		pstmt.setString(6, funcionario.getDataNascimento());
+		pstmt.setString(7, funcionario.getTipo_logradouro());
+		pstmt.setString(8, funcionario.getNome_logradouro());
+		pstmt.setString(9, funcionario.getNumero_logradouro());
+		pstmt.setString(10, funcionario.getBairro_logradouro());
+		pstmt.setString(11, funcionario.getMunicipio_logradouro());
+		pstmt.setString(12, funcionario.getUf_logradouro());
+		pstmt.setString(13, funcionario.getCep_logradouro());
+		pstmt.setString(14, funcionario.getTelefone());
+		pstmt.setString(15, funcionario.getCargo());
+		pstmt.setBigDecimal(16, funcionario.getSalario());
+		pstmt.setString(17, funcionario.getDataAdmissao());
+		pstmt.setString(18, "A");
 		
 		int i = pstmt.executeUpdate();
 		
@@ -62,7 +73,7 @@ public class FuncionariosDAO {
 		sql.append(" set coativo = 'I' ");
 		sql.append(" where cpf = ? ");
 		
-		Connection con = ConnectionFactory.conectar();
+		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 		
 		pstmt.setString(1, funcionario.getCpf());		
@@ -80,10 +91,12 @@ public class FuncionariosDAO {
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append(" select matricula, cpf, rg, nome, datanascimento, sexo ");
-		sql.append(" endereco, telefone, email, cargo, salario, dataadmissao, datademissao, ");
-		sql.append(" coativo from funcionario where matricula = ? ");
+		sql.append(" tipo_logradouro, nome_logradouro, numero_logradouro, ");
+		sql.append(" bairro_logradouro, municipio_logradouro, uf_logradouro, ");
+		sql.append(" cep_logradouro, telefone, email, cargo, salario, dataadmissao, ");
+		sql.append(" datademissao, coativo from funcionario where matricula = ? ");
 		
-		Connection con = ConnectionFactory.conectar();
+		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 		
 		pstmt.setString(1, funcionario.getMatricula());
@@ -99,7 +112,13 @@ public class FuncionariosDAO {
 			String nome = rs.getString("nome");
 			String dataNascimento = rs.getString("datanascimento");
 			String sexo = rs.getString("sexo");
-			String endereco = rs.getString("endereco");
+			String tpLogradouro = rs.getString("tipo_logradouro");
+			String noLogradouro = rs.getString("nome_logradouro");
+			String nuLogradouro = rs.getString("numero_logradouro");
+			String baLogradouro = rs.getString("bairro_logradouro");
+			String muLogradouro = rs.getString("municipio_logradouro");
+			String ufLogradouro = rs.getString("uf_logradouro");
+			String cepLogradouro = rs.getString("cep_logradouro");
 			String telefone = rs.getString("telefone");
 			String email = rs.getString("email");
 			String cargo = rs.getString("cargo");
@@ -114,7 +133,13 @@ public class FuncionariosDAO {
 			retorno.setNome(nome);
 			retorno.setDataNascimento(dataNascimento);
 			retorno.setSexo(sexo);
-			retorno.setEndereco(endereco);
+			retorno.setTipo_logradouro(tpLogradouro);
+			retorno.setNome_logradouro(noLogradouro);
+			retorno.setNumero_logradouro(nuLogradouro);
+			retorno.setBairro_logradouro(baLogradouro);
+			retorno.setMunicipio_logradouro(muLogradouro);
+			retorno.setUf_logradouro(ufLogradouro);
+			retorno.setCep_logradouro(cepLogradouro);
 			retorno.setTelefone(telefone);
 			retorno.setEmail(email);
 			retorno.setCargo(cargo);
@@ -129,11 +154,13 @@ public class FuncionariosDAO {
 	public ArrayList<Funcionario> listarFuncionarios() throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		
-		sql.append(" select matricula, nome, cpf, rg, datanascimento, sexo, endereco, ");
-		sql.append(" telefone, email, cargo, salario, dataadmissao, coativo ");
+		sql.append(" select matricula, nome, cpf, rg, datanascimento, sexo, ");
+		sql.append(" tipo_logradouro, nome_logradouro, numero_logradouro, ");
+		sql.append(" bairro_logradouro, municipio_logradouro, uf_logradouro, ");
+		sql.append(" cep_logradouro, telefone, email, cargo, salario, dataadmissao, coativo ");
 		sql.append(" from funcionario order by nome ");
 		
-		Connection con = ConnectionFactory.conectar();
+		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 		
 		ArrayList<Funcionario> lista = new ArrayList<Funcionario>();
@@ -149,7 +176,13 @@ public class FuncionariosDAO {
 			String rg = rs.getString("rg");
 			String dataNascimento = rs.getString("datanascimento");
 			String sexo = rs.getString("sexo");
-			String endereco = rs.getString("endereco");
+			String tpLogradouro = rs.getString("tipo_logradouro");
+			String noLogradouro = rs.getString("nome_logradouro");
+			String nuLogradouro = rs.getString("numero_logradouro");
+			String baLogradouro = rs.getString("bairro_logradouro");
+			String muLogradouro = rs.getString("municipio_logradouro");
+			String ufLogradouro = rs.getString("uf_logradouro");
+			String cepLogradouro = rs.getString("cep_logradouro");
 			String telefone = rs.getString("telefone");
 			String email = rs.getString("email");
 			String cargo = rs.getString("cargo");
@@ -163,7 +196,13 @@ public class FuncionariosDAO {
 			funcionario.setRg(rg);
 			funcionario.setDataNascimento(dataNascimento);
 			funcionario.setSexo(sexo);
-			funcionario.setEndereco(endereco);
+			funcionario.setTipo_logradouro(tpLogradouro);
+			funcionario.setNome_logradouro(noLogradouro);
+			funcionario.setNumero_logradouro(nuLogradouro);
+			funcionario.setBairro_logradouro(baLogradouro);
+			funcionario.setMunicipio_logradouro(muLogradouro);
+			funcionario.setUf_logradouro(ufLogradouro);
+			funcionario.setCep_logradouro(cepLogradouro);
 			funcionario.setTelefone(telefone);
 			funcionario.setEmail(email);
 			funcionario.setCargo(cargo);

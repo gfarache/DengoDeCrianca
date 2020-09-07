@@ -16,7 +16,7 @@ public class UsuarioDAO {
 		sql.append(" insert into usuarios (login, cpf, senha, perfil) ");
 		sql.append(" values (?,?,?,?) ");
 		
-		Connection con = ConnectionFactory.conectar();
+		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 		
 		pstmt.setString(1, usuario.getLogin());
@@ -40,7 +40,7 @@ public class UsuarioDAO {
 		sql.append(" set coativo = 'I' ");
 		sql.append(" where login = ? and cpf = ? ");
 		
-		Connection con = ConnectionFactory.conectar();
+		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 		
 		pstmt.setString(1, usuario.getLogin());
@@ -61,7 +61,7 @@ public class UsuarioDAO {
 		sql.append(" select cpf, senha, perfil, coativo ");
 		sql.append(" from usuario where login = ?");
 		
-		Connection con = ConnectionFactory.conectar();
+		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 		
 		pstmt.setString(1, usuario.getLogin());
@@ -91,7 +91,7 @@ public class UsuarioDAO {
 		sql.append(" select login, cpf, senha, perfil, coativo ");
 		sql.append(" from usuario order by login ");
 		
-		Connection con = ConnectionFactory.conectar();
+		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 		
 		ResultSet rs = pstmt.executeQuery();		

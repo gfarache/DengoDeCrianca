@@ -11,10 +11,12 @@ import br.com.dengodecrianca.dominio.Aluno;
 
 public class AlunosDAO {
 	public void salvarNovoAluno(Aluno aluno) throws SQLException {
+		
+		
 		StringBuilder sql = new StringBuilder();
 
 		sql.append(" insert into aluno ");
-		sql.append(" (matricula, nome, datanascimento, sexo, turno, nomemae, coativo ");
+		sql.append(" (matricula, nome, dataNascimento, sexo, turno, nomemae, coativo ");
 
 		if (aluno.getNomePai() != null && !aluno.getNomePai().equals("")) {
 			sql.append(" ,nomepai ");
@@ -38,7 +40,7 @@ public class AlunosDAO {
 			sql.append(", '" + aluno.getRg() + "'");
 		}
 
-		Connection con = ConnectionFactory.conectar();
+		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 
 		pstmt.setString(1, aluno.getMatricula());
@@ -65,7 +67,7 @@ public class AlunosDAO {
 		sql.append(" set coativo = 'I' ");
 		sql.append(" where matricula = ? ");
 		
-		Connection con = ConnectionFactory.conectar();
+		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 		
 		pstmt.setString(1, aluno.getMatricula());
@@ -82,11 +84,11 @@ public class AlunosDAO {
 	public Aluno buscarAluno(Aluno aluno) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		
-		sql.append(" select matricula, respfin_cpf, nome, datanascimento, ");
+		sql.append(" select matricula, resp_financeiro_cpf, nome, datanascimento, ");
 		sql.append(" cpf, rg, sexo, turno, nomemae, nomepai, coativo ");
 		sql.append(" from aluno where matricula = ? ");
 		
-		Connection con = ConnectionFactory.conectar();
+		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 		
 		pstmt.setString(1, aluno.getMatricula());
@@ -97,9 +99,9 @@ public class AlunosDAO {
 		if (rs.next()) {
 			retorno = new Aluno();
 			String matricula = rs.getString("matricula");
-			String respfin_cpf = rs.getString("respfin_cpf");
+			String respfin_cpf = rs.getString("resp_financeiro_cpf");
 			String nome = rs.getString("nome");
-			String dataNascimento = rs.getString("datanascimento");
+			String dataNascimento = rs.getString("dataNascimento");
 			String cpf = rs.getString("cpf");
 			String rg = rs.getString("rg");
 			String sexo = rs.getString("sexo");
@@ -126,11 +128,11 @@ public class AlunosDAO {
 	public ArrayList<Aluno> listar() throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		
-		sql.append(" select matricula, respfin_cpf, nome, datanascimento, ");
+		sql.append(" select matricula, resp_financeiro_cpf, nome, dataNascimento, ");
 		sql.append(" cpf, rg, sexo, turno, nomemae, nomepai, coativo ");
 		sql.append(" from aluno order by nome ");
 		
-		Connection con = ConnectionFactory.conectar();
+		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 		
 		ResultSet rs = pstmt.executeQuery();
@@ -140,9 +142,9 @@ public class AlunosDAO {
 		while (rs.next()) {
 			Aluno aluno = new Aluno();
 			String matricula = rs.getString("matricula");
-			String respfin_cpf = rs.getString("respfin_cpf");
+			String respfin_cpf = rs.getString("resp_financeiro_cpf");
 			String nome = rs.getString("nome");
-			String dataNascimento = rs.getString("datanascimento");
+			String dataNascimento = rs.getString("dataNascimento");
 			String cpf = rs.getString("cpf");
 			String rg = rs.getString("rg");
 			String sexo = rs.getString("sexo");

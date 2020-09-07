@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/templates/modeloSistema.xhtml">
+
+<ui:define name="menu">
+	<ui:include src="/includes/menu.xhtml" />
+</ui:define>
+<ui:define name="conteudo">
+<p:dataTable id="tbAluno" widgetVar="tabelaAluno" 
+emptyMessage="Nenhum registro encontrado!" value="#{MBAluno.itens}"
+var="item" paginator="true" rows="10" filteredValue="#{MBAluno.itensFiltrados}" 
+rowsPerPageTemplate="20,50,100"
+currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros">
+
+    <p:column headerText="Matrícula">
+        <h:outputText value="#{item.matricula}"/>
+    </p:column>
+    	
+    <p:column headerText="Nome">
+        <h:outputText value="#{item.nome}"/>
+    </p:column>
+    	
+    <p:column headerText="Data Nascimento">
+        <h:outputText value="#{item.dataNascimento}"/>
+    </p:column>
+ 
+    <p:column headerText="Sexo">
+        <h:outputText value="#{item.sexo}"/>
+    </p:column>
+    
+    <p:column headerText="Turno">
+        <h:outputText value="#{item.turno}"/>
+    </p:column>
+</p:dataTable>
+</ui:define>
+</ui:composition>
