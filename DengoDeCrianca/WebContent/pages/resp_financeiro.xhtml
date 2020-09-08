@@ -141,23 +141,27 @@
 
 					<p:outputLabel value="Nome: " />
 					<h:inputText size="20" maxlength="50"
-						value="#{MBRespFin.respFin.nome_logradouro}" />
+						value="#{MBRespFin.respFin.endereco}" />
 
 					<p:outputLabel value="Número: " />
 					<h:inputText size="5" maxlength="10"
-						value="#{MBRespFin.respFin.numero_logradouro}" />
+						value="#{MBRespFin.respFin.numero}" />
 
 					<p:outputLabel value="Bairro: " />
 					<h:inputText size="10" maxlength="50"
-						value="#{MBRespFin.respFin.bairro_logradouro}" />
+						value="#{MBRespFin.respFin.bairro}" />
+					
+					<p:outputLabel value="Complemento: " />
+					<h:inputText size="10" maxlength="50"
+						value="#{MBRespFin.respFin.complemento}" />
 
 					<p:outputLabel value="Cidade: " />
 					<h:inputText size="15" maxlength="30"
-						value="#{MBRespFin.respFin.municipio_logradouro}" />
+						value="#{MBRespFin.respFin.municipio}" />
 
 					<p:outputLabel value="UF: " />
 					<p:selectOneMenu size="15"
-						value="#{MBRespFin.respFin.uf_logradouro}">
+						value="#{MBRespFin.respFin.uf}">
 						<f:selectItem itemLabel="Acre" itemValue="AC" />
 						<f:selectItem itemLabel="Alagoas" itemValue="AL" />
 						<f:selectItem itemLabel="Amapá" itemValue="AP" />
@@ -189,7 +193,7 @@
 
 					<p:outputLabel value="CEP: " />
 					<h:inputText size="10" maxlength="10"
-						value="#{MBRespFin.respFin.cep_logradouro}" />
+						value="#{MBRespFin.respFin.cep}" />
 					<p:column>&nbsp;</p:column>
 					<p:column>&nbsp;</p:column>
 

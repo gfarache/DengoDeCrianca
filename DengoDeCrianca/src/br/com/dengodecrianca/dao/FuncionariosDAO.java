@@ -15,9 +15,8 @@ public class FuncionariosDAO {
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append(" insert into funcionario ");
-		sql.append(" (matricula, nome, rg, cpf, sexo, datanascimento, tipo_logradouro, nome_logradouro, numero_logradouro, ");
-		sql.append(" bairro_logradouro, municipio_logradouro, uf_logradouro, cep_logradouro, ");
-		sql.append(" telefone, cargo, salario, dataadmissao, coativo ");
+		sql.append(" (matricula, nome, rg, cpf, sexo, datanascimento, endereco, numero, bairro ");
+		sql.append(" complemento, municipio, uf, cep, telefone, cargo, salario, dataadmissao, coativo ");
 		
 		if (funcionario.getEmail() != null && !funcionario.getEmail().equals("")) {
 			sql.append(" , email ");
@@ -44,13 +43,13 @@ public class FuncionariosDAO {
 		pstmt.setString(4, funcionario.getCpf());
 		pstmt.setString(5, funcionario.getSexo());
 		pstmt.setString(6, funcionario.getDataNascimento());
-		pstmt.setString(7, funcionario.getTipo_logradouro());
-		pstmt.setString(8, funcionario.getNome_logradouro());
-		pstmt.setString(9, funcionario.getNumero_logradouro());
-		pstmt.setString(10, funcionario.getBairro_logradouro());
-		pstmt.setString(11, funcionario.getMunicipio_logradouro());
-		pstmt.setString(12, funcionario.getUf_logradouro());
-		pstmt.setString(13, funcionario.getCep_logradouro());
+		pstmt.setString(7, funcionario.getEndereco());
+		pstmt.setString(8, funcionario.getNumero());
+		pstmt.setString(9, funcionario.getBairro());
+		pstmt.setString(10, funcionario.getComplemento());
+		pstmt.setString(11, funcionario.getMunicipio());
+		pstmt.setString(12, funcionario.getUf());
+		pstmt.setString(13, funcionario.getCep());
 		pstmt.setString(14, funcionario.getTelefone());
 		pstmt.setString(15, funcionario.getCargo());
 		pstmt.setBigDecimal(16, funcionario.getSalario());
@@ -87,38 +86,36 @@ public class FuncionariosDAO {
 		}
 	}
 	
-	public Funcionario buscarFuncionario(Funcionario funcionario) throws SQLException {
+	public Funcionario buscarFuncionario(String matricula) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		
-		sql.append(" select matricula, cpf, rg, nome, datanascimento, sexo ");
-		sql.append(" tipo_logradouro, nome_logradouro, numero_logradouro, ");
-		sql.append(" bairro_logradouro, municipio_logradouro, uf_logradouro, ");
-		sql.append(" cep_logradouro, telefone, email, cargo, salario, dataadmissao, ");
+		sql.append(" select matricula, cpf, rg, nome, datanascimento, sexo, ");
+		sql.append(" endereco, numero, bairro, complemento, municipio, ");
+		sql.append(" uf, cep, telefone, email, cargo, salario, dataadmissao, ");
 		sql.append(" datademissao, coativo from funcionario where matricula = ? ");
 		
 		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 		
-		pstmt.setString(1, funcionario.getMatricula());
+		pstmt.setString(1, matricula);
 		
 		ResultSet rs = pstmt.executeQuery();
 		Funcionario retorno = null;
 		
 		if (rs.next()) {
 			retorno = new Funcionario();
-			String matricula = rs.getString("matricula");
 			String cpf = rs.getString("cpf");
 			String rg = rs.getString("rg");
 			String nome = rs.getString("nome");
 			String dataNascimento = rs.getString("datanascimento");
 			String sexo = rs.getString("sexo");
-			String tpLogradouro = rs.getString("tipo_logradouro");
-			String noLogradouro = rs.getString("nome_logradouro");
-			String nuLogradouro = rs.getString("numero_logradouro");
-			String baLogradouro = rs.getString("bairro_logradouro");
-			String muLogradouro = rs.getString("municipio_logradouro");
-			String ufLogradouro = rs.getString("uf_logradouro");
-			String cepLogradouro = rs.getString("cep_logradouro");
+			String endereco = rs.getString("endereco");
+			String numero = rs.getString("numero");
+			String bairro = rs.getString("bairro");
+			String complemento = rs.getString("complemento");
+			String municipio = rs.getString("municipio");
+			String uf = rs.getString("uf");
+			String cep = rs.getString("cep");
 			String telefone = rs.getString("telefone");
 			String email = rs.getString("email");
 			String cargo = rs.getString("cargo");
@@ -133,13 +130,13 @@ public class FuncionariosDAO {
 			retorno.setNome(nome);
 			retorno.setDataNascimento(dataNascimento);
 			retorno.setSexo(sexo);
-			retorno.setTipo_logradouro(tpLogradouro);
-			retorno.setNome_logradouro(noLogradouro);
-			retorno.setNumero_logradouro(nuLogradouro);
-			retorno.setBairro_logradouro(baLogradouro);
-			retorno.setMunicipio_logradouro(muLogradouro);
-			retorno.setUf_logradouro(ufLogradouro);
-			retorno.setCep_logradouro(cepLogradouro);
+			retorno.setEndereco(endereco);
+			retorno.setNumero(numero);
+			retorno.setBairro(bairro);
+			retorno.setComplemento(complemento);
+			retorno.setMunicipio(municipio);
+			retorno.setUf(uf);
+			retorno.setCep(cep);
 			retorno.setTelefone(telefone);
 			retorno.setEmail(email);
 			retorno.setCargo(cargo);
@@ -176,13 +173,13 @@ public class FuncionariosDAO {
 			String rg = rs.getString("rg");
 			String dataNascimento = rs.getString("datanascimento");
 			String sexo = rs.getString("sexo");
-			String tpLogradouro = rs.getString("tipo_logradouro");
-			String noLogradouro = rs.getString("nome_logradouro");
-			String nuLogradouro = rs.getString("numero_logradouro");
-			String baLogradouro = rs.getString("bairro_logradouro");
-			String muLogradouro = rs.getString("municipio_logradouro");
-			String ufLogradouro = rs.getString("uf_logradouro");
-			String cepLogradouro = rs.getString("cep_logradouro");
+			String endereco = rs.getString("endereco");
+			String numero = rs.getString("numero");
+			String bairro = rs.getString("bairro");
+			String complemento = rs.getString("complemento");
+			String municipio = rs.getString("municipio");
+			String uf = rs.getString("uf");
+			String cep = rs.getString("cep");
 			String telefone = rs.getString("telefone");
 			String email = rs.getString("email");
 			String cargo = rs.getString("cargo");
@@ -196,13 +193,13 @@ public class FuncionariosDAO {
 			funcionario.setRg(rg);
 			funcionario.setDataNascimento(dataNascimento);
 			funcionario.setSexo(sexo);
-			funcionario.setTipo_logradouro(tpLogradouro);
-			funcionario.setNome_logradouro(noLogradouro);
-			funcionario.setNumero_logradouro(nuLogradouro);
-			funcionario.setBairro_logradouro(baLogradouro);
-			funcionario.setMunicipio_logradouro(muLogradouro);
-			funcionario.setUf_logradouro(ufLogradouro);
-			funcionario.setCep_logradouro(cepLogradouro);
+			funcionario.setEndereco(endereco);
+			funcionario.setNumero(numero);
+			funcionario.setBairro(bairro);
+			funcionario.setComplemento(complemento);
+			funcionario.setMunicipio(municipio);
+			funcionario.setUf(uf);
+			funcionario.setCep(cep);
 			funcionario.setTelefone(telefone);
 			funcionario.setEmail(email);
 			funcionario.setCargo(cargo);

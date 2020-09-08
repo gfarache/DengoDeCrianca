@@ -15,7 +15,7 @@ public class Idade {
 		return data.toString();
 	}
 	
-	public static int calculaIdade(String dt_nasc) {
+	public int calculaIdade(String dt_nasc) {
 
 	    // Data de hoje.  
 	    GregorianCalendar hoje = new GregorianCalendar();

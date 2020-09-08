@@ -7,9 +7,24 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<h:form>
-		<center>
-			<h:graphicImage title="Dengo de Criança" url="/figuras/marcaFundo.jpg" height="150px" width="150px"/>
-		</center>
+		<!-- <h:graphicImage title="Dengo de Criança" url="/figuras/marcaFundo.jpg" height="8%" width="8%"/> -->
+		<div align="right">
+			<table border="1">
+				<tr>
+					<td>
+						<h:outputLabel value="Usuário: #{loginBean.funcionario.nome}" />
+					</td>
+					<td rowspan="2">
+						<h:commandButton value="Logout" action="#{loginBean.logout}" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h:outputLabel value="CPF: #{loginBean.funcionario.cpf}"/>
+					</td>
+				</tr>
+			</table>
+		</div>
 
 		<p:menubar>
 			<p:submenu label="Matrículas">
