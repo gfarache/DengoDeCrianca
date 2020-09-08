@@ -13,16 +13,17 @@ public class UsuarioDAO {
 	public void salvarNovoUsuario(Usuario usuario) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		
-		sql.append(" insert into usuarios (login, cpf, senha, perfil) ");
+		sql.append(" insert into usuarios (login, senha, perfil, coativo, funcionario_matricula) ");
 		sql.append(" values (?,?,?,?) ");
 		
 		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 		
 		pstmt.setString(1, usuario.getLogin());
-		pstmt.setString(2, usuario.getCpf());
-		pstmt.setString(3, usuario.getSenha());
-		pstmt.setString(4, usuario.getPerfil());
+		pstmt.setString(2, usuario.getSenha());
+		pstmt.setString(3, usuario.getPerfil());
+		pstmt.setString(4, usuario.getCoativo());
+		pstmt.setObject(5, usuario.getMatricula());
 		
 		int i = pstmt.executeUpdate();
 		
@@ -38,13 +39,12 @@ public class UsuarioDAO {
 		
 		sql.append(" update usuarios ");
 		sql.append(" set coativo = 'I' ");
-		sql.append(" where login = ? and cpf = ? ");
+		sql.append(" where login = ? ");
 		
 		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());
 		
 		pstmt.setString(1, usuario.getLogin());
-		pstmt.setString(2, usuario.getCpf());
 		
 		int i = pstmt.executeUpdate();
 		
@@ -55,10 +55,40 @@ public class UsuarioDAO {
 		}
 	}
 	
+	public Usuario usuarioLogin(String login) throws SQLException {
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" select login, senha, perfil, funcionario_matricula ");
+		sql.append(" from usuario where login = ? and coativo = 'A' ");
+		
+		Connection con = ConnectionFactory.getConnection();
+		PreparedStatement pstmt = con.prepareStatement(sql.toString());
+		
+		pstmt.setString(1, login);
+		
+		ResultSet rs = pstmt.executeQuery();
+		Usuario retorno = null;
+		
+		if (rs.next()) {
+			retorno = new Usuario();
+			
+			String loginBanco = rs.getString("login");
+			String senhaBanco = rs.getString("senha");
+			String perfil = rs.getString("perfil");
+			String funcMatricula = rs.getString("funcionario_matricula");
+			
+			retorno.setLogin(loginBanco);
+			retorno.setSenha(senhaBanco);
+			retorno.setPerfil(perfil);
+			retorno.setMatricula(funcMatricula);
+		}		
+		return retorno;	
+	}
+	
 	public Usuario buscarUsuario(Usuario usuario) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		
-		sql.append(" select cpf, senha, perfil, coativo ");
+		sql.append(" select login, senha, perfil, coativo, funcionario_matricula ");
 		sql.append(" from usuario where login = ?");
 		
 		Connection con = ConnectionFactory.getConnection();
@@ -72,15 +102,15 @@ public class UsuarioDAO {
 		if (rs.next()) {
 			retorno = new Usuario();
 			
-			String cpf = rs.getString("cpf");
+			String login = rs.getString("login");
 			String senha = rs.getString("senha");
 			String perfil = rs.getString("perfil");
 			String coAtivo = rs.getString("coativo");
 			
-			retorno.setCpf(cpf);
+			retorno.setSenha(login);
 			retorno.setSenha(senha);
 			retorno.setPerfil(perfil);
-			retorno.setCoAtivo(coAtivo);			
+			retorno.setCoativo(coAtivo);			
 		}		
 		return retorno;	
 	}
@@ -88,7 +118,7 @@ public class UsuarioDAO {
 	public ArrayList<Usuario> listarUsuarios() throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		
-		sql.append(" select login, cpf, senha, perfil, coativo ");
+		sql.append(" select login, senha, perfil, coativo, funcionario_matricula ");
 		sql.append(" from usuario order by login ");
 		
 		Connection con = ConnectionFactory.getConnection();
@@ -101,16 +131,16 @@ public class UsuarioDAO {
 			Usuario usuario = new Usuario();
 			
 			String login = rs.getString("login");
-			String cpf = rs.getString("cpf");
 			String senha = rs.getString("senha");
 			String perfil = rs.getString("perfil");
-			String coAtivo = rs.getString("coativo");
+			String coativo = rs.getString("coativo");
+			String matricula = rs.getString("funcionario_matricula");
 			
 			usuario.setLogin(login);
-			usuario.setCpf(cpf);
 			usuario.setSenha(senha);
 			usuario.setPerfil(perfil);
-			usuario.setCoAtivo(coAtivo);
+			usuario.setCoativo(coativo);
+			usuario.setMatricula(matricula);
 			
 			lista.add(usuario);
 		}

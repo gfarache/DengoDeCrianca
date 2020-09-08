@@ -300,6 +300,21 @@ public class Formatadores {
 		}
 		return sinal + valorFinal;
 	}
+	
+	public static String primeiraLetraMaiuscula(String nome) {
+	    String novo = nome.toLowerCase();
+	    String[] palavras;
+	    
+	    palavras = novo.split(" ");
+	    nome = "";
+	    
+	    for (int i = 0; i < palavras.length; i++) {
+	    	nome += palavras[i].substring(0,1).toUpperCase();
+	    	nome += palavras[i].substring(1) + " ";
+	    }
+	    nome = nome.trim();
+	    return nome;
+	}
 
 	public static void main(String[] args) {
 		String a = getHoraCompletaServidorToBanco();
@@ -315,5 +330,6 @@ public class Formatadores {
 		System.out.println(converteValorToBanco(va));
 		System.out.println(colocaFormatoMoedaSemCifrao(va));
 		System.out.println(formataDataToTela("20200811"));
+		//System.out.println(primeiraLetraMaiuscula("GUSTAVO FARACHE OLIVEIRA"));
 	}
 }

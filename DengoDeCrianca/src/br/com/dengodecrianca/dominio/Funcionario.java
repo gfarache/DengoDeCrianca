@@ -10,13 +10,13 @@ public class Funcionario {
 	private String rg = "";
 	private String dataNascimento = "";
 	private String sexo = "";
-	private String tipo_logradouro = "";
-	private String nome_logradouro = "";
-	private String numero_logradouro = "";
-	private String bairro_logradouro = "";
-	private String municipio_logradouro = "";
-	private String uf_logradouro = "";
-	private String cep_logradouro = "";
+	private String endereco = "";
+	private String numero = "";
+	private String bairro = "";
+	private String complemento = "";
+	private String municipio = "";
+	private String uf = "";
+	private String cep = "";
 	private String telefone = "";
 	private String email = "";
 	private String cargo = "";
@@ -33,13 +33,13 @@ public class Funcionario {
 		rg = "";
 		dataNascimento = "";
 		sexo = "";
-		tipo_logradouro = "";
-		nome_logradouro = "";
-		numero_logradouro = "";
-		bairro_logradouro = "";
-		municipio_logradouro = "";
-		uf_logradouro = "";
-		cep_logradouro = "";
+		endereco = "";
+		numero = "";
+		bairro = "";
+		complemento = "";
+		municipio = "";
+		uf = "";
+		cep = "";
 		telefone = "";
 		email = "";
 		cargo = "";
@@ -96,60 +96,60 @@ public class Funcionario {
 		this.sexo = sexo;
 	}
 
-	public String getTipo_logradouro() {
-		return tipo_logradouro;
+	public String getEndereco() {
+		return endereco;
 	}
 
-	public void setTipo_logradouro(String tipo_logradouro) {
-		this.tipo_logradouro = tipo_logradouro;
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
 	}
 
-	public String getNome_logradouro() {
-		return nome_logradouro;
+	public String getNumero() {
+		return numero;
 	}
 
-	public void setNome_logradouro(String nome_logradouro) {
-		this.nome_logradouro = nome_logradouro;
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 
-	public String getNumero_logradouro() {
-		return numero_logradouro;
+	public String getBairro() {
+		return bairro;
 	}
 
-	public void setNumero_logradouro(String numero_logradouro) {
-		this.numero_logradouro = numero_logradouro;
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
 	}
 
-	public String getBairro_logradouro() {
-		return bairro_logradouro;
+	public String getComplemento() {
+		return complemento;
 	}
 
-	public void setBairro_logradouro(String bairro_logradouro) {
-		this.bairro_logradouro = bairro_logradouro;
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
 	}
 
-	public String getMunicipio_logradouro() {
-		return municipio_logradouro;
+	public String getMunicipio() {
+		return municipio;
 	}
 
-	public void setMunicipio_logradouro(String municipio_logradouro) {
-		this.municipio_logradouro = municipio_logradouro;
+	public void setMunicipio(String municipio) {
+		this.municipio = municipio;
 	}
 
-	public String getUf_logradouro() {
-		return uf_logradouro;
+	public String getUf() {
+		return uf;
 	}
 
-	public void setUf_logradouro(String uf_logradouro) {
-		this.uf_logradouro = uf_logradouro;
+	public void setUf(String uf) {
+		this.uf = uf;
 	}
 
-	public String getCep_logradouro() {
-		return cep_logradouro;
+	public String getCep() {
+		return cep;
 	}
 
-	public void setCep_logradouro(String cep_logradouro) {
-		this.cep_logradouro = cep_logradouro;
+	public void setCep(String cep) {
+		this.cep = cep;
 	}
 
 	public String getTelefone() {

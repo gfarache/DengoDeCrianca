@@ -12,6 +12,9 @@ public class SelectBooleanView {
     private boolean cpfCheck = false;
     private boolean rgCheck = false;
     private boolean paiCheck = false;
+    private boolean maeRespFin = false;
+    private boolean paiRespFin = false;
+    private boolean outroRespFin = false;
  
     public boolean isCpfCheck() {
 		return cpfCheck;
@@ -37,9 +40,33 @@ public class SelectBooleanView {
 		this.paiCheck = paiCheck;
 	}
 
+	public boolean isMaeRespFin() {
+		return maeRespFin;
+	}
+
+	public void setMaeRespFin(boolean maeRespFin) {
+		this.maeRespFin = maeRespFin;
+	}
+
+	public boolean isPaiRespFin() {
+		return paiRespFin;
+	}
+
+	public void setPaiRespFin(boolean paiRespFin) {
+		this.paiRespFin = paiRespFin;
+	}
+
+	public boolean isOutroRespFin() {
+		return outroRespFin;
+	}
+
+	public void setOutroRespFin(boolean outroRespFin) {
+		this.outroRespFin = outroRespFin;
+	}
+
 	public void addMessageCPFAluno() {
         String checkCPF = cpfCheck ? "Campo para CPF do aluno habilitado" : "Campo para CPF do aluno desabilitado";
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(checkCPF));        
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(checkCPF));
     }
 	
 	public void addMessageRGAluno() {
@@ -48,7 +75,22 @@ public class SelectBooleanView {
 	}
 	
 	public void addMessagePaiCheck() {
-        String checkPai = paiCheck ? "Campo para pai do aluno habilitado" : "Campo para pai do aluno desabilitado";
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(checkPai));        
+        String checkPai = paiCheck ? "Campo de pai do aluno habilitado" : "Campo de pai do aluno desabilitado";
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(checkPai));
     }
+	
+	public void addMessageRespFinMae() {
+		String checkMaeResp = maeRespFin ? "Mãe selecionada como responsável financeiro do aluno" : "Mãe desabilitada para responsável financeiro do aluno";
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(checkMaeResp));
+	}
+	
+	public void addMessageRespFinPai() {
+		String checkPaiResp = paiRespFin ? "Pai selecionado como responsável financeiro do aluno" : "Pai desabilitado para responsável financeiro do aluno";
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(checkPaiResp));
+	}
+	
+	public void addMessageRespFinOutro() {
+		String checkOutroResp = outroRespFin ? "Campo responsável financeiro do aluno habilitado" : "Campo responsável financeiro do aluno desabilitado";
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(checkOutroResp));
+	}
 }

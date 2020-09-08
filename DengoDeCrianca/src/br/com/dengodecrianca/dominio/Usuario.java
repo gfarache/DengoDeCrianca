@@ -1,25 +1,17 @@
 package br.com.dengodecrianca.dominio;
 
 public class Usuario {
-	private String cpf = "";
 	private String login = "";
 	private String perfil = "";
 	private String senha = "";
-	private String coAtivo = "";
+	private String coativo = "";
+	private String matricula = "";
 	
 	public void limpar() {
-		cpf = "";
 		login = "";
 		perfil = "";
 		senha = "";
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
+		matricula = "";
 	}
 
 	public String getLogin() {
@@ -46,12 +38,19 @@ public class Usuario {
 		this.senha = senha;
 	}
 
-	public String getCoAtivo() {
-		return coAtivo;
+	public String getCoativo() {
+		return coativo;
 	}
 
-	public void setCoAtivo(String coAtivo) {
-		this.coAtivo = coAtivo;
+	public void setCoativo(String coativo) {
+		this.coativo = coativo;
 	}
-	
+
+	public String getMatricula() {
+		return matricula;
+	}
+
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
+	}
 }

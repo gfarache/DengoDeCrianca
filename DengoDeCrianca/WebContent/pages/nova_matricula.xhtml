@@ -12,89 +12,282 @@
 	</ui:define>
 	<ui:define name="conteudo">
 		<h:form>
-		<p:growl id="msg" life="1000"/>
-			
-			<div>
-				<table border="1">
-				<tr>
-					<td colspan="15">
-						<center>Nova Matrícula</center>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="4"><center>Dados do Aluno</center></td>
-					<td colspan="4"><center>Filiação do Aluno</center></td>
-					<td colspan="5"><center>Dados do Responsável Financeiro</center></td>
-				</tr>
+			<p:growl id="msg" life="1000" />
+
+			<div align="center">
+				<table>
 					<tr>
-						<td><p:outputLabel for="nomeAluno" value="Nome Completo: " /></td>
-						<td><p:inputText id="nomeAluno" value="#{MBAluno.aluno.nome}"/></td>
-						<td></td>
-						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-						<td><p:outputLabel for="maeAluno" value="Nome da Mãe: "/></td>
-						<td><p:inputText id="maeAluno" value="#{MBAluno.aluno.nomeMae}"/></td>
-						<td colspan="2"></td>
-						<td><p:outputLabel for="cpfResponsavel" value="CPF do Responsável: " /></td>
-						<td><p:inputText id="cpfResponsavel" value="#{MBRespFin.respFin.cpf}"/></td>
-						<td></td>
+						<td colspan="11">
+							<center>Nova Matrícula</center>
+						</td>
+					</tr>
+					<tr>
 						<td></td>
 					</tr>
 					<tr>
-						<td><p:outputLabel for="dataNascimento"	value="Data de nascimento: " /></td>
-						<td><p:inputMask id="dataNascimento" value="#{MBAluno.aluno.dataNascimento}" mask="99/99/9999" /></td>
 						<td></td>
-						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-						<td><p:outputLabel for="paiAluno" value="Nome do Pai: "/></td>
-						<td><p:inputText id="paiAluno" disabled="#{!MBBooleanCheckBox.paiCheck}" value="#{MBAluno.aluno.nomePai}"/></td>
-						<td><p:selectBooleanCheckbox value="#{MBBooleanCheckBox.paiCheck}" itemLabel="Habilitar" >
-								<f:ajax render="paiAluno" />
+					</tr>
+					<tr>
+						<td colspan="4"><center>Dados do Aluno</center></td>
+						<td colspan="7"><center>Filiação do Aluno e Dados do Responsável Financeiro</center></td>
+					</tr>
+					<tr>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+					</tr>
+					<tr>
+						<td>
+							<p:outputLabel for="nomeAluno" value="Nome Completo: " />
+						</td>
+						<td>
+							<p:inputText id="nomeAluno" value="#{MBAluno.aluno.nome}" />
+						</td>
+						<td></td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						<td>
+							<p:outputLabel for="maeAluno" value="Nome da Mãe: " />
+						</td>
+						<td>
+							<p:inputText id="maeAluno" value="#{MBAluno.aluno.nomeMae}" />
+						</td>
+						<td></td>
+						<td>
+							<p:selectBooleanCheckbox id="checkRespMae" value="#{MBBooleanCheckBox.maeRespFin}" itemLabel="Resp. Financeiro">
+								<f:ajax render="checkRespMae" />
+								<p:ajax update="msg" listener="#{MBBooleanCheckBox.addMessageRespFinMae}" />
+							</p:selectBooleanCheckbox>
+						</td>
+						<td>
+							<p:outputLabel for="cpfResponsavel"	value="CPF do Responsável: " />
+						</td>
+						<td>
+							<p:inputMask id="cpfResponsavel" value="#{MBRespFin.respFin.cpf}" mask="999.999.999-99" size="13"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p:outputLabel for="dataNasc" value="Data de nascimento: " />
+						</td>
+						<td>
+							<p:inputMask id="dataNasc" value="#{MBAluno.aluno.dataNascimento}" mask="99/99/9999" />
+						</td>
+						<td>
+							<!-- <p:outputLabel id="idadeAluno" value="#{MBAluno.idade} ano(s)" /> -->
+						</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						<td>
+							<p:outputLabel for="paiAluno" value="Nome do Pai: " />
+						</td>
+						<td>
+							<p:inputText id="paiAluno" disabled="#{!MBBooleanCheckBox.paiCheck}"
+								value="#{MBAluno.aluno.nomePai}" />
+						</td>
+						<td>
+							<p:selectBooleanCheckbox id="checkPai" value="#{MBBooleanCheckBox.paiCheck}" itemLabel="Habilitar">
+								<f:ajax render="paiAluno checkRespPai !checkRespMae" />
 								<p:ajax update="msg" listener="#{MBBooleanCheckBox.addMessagePaiCheck}" />
-							</p:selectBooleanCheckbox></td>
-						<td></td>
-						<td><p:outputLabel for="rgResponsavel" value="RG do Responsável: " /></td>
-						<td><p:inputText id="rgResponsavel" value="#{MBRespFin.respFin.rg}"/></td>
+							</p:selectBooleanCheckbox>
+						</td>
+						<td>
+							<p:selectBooleanCheckbox id="checkRespPai" disabled="#{!MBBooleanCheckBox.maeRespFin}"
+									value="#{MBBooleanCheckBox.paiRespFin}" itemLabel="Resp. Financeiro">
+								<f:ajax render="checkRespPai" />
+								<p:ajax update="msg" listener="#{MBBooleanCheckBox.addMessageRespFinPai}" />
+							</p:selectBooleanCheckbox>
+						</td>
+						<td>
+							<p:outputLabel for="rgResponsavel" value="RG do Responsável: " />
+						</td>
+						<td>
+							<p:inputText id="rgResponsavel" value="#{MBRespFin.respFin.rg}" size="10"/>
+						</td>
 					</tr>
 					<tr>
 						<td><p:outputLabel for="rgAluno" value="RG: " /></td>
-						<td><p:inputText id="rgAluno" disabled="#{!MBBooleanCheckBox.rgCheck}" value="#{MBAluno.aluno.rg}"/></td>
-						<td><p:selectBooleanCheckbox value="#{MBBooleanCheckBox.rgCheck}" itemLabel="Habilitar" >
+						<td><p:inputText id="rgAluno"
+								disabled="#{!MBBooleanCheckBox.rgCheck}"
+								value="#{MBAluno.aluno.rg}" size="10" /></td>
+						<td><p:selectBooleanCheckbox
+								value="#{MBBooleanCheckBox.rgCheck}" itemLabel="Habilitar">
 								<f:ajax render="rgAluno" />
-								<p:ajax update="msg" listener="#{MBBooleanCheckBox.addMessageRGAluno}" />
+								<p:ajax update="msg"
+									listener="#{MBBooleanCheckBox.addMessageRGAluno}" />
 							</p:selectBooleanCheckbox></td>
-						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						<td>
+							<p:outputLabel for="endereco" value="Endereço: "/>
+						</td>
+						<td>
+							<p:inputText id="endereco" value="#{MBRespFin.respFin.endereco}"/>
+						</td>
+						<td>
+							<p:outputLabel for="numeroEnd" value="Número: "/>
+						</td>
+						<td>
+							<p:inputText id="numeroEnd" value="#{MBRespFin.respFin.numero}" size="5" maxlength="10"/>
+						</td>
+						<td>
+							<p:outputLabel for="nomeResponsavel" value="Nome Completo do Responsável:"/>
+						</td>
+						<td>
+							<p:inputText id="nomeResponsavel" value="#{MBRespFin.respFin.nome}" size="15" maxlength="100"/>
+						</td>
 						
+
 					</tr>
 					<tr>
-						<td><p:outputLabel for="cpfAluno" value="CPF: " /></td>
-						<td><p:inputMask id="cpfAluno" value="#{MBAluno.aluno.cpf}" mask="999.999.999-99"
-								disabled="#{!MBBooleanCheckBox.cpfCheck}" /></td>
-						<td><p:selectBooleanCheckbox value="#{MBBooleanCheckBox.cpfCheck}" itemLabel="Habilitar" >
+						<td>
+							<p:outputLabel for="cpfAluno" value="CPF: " />
+						</td>
+						<td>
+							<p:inputMask id="cpfAluno" value="#{MBAluno.aluno.cpf}"
+								mask="999.999.999-99" disabled="#{!MBBooleanCheckBox.cpfCheck}" size="13"/>
+						</td>
+						<td>
+							<p:selectBooleanCheckbox
+								value="#{MBBooleanCheckBox.cpfCheck}" itemLabel="Habilitar">
 								<f:ajax render="cpfAluno" />
 								<p:ajax update="msg" listener="#{MBBooleanCheckBox.addMessageCPFAluno}" />
 							</p:selectBooleanCheckbox>
 						</td>
-						<td></td>
-						<td></td>
+						<td>
+						</td>
+						<td>
+							<p:outputLabel for="bairro" value="Bairro: "/>
+						</td>
+						<td>
+							<p:inputText id="bairro" value="#{MBRespFin.respFin.bairro}" size="15"/>
+						</td>
+						<td>
+							<p:outputLabel for="complemento" value="Complemento: "/>
+						</td>
+						<td>
+							<p:inputText id="complemento" value="#{MBRespFin.respFin.complemento}" size="13" maxlength="20" />
+						</td>						
+						<td>
+							<p:outputLabel for="parentesco" value="Parentesco: "/>
+						</td>
+						<td>
+							<p:selectOneMenu id="parentesco" value="#{MBRespFin.respFin.parentesco}">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItem itemLabel="Mãe" itemValue="Mãe" />
+								<f:selectItem itemLabel="Pai" itemValue="Pai" />
+								<f:selectItem itemLabel="Avó" itemValue="Avó" />
+								<f:selectItem itemLabel="Avô" itemValue="Avô" />
+								<f:selectItem itemLabel="Madrasta" itemValue="Madrasta" />
+								<f:selectItem itemLabel="Padrasto" itemValue="Padrasto" />
+								<f:selectItem itemLabel="Tia" itemValue="Tia" />
+								<f:selectItem itemLabel="Tio" itemValue="Tio" />
+								<f:selectItem itemLabel="Irmã" itemValue="Irmã" />
+								<f:selectItem itemLabel="Irmão" itemValue="Irmão" />
+							</p:selectOneMenu>
+						</td>
+						
 					</tr>
 					<tr>
-						<td><p:outputLabel for="sexo" value="Sexo: "/></td>
-						<td><p:selectOneMenu id="sexo" value="#{selectOneMenuView.sexoAluno}">
+						<td><p:outputLabel for="sexo" value="Sexo: " /></td>
+						<td><p:selectOneMenu id="sexo"
+								value="#{selectOneMenuView.sexoAluno}">
+								<f:selectItem itemLabel="" itemValue="" />
 								<f:selectItem itemLabel="Feminino" itemValue="F" />
 								<f:selectItem itemLabel="Masculino" itemValue="M" />
+							</p:selectOneMenu></td>
+						<td colspan="2"></td>
+						<td>
+							<p:outputLabel for="municipio" value="Município: "/>
+						</td>
+						<td>
+							<p:inputText id="municipio" value="#{MBRespFin.respFin.municipio}" size="15"/>
+						</td>
+						<td>
+							<p:outputLabel for="uf" value="UF: "/>
+						</td>
+						<td>
+							<p:selectOneMenu id="uf" size="15" value="#{MBRespFin.respFin.uf}">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItem itemLabel="AC - Acre" itemValue="AC" />
+								<f:selectItem itemLabel="AL - Alagoas" itemValue="AL" />
+								<f:selectItem itemLabel="AP - Amapá" itemValue="AP" />
+								<f:selectItem itemLabel="AM - Amazonas" itemValue="AM" />
+								<f:selectItem itemLabel="BA - Bahia" itemValue="BA" />
+								<f:selectItem itemLabel="CE - Ceará" itemValue="CE" />
+								<f:selectItem itemLabel="DF - Distrito Federal" itemValue="DF" />
+								<f:selectItem itemLabel="ES - Espírito Santo" itemValue="ES" />
+								<f:selectItem itemLabel="GO - Goiás" itemValue="GO" />
+								<f:selectItem itemLabel="MA - Maranhão" itemValue="MA" />
+								<f:selectItem itemLabel="MT - Mato Grosso" itemValue="MT" />
+								<f:selectItem itemLabel="MS - Mato Grosso do Sul" itemValue="MS" />
+								<f:selectItem itemLabel="MG - Minas Gerais" itemValue="MG" />
+								<f:selectItem itemLabel="PA - Pará" itemValue="PA" />
+								<f:selectItem itemLabel="PB - Paraíba" itemValue="PB" />
+								<f:selectItem itemLabel="PR - Paraná" itemValue="PR" />
+								<f:selectItem itemLabel="PE - Pernambuco" itemValue="PE" />
+								<f:selectItem itemLabel="PI - Piauí" itemValue="PI" />
+								<f:selectItem itemLabel="RJ - Rio de Janeiro" itemValue="RJ" />
+								<f:selectItem itemLabel="RN - Rio Grande do Norte" itemValue="RN" />
+								<f:selectItem itemLabel="RS - Rio Grande do Sul" itemValue="RS" />
+								<f:selectItem itemLabel="RO - Rondônia" itemValue="RO" />
+								<f:selectItem itemLabel="RR - Roraima" itemValue="RR" />
+								<f:selectItem itemLabel="SC - Santa Catarina" itemValue="SC" />
+								<f:selectItem itemLabel="SP - São Paulo" itemValue="SP" />
+								<f:selectItem itemLabel="SE - Sergipe" itemValue="SE" />
+								<f:selectItem itemLabel="TO - Tocantins" itemValue="TO" />
 							</p:selectOneMenu>
+						</td>
+						<td align="center" colspan="2">
+							<p:selectBooleanCheckbox value="#{MBBooleanCheckBox.outroRespFin}" itemLabel="Habilitar Responsável">
+									<f:ajax render="nomeResponsavel" />
+									<p:ajax update="msg" listener="#{MBBooleanCheckBox.addMessageRespFinOutro}" />
+							</p:selectBooleanCheckbox>
+						</td>
+						
+					</tr>
+					<tr>
+						<td><p:outputLabel for="turno" value="Turno: " /></td>
+						<td><p:selectOneMenu id="turno"
+								value="#{selectOneMenuView.turno}">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItem itemLabel="Integral" itemValue="I" />
+								<f:selectItem itemLabel="Meio-período (manhã)" itemValue="MPM" />
+								<f:selectItem itemLabel="Meio-período (tarde)" itemValue="MPT" />
+							</p:selectOneMenu></td>
+						<td colspan="2"></td>
+						<td>
+							<p:outputLabel for="cep" value="CEP: "/>
+						</td>
+						<td>
+							<p:inputMask id="cep" value="#{MBRespFin.respFin.cep}" mask="99999-999" size="6"/>
+						</td>
+						<td>
+							<p:outputLabel for="telefone" value="Telefone: "/>
+						</td>
+						<td>
+							<p:inputMask id="telefone" value="#{MBRespFin.respFin.telefone}" mask="(99) 99999-9999" size="6"/>
+						</td>
+						<td>
+							<p:outputLabel for="email" value="E-Mail: "/>
+						</td>
+						<td>
+							<p:inputText id="email" value="#{MBRespFin.respFin.email}" size="15"/>
 						</td>
 					</tr>
 					<tr>
-						<td><p:outputLabel for="turno" value="Turno: "/></td>
-						<td><p:selectOneMenu id="turno" value="#{selectOneMenuView.turno}">
-							<f:selectItem itemLabel="Integral" itemValue="I" />
-							<f:selectItem itemLabel="Meio-período (manhã)" itemValue="MPM" />
-							<f:selectItem itemLabel="Meio-período (tarde)" itemValue="MPT" />
-						</p:selectOneMenu></td>
+						<td>
+							<p:outputLabel for="mensalidade" value="Valor da mensalidade: "/>
+						</td>
+						<td>
+							<p:outputLabel id="mensalidade" value="R$ " />
+						</td>
+					</tr>
+					<tr>
+					<td align="center" colspan="11">
+						<p:commandButton value="Salvar" />
+						<p:commandButton value="Cancelar" />
+						<p:commandButton value="Limpar" />
+					</td>
+					
 					</tr>
 				</table>
 			</div>
