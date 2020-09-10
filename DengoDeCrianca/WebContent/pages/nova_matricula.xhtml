@@ -15,7 +15,7 @@
 			<p:growl id="msg" life="1000" />
 
 			<div align="center">
-				<table border="1">
+				<table>
 					<tr>
 						<td colspan="11">
 							<center>Nova Matrícula</center>
@@ -37,6 +37,8 @@
 					<tr>
 						<td></td>
 					</tr>
+					
+					
 					<tr>
 						<td>
 							<p:outputLabel for="nomeAluno" value="Nome Completo: " />
@@ -59,7 +61,8 @@
 								<f:ajax render="checkRespMae" />
 								<f:ajax render="checkRespPai" />
 								<f:ajax render="outroRespFin" />
-								<f:ajax render="nomeResponsavel" />								
+								<f:ajax render="nomeResponsavel" />
+								<f:ajax render="parentesco" />
 								<p:ajax update="msg" listener="#{MBBooleanCheckBox.addMessageRespFinMae}" />
 							</p:selectBooleanCheckbox>
 						</td>
@@ -70,12 +73,16 @@
 							<p:inputMask id="cpfResponsavel" value="#{MBRespFin.respFin.cpf}" mask="999.999.999-99" size="15"/>
 						</td>
 					</tr>
+					
+					
 					<tr>
 						<td>
 							<p:outputLabel for="dataNasc" value="Data de nascimento: " />
 						</td>
 						<td>
-							<p:inputMask id="dataNasc" value="#{MBAluno.aluno.dataNascimento}" mask="99/99/9999" />
+							<p:inputMask id="dataNasc" value="#{MBAluno.dataNasc}" mask="99/99/9999" >
+								<f:ajax event="blur" listener="#{MBAluno.calculaIdade}" render="idadeAluno"/>							
+							</p:inputMask>
 						</td>
 						<td>
 							<p:outputLabel id="idadeAluno" value="#{MBAluno.idade} ano(s)" />
@@ -101,10 +108,11 @@
 						<td>
 							<p:selectBooleanCheckbox id="checkRespPai" 
 							disabled="#{!MBBooleanCheckBox.paiCheck || MBBooleanCheckBox.outroRespFin || MBBooleanCheckBox.maeRespFin}"
-									value="#{MBBooleanCheckBox.paiRespFin}"  itemLabel="Resp. Financeiro">
+							value="#{MBBooleanCheckBox.paiRespFin}"  itemLabel="Resp. Financeiro">
 								<f:ajax render="checkRespMae" />
 								<f:ajax render="outroRespFin" />
-								<f:ajax render="nomeResponsavel" />								
+								<f:ajax render="nomeResponsavel" />
+								<f:ajax render="parentesco" />
 								<p:ajax update="msg" listener="#{MBBooleanCheckBox.addMessageRespFinPai}" />
 							</p:selectBooleanCheckbox>
 						</td>
@@ -115,16 +123,14 @@
 							<p:inputText id="rgResponsavel" value="#{MBRespFin.respFin.rg}" size="15"/>
 						</td>
 					</tr>
+					
+					
 					<tr>
 						<td><p:outputLabel for="rgAluno" value="RG: " /></td>
-						<td><p:inputText id="rgAluno"
-								disabled="#{!MBBooleanCheckBox.rgCheck}"
-								value="#{MBAluno.aluno.rg}" size="10" /></td>
-						<td><p:selectBooleanCheckbox
-								value="#{MBBooleanCheckBox.rgCheck}" itemLabel="Habilitar">
+						<td><p:inputText id="rgAluno" disabled="#{!MBBooleanCheckBox.rgCheck}" value="#{MBAluno.aluno.rg}" size="10" /></td>
+						<td><p:selectBooleanCheckbox value="#{MBBooleanCheckBox.rgCheck}" itemLabel="Habilitar">
 								<f:ajax render="rgAluno" />
-								<p:ajax update="msg"
-									listener="#{MBBooleanCheckBox.addMessageRGAluno}" />
+								<p:ajax update="msg" listener="#{MBBooleanCheckBox.addMessageRGAluno}" />
 							</p:selectBooleanCheckbox></td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 						<td>
@@ -147,9 +153,9 @@
 							disabled="#{MBBooleanCheckBox.paiRespFin || MBBooleanCheckBox.maeRespFin}" 
 							size="15" maxlength="100"/>
 						</td>
-						
-
 					</tr>
+					
+					
 					<tr>
 						<td>
 							<p:outputLabel for="cpfAluno" value="CPF: " />
@@ -183,7 +189,8 @@
 							<p:outputLabel for="parentesco" value="Parentesco: "/>
 						</td>
 						<td>
-							<p:selectOneMenu id="parentesco" value="#{MBRespFin.respFin.parentesco}">
+							<p:selectOneMenu id="parentesco" value="#{MBRespFin.respFin.parentesco}"
+							disabled="#{MBBooleanCheckBox.paiRespFin || MBBooleanCheckBox.maeRespFin}">
 								<f:selectItem itemLabel="" itemValue="" />
 								<f:selectItem itemLabel="Avó" itemValue="Avó" />
 								<f:selectItem itemLabel="Avô" itemValue="Avô" />
@@ -195,8 +202,9 @@
 								<f:selectItem itemLabel="Irmão" itemValue="Irmão" />
 							</p:selectOneMenu>
 						</td>
-						
 					</tr>
+					
+					
 					<tr>
 						<td><p:outputLabel for="sexo" value="Sexo: " /></td>
 						<td><p:selectOneMenu id="sexo"
@@ -256,8 +264,9 @@
 									<p:ajax update="msg" listener="#{MBBooleanCheckBox.addMessageRespFinOutro}" />
 							</p:selectBooleanCheckbox>
 						</td>
-						
 					</tr>
+					
+					
 					<tr>
 						<td><p:outputLabel for="turno" value="Turno: " /></td>
 						<td><p:selectOneMenu id="turno"
@@ -287,22 +296,26 @@
 							<p:inputText id="email" value="#{MBRespFin.respFin.email}" size="20"/>
 						</td>
 					</tr>
-					<tr>
+					
+					
+					<!-- <tr>
 						<td>
 							<p:outputLabel for="mensalidade" value="Valor da mensalidade: "/>
 						</td>
 						<td>
 							<p:outputLabel id="mensalidade" value="R$ " />
 						</td>
-					</tr>
+					</tr> -->
+					
+					
 					<tr>
 					<td align="center" colspan="11">
 						<p:commandButton value="Salvar" />
 						<p:commandButton value="Cancelar" />
 						<p:commandButton value="Limpar" />
 					</td>
-					
 					</tr>
+					
 				</table>
 			</div>
 

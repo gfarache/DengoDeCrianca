@@ -15,6 +15,7 @@ import br.com.dengodecrianca.util.Mensagem;
 @ViewScoped
 public class RespFinBean {
 	private ResponsavelFinanceiro respFin;
+	private String mensalidade;
 	private ArrayList<ResponsavelFinanceiro> itens;
 	private ArrayList<ResponsavelFinanceiro> itensFiltrados;
 	
@@ -24,6 +25,14 @@ public class RespFinBean {
 
 	public void setRespFin(ResponsavelFinanceiro respFin) {
 		this.respFin = respFin;
+	}
+	
+	public String getMensalidade() {
+		return mensalidade;
+	}
+	
+	public void setMensalidade(String mensalidade) {
+		this.mensalidade = mensalidade;
 	}
 	
 	public ArrayList<ResponsavelFinanceiro> getItens() {
@@ -112,4 +121,10 @@ public class RespFinBean {
 			e.printStackTrace();
 		}
 	}
+	
+	/*public void calculaMensalidade() {
+		if ( ){
+			
+		}
+	}*/
 }

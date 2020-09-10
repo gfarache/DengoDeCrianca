@@ -16,6 +16,7 @@ import br.com.dengodecrianca.util.Idade;
 public class AlunoBean {
 	private Aluno aluno;
 	private String idade;
+	private String dataNasc;
 	private ArrayList<Aluno> itens;
 	private ArrayList<Aluno> itensFiltrados;
 
@@ -33,6 +34,14 @@ public class AlunoBean {
 
 	public void setIdade(String idade) {
 		this.idade = idade;
+	}
+	
+	public String getDataNasc() {
+		return dataNasc;
+	}
+	
+	public void setDataNasc(String dataNasc) {
+		this.dataNasc = dataNasc;
 	}
 
 	public ArrayList<Aluno> getItens() {
@@ -63,9 +72,8 @@ public class AlunoBean {
 		}
 	}
 	
-	public String calculaIdade(String dataNascimento) {
+	public void calculaIdade() {
 		Idade i = new Idade();
-		idade = Integer.toString(i.calculaIdade(aluno.getDataNascimento()));		
-		return idade;
+		idade = Integer.toString(i.calculaIdade(dataNasc));		
 	}
 }
