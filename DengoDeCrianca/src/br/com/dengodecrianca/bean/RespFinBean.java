@@ -16,6 +16,7 @@ import br.com.dengodecrianca.util.Mensagem;
 public class RespFinBean {
 	private ResponsavelFinanceiro respFin;
 	private String mensalidade;
+	private String turno;
 	private ArrayList<ResponsavelFinanceiro> itens;
 	private ArrayList<ResponsavelFinanceiro> itensFiltrados;
 	
