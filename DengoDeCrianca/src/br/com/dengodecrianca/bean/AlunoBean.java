@@ -22,6 +22,9 @@ public class AlunoBean {
 	private String idade;
 	private String dataNasc;
 	private String serie;
+	private String turno;
+	private String mensalidade;
+	private String sexoAluno;
 	private ArrayList<Aluno> itens;
 	private ArrayList<Aluno> itensFiltrados;
 
@@ -55,6 +58,30 @@ public class AlunoBean {
 	
 	public void setSerie(String serie) {
 		this.serie = serie;
+	}
+	
+	public String getTurno() {
+		return turno;
+	}
+	
+	public void setTurno(String turno) {
+		this.turno = turno;
+	}
+	
+	public String getMensalidade() {
+		return mensalidade;
+	}
+	
+	public void setMensalidade(String mensalidade) {
+		this.mensalidade = mensalidade;
+	}
+	
+	public String getSexoAluno() {
+		return sexoAluno;
+	}
+	
+	public void setSexoAluno(String sexoAluno) {
+		this.sexoAluno = sexoAluno;
 	}
 
 	public ArrayList<Aluno> getItens() {
@@ -93,9 +120,13 @@ public class AlunoBean {
 				GregorianCalendar hoje = new GregorianCalendar();
 			    int mesH = hoje.get(Calendar.MONTH) + 1;
 			    
-			    // Data do nascimento.
 			    int mesN = Integer.valueOf(dataNasc.substring(3,5));
-			    int meses = mesH - mesN;
+			    int meses;
+			    if (mesN < mesH) {
+			    	meses = mesH - mesN;	
+			    } else {
+			    	meses = mesN - mesH;
+			    }			    
 			    if (meses <= 1) {
 			    	this.idade  = Integer.toString(meses) + " mês";
 			    } else {
@@ -103,8 +134,7 @@ public class AlunoBean {
 			    }
 			} else {
 				this.idade = Integer.toString(idade) + " ano";
-			}
-			
+			}			
 		} else {
 			this.idade = Integer.toString(idade) + " anos";
 		}
@@ -112,7 +142,9 @@ public class AlunoBean {
 	
 	public void selectSerie() {
 		String idade = this.idade.substring(0,2).trim();
-		if (Integer.parseInt(idade) < 0 && Integer.parseInt(idade) >= 1) {
+		if (this.idade.contains(" mês") || this.idade.contains(" meses")) {
+			serie = "Berçário";
+		} else if (Integer.parseInt(idade) == 1) {
 			serie = "Berçário";
 		} else if (Integer.parseInt(idade) > 1 && Integer.parseInt(idade) <= 2) {
 			serie = "Jardim I";
@@ -132,6 +164,16 @@ public class AlunoBean {
 			serie = "4º ano - E.F.";
 		} else if (Integer.parseInt(idade) > 9 && Integer.parseInt(idade) <= 10) {
 			serie = "5º ano - E.F.";
+		}
+	}
+	
+	public void getBancoMensalidade() {
+		if (turno != null && turno.equals("I")) {
+			mensalidade = "R$ 800,00";
+		} else if (turno != null && turno.equals("MPM")) {
+			mensalidade = "R$ 400,00";
+		} else if (turno != null && turno.equals("MPT")) {
+			mensalidade = "R$ 400,00";
 		}
 	}
 }

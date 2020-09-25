@@ -16,37 +16,41 @@
 
 			<div align="center">
 				<table border="1">
+					
 					<tr>
 						<td colspan="11">
 							<center>Nova Matrícula</center>
 						</td>
 					</tr>
+					
 					<tr>
 						<td></td>
 					</tr>
+					
 					<tr>
 						<td></td>
 					</tr>
+					
 					<tr>
 						<td colspan="4"><center>Dados do Aluno</center></td>
 						<td colspan="7"><center>Filiação do Aluno e Dados do Responsável Financeiro</center></td>
 					</tr>
-					<tr>
-						<td></td>
-					</tr>
+					
 					<tr>
 						<td></td>
 					</tr>
 					
+					<tr>
+						<td></td>
+					</tr>
 					
 					<tr>
 						<td>
-							<p:outputLabel for="nomeAluno" value="Nome Completo: " />
+							<p:outputLabel for="nomeAluno" value="Nome completo: " />
 						</td>
-						<td>
-							<p:inputText id="nomeAluno" value="#{MBAluno.aluno.nome}" />
+						<td colspan="2">
+							<p:inputText id="nomeAluno" value="#{MBAluno.aluno.nome}" size="38" />
 						</td>
-						<td></td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 						<td>
 							<p:outputLabel for="maeAluno" value="Nome da Mãe: " />
@@ -73,12 +77,13 @@
 							<p:inputMask id="cpfResponsavel" value="#{MBRespFin.respFin.cpf}" mask="999.999.999-99" size="15"/>
 						</td>
 					</tr>
+					
 					<tr>
 						<td>
 							<p:outputLabel for="dataNasc" value="Data de nascimento: " />
 						</td>
 						<td>
-							<p:inputMask id="dataNasc" value="#{MBAluno.dataNasc}" mask="99/99/9999" >
+							<p:inputMask id="dataNasc" value="#{MBAluno.dataNasc}" mask="99/99/9999" size="10" >
 								<f:ajax event="blur" listener="#{MBAluno.calculaIdade}" render="idadeAluno"/>
 								<f:ajax event="blur" listener="#{MBAluno.selectSerie}" render="serieAluno" />
 							</p:inputMask>
@@ -123,13 +128,12 @@
 						</td>
 					</tr>
 					
-					
 					<tr>
 						<td>
 							<p:outputLabel for="serieAluno" value="Série: "/>
 						</td>
 						<td>
-							<p:inputText id="serieAluno" value="#{MBAluno.serie}" size="20" />
+							<p:inputText id="serieAluno" value="#{MBAluno.serie}" size="10" readonly="#{!MBBooleanCheckBox.editarSerieAluno}"/>
 						</td>
 						<td>
 							<p:selectBooleanCheckbox value="#{MBBooleanCheckBox.editarSerieAluno}" itemLabel="Editar">
@@ -159,7 +163,6 @@
 							size="15" maxlength="100"/>
 						</td>
 					</tr>
-					
 					
 					<tr>
 						<td>
@@ -206,7 +209,6 @@
 							</p:selectOneMenu>
 						</td>
 					</tr>
-					
 					
 					<tr>
 						<td>
@@ -276,14 +278,12 @@
 						</td>
 					</tr>
 					
-					
 					<tr>
-					
 						<td>
 							<p:outputLabel for="sexo" value="Sexo: " />
 						</td>
 						<td>
-							<p:selectOneMenu id="sexo" value="#{selectOneMenuView.sexoAluno}">
+							<p:selectOneMenu id="sexo" value="#{MBAluno.sexoAluno}">
 								<f:selectItem itemLabel="" itemValue="" />
 								<f:selectItem itemLabel="Feminino" itemValue="F" />
 								<f:selectItem itemLabel="Masculino" itemValue="M" />
@@ -296,54 +296,46 @@
 							<p:outputLabel for="cep" value="CEP: "/>
 						</td>
 						<td>
-							<p:inputMask id="cep" value="#{MBRespFin.respFin.cep}" mask="99999-999" size="6"/>
+							<p:inputMask id="cep" value="#{MBRespFin.respFin.cep}" mask="99999-999" size="8"/>
 						</td>
 						<td>
 							<p:outputLabel for="telefone" value="Telefone: "/>
 						</td>
 						<td>
-							<p:inputMask id="telefone" value="#{MBRespFin.respFin.telefone}" mask="(99) 99999-9999" size="6"/>
+							<p:inputMask id="telefone" value="#{MBRespFin.respFin.telefone}" mask="(99) 99999-9999" size="15"/>
 						</td>
 						<td>
-							<p:outputLabel for="email" value="E-Mail: "/>
+							<p:outputLabel for="email" value="E-mail: "/>
 						</td>
 						<td>
 							<p:inputText id="email" value="#{MBRespFin.respFin.email}" size="20"/>
 						</td>
 					</tr>
+					
 					<tr>
 						<td>
 							<p:outputLabel for="turno" value="Turno: "/>
 						</td>
 						<td>
-							<p:selectOneMenu id="turno"
-								value="#{selectOneMenuView.turno}">
+							<p:selectOneMenu id="turno"	value="#{MBAluno.turno}">
 								<f:selectItem itemLabel="" itemValue="" />
 								<f:selectItem itemLabel="Integral" itemValue="I" />
 								<f:selectItem itemLabel="Meio-período (manhã)" itemValue="MPM" />
 								<f:selectItem itemLabel="Meio-período (tarde)" itemValue="MPT" />
+								<f:ajax event="blur" listener="#{MBAluno.getBancoMensalidade}" render="mensalidade" />
 							</p:selectOneMenu>
 						</td>
 					</tr>
-					<tr>
-						<td>
-							<p:outputLabel for="mensalidade" value="Valor da Mensalidade"/>
-						</td>
-						<td>
-							<p:inputText id="mensalidade" disabled="true" value="R$ 800,00"/>
-						</td>
-					</tr>
 					
-					<!-- <tr>
+					<tr>
 						<td>
 							<p:outputLabel for="mensalidade" value="Valor da mensalidade: "/>
 						</td>
 						<td>
-							<p:outputLabel id="mensalidade" value="R$ " />
+							<p:inputText id="mensalidade" readonly="true" value="#{MBAluno.mensalidade} xxx"/>
 						</td>
-					</tr> -->
-					
-					
+					</tr>
+										
 					<tr>
 					<td align="center" colspan="11">
 						<p:commandButton value="Salvar" />
