@@ -204,7 +204,11 @@ CREATE TABLE IF NOT EXISTS `dengodecrianca`.`uflogradouro` (
   `couf` VARCHAR(2) NOT NULL,
   `nomeuf` VARCHAR(25) NOT NULL,
   PRIMARY KEY (`iduflogradouro`, `couf`, `nomeuf`));
-
+  
+CREATE TABLE `dengodecrianca`.`mensalidades` (
+  `turno` VARCHAR(20) NOT NULL,
+  `valor` DECIMAL(6,2) NOT NULL,
+  PRIMARY KEY (`turno`));
   
 ---------------------------------------------------------------------------------------------------------
   

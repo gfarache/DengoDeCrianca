@@ -112,7 +112,7 @@ public class AlunoBean {
 	
 	public void calculaIdade() {
 		Idade i = new Idade();
-		String idade = i.calculaIdade(dataNasc);			
+		this.idade = i.calculaIdade(dataNasc);			
 	}
 	
 	public void selectSerie() {
@@ -143,7 +143,9 @@ public class AlunoBean {
 	}
 	
 	public void getBancoMensalidade() {
-		if (turno != null && turno.equals("I")) {
+		if (turno == null || turno.equals("")) {
+			mensalidade = "R$ 0,00";			
+		} else if (turno != null && turno.equals("I")) {
 			mensalidade = "R$ 800,00";
 		} else if (turno != null && turno.equals("MPM")) {
 			mensalidade = "R$ 400,00";
