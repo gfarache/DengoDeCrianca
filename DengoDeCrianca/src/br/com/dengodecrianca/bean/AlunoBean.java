@@ -2,10 +2,14 @@ package br.com.dengodecrianca.bean;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+
+import org.hamcrest.core.SubstringMatcher;
 
 import br.com.dengodecrianca.dao.AlunosDAO;
 import br.com.dengodecrianca.dominio.Aluno;
@@ -16,6 +20,11 @@ import br.com.dengodecrianca.util.Idade;
 public class AlunoBean {
 	private Aluno aluno;
 	private String idade;
+	private String dataNasc;
+	private String serie;
+	private String turno;
+	private String mensalidade;
+	private String sexoAluno;
 	private ArrayList<Aluno> itens;
 	private ArrayList<Aluno> itensFiltrados;
 
@@ -33,6 +42,46 @@ public class AlunoBean {
 
 	public void setIdade(String idade) {
 		this.idade = idade;
+	}
+	
+	public String getDataNasc() {
+		return dataNasc;
+	}
+	
+	public void setDataNasc(String dataNasc) {
+		this.dataNasc = dataNasc;
+	}
+	
+	public String getSerie() {
+		return serie;
+	}
+	
+	public void setSerie(String serie) {
+		this.serie = serie;
+	}
+	
+	public String getTurno() {
+		return turno;
+	}
+	
+	public void setTurno(String turno) {
+		this.turno = turno;
+	}
+	
+	public String getMensalidade() {
+		return mensalidade;
+	}
+	
+	public void setMensalidade(String mensalidade) {
+		this.mensalidade = mensalidade;
+	}
+	
+	public String getSexoAluno() {
+		return sexoAluno;
+	}
+	
+	public void setSexoAluno(String sexoAluno) {
+		this.sexoAluno = sexoAluno;
 	}
 
 	public ArrayList<Aluno> getItens() {
@@ -63,9 +112,68 @@ public class AlunoBean {
 		}
 	}
 	
-	public String calculaIdade(String dataNascimento) {
+	public void calculaIdade() {
 		Idade i = new Idade();
-		idade = Integer.toString(i.calculaIdade(aluno.getDataNascimento()));		
-		return idade;
+		int idade = i.calculaIdade(dataNasc);
+		if (idade <= 1) {
+			if (idade == 0) {
+				GregorianCalendar hoje = new GregorianCalendar();
+			    int mesH = hoje.get(Calendar.MONTH) + 1;
+			    
+			    int mesN = Integer.valueOf(dataNasc.substring(3,5));
+			    int meses;
+			    if (mesN < mesH) {
+			    	meses = mesH - mesN;	
+			    } else {
+			    	meses = mesN - mesH;
+			    }			    
+			    if (meses <= 1) {
+			    	this.idade  = Integer.toString(meses) + " mês";
+			    } else {
+			    	this.idade  = Integer.toString(meses) + " meses";
+			    }
+			} else {
+				this.idade = Integer.toString(idade) + " ano";
+			}			
+		} else {
+			this.idade = Integer.toString(idade) + " anos";
+		}
+	}
+	
+	public void selectSerie() {
+		String idade = this.idade.substring(0,2).trim();
+		if (this.idade.contains(" mês") || this.idade.contains(" meses")) {
+			serie = "Berçário";
+		} else if (Integer.parseInt(idade) == 1) {
+			serie = "Berçário";
+		} else if (Integer.parseInt(idade) > 1 && Integer.parseInt(idade) <= 2) {
+			serie = "Jardim I";
+		} else if (Integer.parseInt(idade) > 2 && Integer.parseInt(idade) <= 3) {
+			serie = "Jardim II";
+		} else if (Integer.parseInt(idade) > 3 && Integer.parseInt(idade) <= 4) {
+			serie = "1º período";
+		} else if (Integer.parseInt(idade) > 4 && Integer.parseInt(idade) <= 5) {
+			serie = "2º período";
+		} else if (Integer.parseInt(idade) > 5 && Integer.parseInt(idade) <= 6) {
+			serie = "1º ano - E.F.";
+		} else if (Integer.parseInt(idade) > 6 && Integer.parseInt(idade) <= 7) {
+			serie = "2º ano - E.F.";
+		} else if (Integer.parseInt(idade) > 7 && Integer.parseInt(idade) <= 8) {
+			serie = "3º ano - E.F.";
+		} else if (Integer.parseInt(idade) > 8 && Integer.parseInt(idade) <= 9) {
+			serie = "4º ano - E.F.";
+		} else if (Integer.parseInt(idade) > 9 && Integer.parseInt(idade) <= 10) {
+			serie = "5º ano - E.F.";
+		}
+	}
+	
+	public void getBancoMensalidade() {
+		if (turno != null && turno.equals("I")) {
+			mensalidade = "R$ 800,00";
+		} else if (turno != null && turno.equals("MPM")) {
+			mensalidade = "R$ 400,00";
+		} else if (turno != null && turno.equals("MPT")) {
+			mensalidade = "R$ 400,00";
+		}
 	}
 }

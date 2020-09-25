@@ -15,6 +15,8 @@ public class SelectBooleanView {
     private boolean maeRespFin = false;
     private boolean paiRespFin = false;
     private boolean outroRespFin = false;
+    private boolean editarSerieAluno = false;
+    private boolean editarValorMensalidade = false;
  
     public boolean isCpfCheck() {
 		return cpfCheck;
@@ -63,6 +65,22 @@ public class SelectBooleanView {
 	public void setOutroRespFin(boolean outroRespFin) {
 		this.outroRespFin = outroRespFin;
 	}
+	
+	public boolean isEditarSerieAluno() {
+		return editarSerieAluno;
+	}
+	
+	public void setEditarSerieAluno(boolean editarSerieAluno) {
+		this.editarSerieAluno = editarSerieAluno;
+	}
+	
+	public boolean isEditarValorMensalidade() {
+		return editarValorMensalidade;
+	}
+	
+	public void setEditarValorMensalidade(boolean editarValorMensalidade) {
+		this.editarValorMensalidade = editarValorMensalidade;
+	}
 
 	public void addMessageCPFAluno() {
         String checkCPF = cpfCheck ? "Campo para CPF do aluno habilitado" : "Campo para CPF do aluno desabilitado";
@@ -92,5 +110,10 @@ public class SelectBooleanView {
 	public void addMessageRespFinOutro() {
 		String checkOutroResp = outroRespFin ? "Campo responsável financeiro do aluno habilitado" : "Campo responsável financeiro do aluno desabilitado";
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(checkOutroResp));
+	}
+	
+	public void addMessageEditarSerieAluno() {
+		String checkEditarSerie = editarSerieAluno ? "Edição de série para o aluno foi habilitado" : "Edição de série para o aluno foi desabilitado";
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(checkEditarSerie));
 	}
 }
