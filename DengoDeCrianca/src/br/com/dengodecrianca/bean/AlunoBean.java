@@ -9,8 +9,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import org.hamcrest.core.SubstringMatcher;
-
 import br.com.dengodecrianca.dao.AlunosDAO;
 import br.com.dengodecrianca.dominio.Aluno;
 import br.com.dengodecrianca.util.Idade;
@@ -114,30 +112,7 @@ public class AlunoBean {
 	
 	public void calculaIdade() {
 		Idade i = new Idade();
-		int idade = i.calculaIdade(dataNasc);
-		if (idade <= 1) {
-			if (idade == 0) {
-				GregorianCalendar hoje = new GregorianCalendar();
-			    int mesH = hoje.get(Calendar.MONTH) + 1;
-			    
-			    int mesN = Integer.valueOf(dataNasc.substring(3,5));
-			    int meses;
-			    if (mesN < mesH) {
-			    	meses = mesH - mesN;	
-			    } else {
-			    	meses = mesN - mesH;
-			    }			    
-			    if (meses <= 1) {
-			    	this.idade  = Integer.toString(meses) + " mês";
-			    } else {
-			    	this.idade  = Integer.toString(meses) + " meses";
-			    }
-			} else {
-				this.idade = Integer.toString(idade) + " ano";
-			}			
-		} else {
-			this.idade = Integer.toString(idade) + " anos";
-		}
+		this.idade = i.calculaIdade(dataNasc);			
 	}
 	
 	public void selectSerie() {
@@ -168,7 +143,9 @@ public class AlunoBean {
 	}
 	
 	public void getBancoMensalidade() {
-		if (turno != null && turno.equals("I")) {
+		if (turno == null || turno.equals("")) {
+			mensalidade = "R$ 0,00";			
+		} else if (turno != null && turno.equals("I")) {
 			mensalidade = "R$ 800,00";
 		} else if (turno != null && turno.equals("MPM")) {
 			mensalidade = "R$ 400,00";

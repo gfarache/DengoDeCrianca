@@ -204,3 +204,22 @@ CREATE TABLE IF NOT EXISTS `dengodecrianca`.`uflogradouro` (
   `couf` VARCHAR(2) NOT NULL,
   `nomeuf` VARCHAR(25) NOT NULL,
   PRIMARY KEY (`iduflogradouro`, `couf`, `nomeuf`));
+  
+CREATE TABLE `dengodecrianca`.`mensalidades` (
+  `turno` VARCHAR(20) NOT NULL,
+  `valor` DECIMAL(6,2) NOT NULL,
+  PRIMARY KEY (`turno`));
+  
+---------------------------------------------------------------------------------------------------------
+  
+INSERT INTO `dengodecrianca`.`funcionario` (
+  `matricula`, `cpf`, `rg`, `nome`, `datanascimento`, `sexo`, `endereco`,
+  `numero`, `bairro`, `complemento`, `municipio`, `uf`, `cep`, `telefone`,
+  `email`, `cargo`, `salario`, `dataadmissao`, `coativo`) 
+VALUES ('2020TI0001', '77453816220', '1476993-0 SSP/AM', 'Gustavo Farache Oliveira',
+  '19850222', 'M', 'Avenida Genebra', '7', 'Planalto', 'Quadra 12', 'Manaus', 'AM',
+  '69045380', '(92)98233-0453', 'gfarache@gmail.com', 'Analista de TI', '0.00', '20200801', 'A');
+  
+INSERT INTO `dengodecrianca`.`usuario` 
+(`login`, `senha`, `perfil`, `coativo`, `funcionario_matricula`) 
+VALUES ('admin', '2', 'ADMIN', 'A', '2020TI0001');
