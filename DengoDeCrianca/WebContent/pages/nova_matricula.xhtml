@@ -317,13 +317,14 @@
 							<p:outputLabel for="turno" value="Turno: "/>
 						</td>
 						<td>
+						<f:ajax event="change" listener="#{MBAluno.getBancoMensalidade}" render="mensalidade" >
 							<p:selectOneMenu id="turno"	value="#{MBAluno.turno}">
 								<f:selectItem itemLabel="" itemValue="" />
 								<f:selectItem itemLabel="Integral" itemValue="I" />
 								<f:selectItem itemLabel="Meio-período (manhã)" itemValue="MPM" />
 								<f:selectItem itemLabel="Meio-período (tarde)" itemValue="MPT" />
-								<f:ajax event="blur" listener="#{MBAluno.getBancoMensalidade}" render="mensalidade" />
 							</p:selectOneMenu>
+						</f:ajax>
 						</td>
 					</tr>
 					
@@ -332,7 +333,7 @@
 							<p:outputLabel for="mensalidade" value="Valor da mensalidade: "/>
 						</td>
 						<td>
-							<p:inputText id="mensalidade" readonly="true" value="#{MBAluno.mensalidade} xxx"/>
+							<p:inputText id="mensalidade" readonly="true" value="#{MBAluno.mensalidade}" size="10"/>
 						</td>
 					</tr>
 										
