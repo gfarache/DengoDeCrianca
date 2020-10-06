@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class ConnectionFactory {
 	private static final String USUARIO = "root";
 	private static final String SENHA = "root";
-	private static final String URL = "jdbc:mysql://localhost:3306/dengodecrianca";
+	private static final String URL = "jdbc:mysql://localhost:3306/dengodecrianca?useTimezone=true&serverTimezone=UTC&useSSL=false";
 	
 	public static Connection getConnection() {
 		System.out.println("Conectando ao Banco!\n");

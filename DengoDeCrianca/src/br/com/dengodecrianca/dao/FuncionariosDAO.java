@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.apache.commons.lang.StringUtils;
+
 import br.com.dengodecrianca.conexao.ConnectionFactory;
 import br.com.dengodecrianca.dominio.Funcionario;
 
@@ -18,7 +20,7 @@ public class FuncionariosDAO {
 		sql.append(" (matricula, nome, rg, cpf, sexo, datanascimento, endereco, numero, bairro ");
 		sql.append(" complemento, municipio, uf, cep, telefone, cargo, salario, dataadmissao, coativo ");
 		
-		if (funcionario.getEmail() != null && !funcionario.getEmail().equals("")) {
+		if (StringUtils.isNotBlank(funcionario.getEmail()) && StringUtils.isNotEmpty(funcionario.getEmail())) {
 			sql.append(" , email ");
 		}
 		if (funcionario.getFoto() != null) {
@@ -26,7 +28,8 @@ public class FuncionariosDAO {
 		}
 		sql.append(" ) "); 
 		sql.append(" values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? ");
-		if (funcionario.getEmail() != null && !funcionario.getEmail().equals("")) {
+		
+		if (StringUtils.isNotBlank(funcionario.getEmail()) && StringUtils.isNotEmpty(funcionario.getEmail())) {
 			sql.append(" ,'"+funcionario.getEmail()+"' ");
 		}
 		if (funcionario.getFoto() != null) {

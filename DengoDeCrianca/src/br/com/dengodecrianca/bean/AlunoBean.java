@@ -2,9 +2,6 @@ package br.com.dengodecrianca.bean;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -16,7 +13,7 @@ import br.com.dengodecrianca.util.Idade;
 @ManagedBean(name = "MBAluno")
 @ViewScoped
 public class AlunoBean {
-	private Aluno aluno;
+	private Aluno aluno = new Aluno();
 	private String idade;
 	private String dataNasc;
 	private String serie;
