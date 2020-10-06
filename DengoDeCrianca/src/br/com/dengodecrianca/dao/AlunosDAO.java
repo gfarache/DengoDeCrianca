@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.apache.commons.lang.StringUtils;
+
 import br.com.dengodecrianca.conexao.ConnectionFactory;
 import br.com.dengodecrianca.dominio.Aluno;
 
@@ -18,27 +20,28 @@ public class AlunosDAO {
 		sql.append(" insert into aluno ");
 		sql.append(" (matricula, nome, dataNascimento, sexo, turno, nomemae, coativo ");
 
-		if (aluno.getNomePai() != null && !aluno.getNomePai().equals("")) {
+		if (StringUtils.isNotBlank(aluno.getNomePai()) && StringUtils.isNotEmpty(aluno.getNomePai())) {
 			sql.append(" ,nomepai ");
 		}
-		if (aluno.getCpf() != null && !aluno.getCpf().equals("")) {
+		if (StringUtils.isNotBlank(aluno.getCpf()) && StringUtils.isNotEmpty(aluno.getCpf())) {
 			sql.append(" ,cpf ");
 		}
-		if (aluno.getRg() != null && aluno.getRg().equals("")) {
+		if (StringUtils.isNotBlank(aluno.getRg()) && StringUtils.isNotEmpty(aluno.getRg())) {
 			sql.append(", rg ");
 		}
 
 		sql.append(" ) values (?,?,?,?,?,?,? ");
 
-		if (aluno.getNomePai() != null && !aluno.getNomePai().equals("")) {
+		if (StringUtils.isNotBlank(aluno.getNomePai()) && StringUtils.isNotEmpty(aluno.getNomePai())) {
 			sql.append(" , '" + aluno.getNomePai() + "' ");
 		}
-		if (aluno.getCpf() != null && !aluno.getCpf().equals("")) {
+		if (StringUtils.isNotBlank(aluno.getCpf()) && StringUtils.isNotEmpty(aluno.getCpf())) {
 			sql.append(" , '" + aluno.getCpf() + "' ");
 		}
-		if (aluno.getRg() != null && aluno.getRg().equals("")) {
-			sql.append(", '" + aluno.getRg() + "'");
+		if (StringUtils.isNotBlank(aluno.getRg()) && StringUtils.isNotEmpty(aluno.getRg())) {
+			sql.append(", '" + aluno.getRg() + "' ");
 		}
+		sql.append(")");
 
 		Connection con = ConnectionFactory.getConnection();
 		PreparedStatement pstmt = con.prepareStatement(sql.toString());

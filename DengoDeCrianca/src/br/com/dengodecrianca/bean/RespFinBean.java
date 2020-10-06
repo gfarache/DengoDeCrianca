@@ -14,7 +14,7 @@ import br.com.dengodecrianca.util.Mensagem;
 @ManagedBean(name = "MBRespFin")
 @ViewScoped
 public class RespFinBean {
-	private ResponsavelFinanceiro respFin;
+	private ResponsavelFinanceiro respFin = new ResponsavelFinanceiro();
 	private ArrayList<ResponsavelFinanceiro> itens;
 	private ArrayList<ResponsavelFinanceiro> itensFiltrados;
 	
