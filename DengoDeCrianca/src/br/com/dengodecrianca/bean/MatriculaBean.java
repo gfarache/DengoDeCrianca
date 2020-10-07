@@ -7,8 +7,8 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class MatriculaBean {
 	
-	public void novo() {
+	public void novo(String value) {
 		
-		System.out.println("teste");
+		System.out.println("teste"+value);
 	}
 }

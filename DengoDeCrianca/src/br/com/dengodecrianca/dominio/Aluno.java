@@ -5,18 +5,18 @@ import java.io.ByteArrayInputStream;
 import br.com.dengodecrianca.util.Formatadores;
 
 public class Aluno {
-	private String matricula = "";
-	private String respfin_cpf = "";
-	private String nome = "";
-	private String dataNascimento = "";
-	private String cpf = "";
-	private String rg = "";
-	private String sexo = "";
-	private String turno = "";
-	private String nomeMae = "";
-	private String nomePai = "";
+	private String matricula;
+	private String respfin_cpf;
+	private String nome;
+	private String dataNascimento;
+	private String cpf;
+	private String rg;
+	private String sexo;
+	private String turno;
+	private String nomeMae;
+	private String nomePai;
 	private ByteArrayInputStream foto = null;
-	private String coAtivo = "";
+	private String coAtivo;
 	private ResponsavelFinanceiro responsavel;
 	
 	public void limpar() {

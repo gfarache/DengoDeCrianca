@@ -49,7 +49,7 @@
 							<p:outputLabel for="nomeAluno" value="Nome completo: " />
 						</td>
 						<td colspan="2">
-							<p:inputText id="nomeAluno" value="#{MBAluno.aluno.nome}" size="38" />
+							<p:inputText id="nomeAluno" binding="#{nome}" size="38" />
 						</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 						<td>
@@ -339,7 +339,7 @@
 										
 					<tr>
 					<td align="center" colspan="11">
-						<p:commandButton value="Salvar"/>
+						<p:commandButton value="Salvar" action="#{MBMatricula.novo(nome.value)}"/>
 						<p:commandButton value="Cancelar" />
 						<p:commandButton value="Limpar" />
 					</td>
