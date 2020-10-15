@@ -9,6 +9,6 @@ public class MatriculaBean {
 	
 	public void novo(String value) {
 		
-		System.out.println("teste"+value);
+		System.out.println("teste "+value);
 	}
 }
