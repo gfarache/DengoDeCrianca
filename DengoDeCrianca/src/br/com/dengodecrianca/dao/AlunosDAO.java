@@ -12,17 +12,12 @@ import br.com.dengodecrianca.conexao.ConnectionFactory;
 import br.com.dengodecrianca.dominio.Aluno;
 
 public class AlunosDAO {
-	public void salvarNovoAluno(Aluno aluno) throws SQLException {
-		
-		
+	public void salvarNovoAluno(Aluno aluno) throws SQLException {		
 		StringBuilder sql = new StringBuilder();
 
 		sql.append(" insert into aluno ");
-		sql.append(" (matricula, nome, dataNascimento, sexo, turno, nomemae, coativo ");
+		sql.append(" (matricula, nome, datanascimento, sexo, turno, coativo ");
 
-		if (StringUtils.isNotBlank(aluno.getNomePai()) && StringUtils.isNotEmpty(aluno.getNomePai())) {
-			sql.append(" ,nomepai ");
-		}
 		if (StringUtils.isNotBlank(aluno.getCpf()) && StringUtils.isNotEmpty(aluno.getCpf())) {
 			sql.append(" ,cpf ");
 		}
@@ -30,11 +25,8 @@ public class AlunosDAO {
 			sql.append(", rg ");
 		}
 
-		sql.append(" ) values (?,?,?,?,?,?,? ");
+		sql.append(" ) values (?,?,?,?,?,? ");
 
-		if (StringUtils.isNotBlank(aluno.getNomePai()) && StringUtils.isNotEmpty(aluno.getNomePai())) {
-			sql.append(" , '" + aluno.getNomePai() + "' ");
-		}
 		if (StringUtils.isNotBlank(aluno.getCpf()) && StringUtils.isNotEmpty(aluno.getCpf())) {
 			sql.append(" , '" + aluno.getCpf() + "' ");
 		}
@@ -51,7 +43,6 @@ public class AlunosDAO {
 		pstmt.setString(3, aluno.getDataNascimento());
 		pstmt.setString(4, aluno.getSexo());
 		pstmt.setString(5, aluno.getTurno());
-		pstmt.setString(6, aluno.getNomeMae());
 		pstmt.setString(7, "A");
 
 		int i = pstmt.executeUpdate();
@@ -87,8 +78,8 @@ public class AlunosDAO {
 	public Aluno buscarAluno(Aluno aluno) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		
-		sql.append(" select matricula, resp_financeiro_cpf, nome, datanascimento, ");
-		sql.append(" cpf, rg, sexo, turno, nomemae, nomepai, coativo ");
+		sql.append(" select matricula, nome, datanascimento, ");
+		sql.append(" cpf, rg, sexo, turno, coativo ");
 		sql.append(" from aluno where matricula = ? ");
 		
 		Connection con = ConnectionFactory.getConnection();
@@ -102,27 +93,21 @@ public class AlunosDAO {
 		if (rs.next()) {
 			retorno = new Aluno();
 			String matricula = rs.getString("matricula");
-			String respfin_cpf = rs.getString("resp_financeiro_cpf");
 			String nome = rs.getString("nome");
 			String dataNascimento = rs.getString("dataNascimento");
 			String cpf = rs.getString("cpf");
 			String rg = rs.getString("rg");
 			String sexo = rs.getString("sexo");
 			String turno = rs.getString("turno");
-			String nomeMae = rs.getString("nomemae");
-			String nomePai = rs.getString("nomepai");
 			String coativo = rs.getString("coativo");
 			
 			retorno.setMatricula(matricula);
-			retorno.setRespfin_cpf(respfin_cpf);
 			retorno.setNome(nome);
 			retorno.setDataNascimento(dataNascimento);
 			retorno.setCpf(cpf);
 			retorno.setRg(rg);
 			retorno.setSexo(sexo);
 			retorno.setTurno(turno);
-			retorno.setNomeMae(nomeMae);
-			retorno.setNomePai(nomePai);
 			retorno.setCoAtivo(coativo);
 		}		
 		return retorno;
@@ -131,8 +116,8 @@ public class AlunosDAO {
 	public ArrayList<Aluno> listar() throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		
-		sql.append(" select matricula, resp_financeiro_cpf, nome, dataNascimento, ");
-		sql.append(" cpf, rg, sexo, turno, nomemae, nomepai, coativo ");
+		sql.append(" select matricula, nome, dataNascimento, ");
+		sql.append(" cpf, rg, sexo, turno, coativo ");
 		sql.append(" from aluno order by nome ");
 		
 		Connection con = ConnectionFactory.getConnection();
@@ -145,27 +130,21 @@ public class AlunosDAO {
 		while (rs.next()) {
 			Aluno aluno = new Aluno();
 			String matricula = rs.getString("matricula");
-			String respfin_cpf = rs.getString("resp_financeiro_cpf");
 			String nome = rs.getString("nome");
 			String dataNascimento = rs.getString("dataNascimento");
 			String cpf = rs.getString("cpf");
 			String rg = rs.getString("rg");
 			String sexo = rs.getString("sexo");
 			String turno = rs.getString("turno");
-			String nomeMae = rs.getString("nomemae");
-			String nomePai = rs.getString("nomepai");
 			String coativo = rs.getString("coativo");
 			
 			aluno.setMatricula(matricula);
-			aluno.setRespfin_cpf(respfin_cpf);
 			aluno.setNome(nome);
 			aluno.setDataNascimento(dataNascimento);
 			aluno.setCpf(cpf);
 			aluno.setRg(rg);
 			aluno.setSexo(sexo);
 			aluno.setTurno(turno);
-			aluno.setNomeMae(nomeMae);
-			aluno.setNomePai(nomePai);
 			aluno.setCoAtivo(coativo);
 			
 			lista.add(aluno);

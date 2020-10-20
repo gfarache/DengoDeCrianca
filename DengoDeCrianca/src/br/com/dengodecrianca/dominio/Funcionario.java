@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.math.BigDecimal;
 
 public class Funcionario {
+	
 	private String matricula = "";
 	private String nome = "";
 	private String cpf = "";

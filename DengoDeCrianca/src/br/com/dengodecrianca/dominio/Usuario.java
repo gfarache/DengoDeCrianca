@@ -1,6 +1,7 @@
 package br.com.dengodecrianca.dominio;
 
 public class Usuario {
+	
 	private String login = "";
 	private String perfil = "";
 	private String senha = "";

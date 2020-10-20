@@ -13,13 +13,7 @@ import br.com.dengodecrianca.util.Idade;
 @ManagedBean(name = "MBAluno")
 @ViewScoped
 public class AlunoBean {
-	private Aluno aluno = new Aluno();
-	private String idade;
-	private String dataNasc;
-	private String serie;
-	private String turno;
-	private String mensalidade;
-	private String sexoAluno;
+	private Aluno aluno = new Aluno();	
 	private ArrayList<Aluno> itens;
 	private ArrayList<Aluno> itensFiltrados;
 
@@ -29,55 +23,7 @@ public class AlunoBean {
 
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
-	}
-
-	public String getIdade() {
-		return idade;
-	}
-
-	public void setIdade(String idade) {
-		this.idade = idade;
-	}
-	
-	public String getDataNasc() {
-		return dataNasc;
-	}
-	
-	public void setDataNasc(String dataNasc) {
-		this.dataNasc = dataNasc;
-	}
-	
-	public String getSerie() {
-		return serie;
-	}
-	
-	public void setSerie(String serie) {
-		this.serie = serie;
-	}
-	
-	public String getTurno() {
-		return turno;
-	}
-	
-	public void setTurno(String turno) {
-		this.turno = turno;
-	}
-	
-	public String getMensalidade() {
-		return mensalidade;
-	}
-	
-	public void setMensalidade(String mensalidade) {
-		this.mensalidade = mensalidade;
-	}
-	
-	public String getSexoAluno() {
-		return sexoAluno;
-	}
-	
-	public void setSexoAluno(String sexoAluno) {
-		this.sexoAluno = sexoAluno;
-	}
+	}	
 
 	public ArrayList<Aluno> getItens() {
 		return itens;
@@ -106,6 +52,8 @@ public class AlunoBean {
 			e.printStackTrace();
 		}
 	}
+	
+	/*
 	
 	public void calculaIdade() {
 		Idade i = new Idade();
@@ -150,4 +98,6 @@ public class AlunoBean {
 			mensalidade = "R$ 400,00";
 		}
 	}
+	
+	*/
 }

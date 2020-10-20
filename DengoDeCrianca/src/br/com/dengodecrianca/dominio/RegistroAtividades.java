@@ -1,6 +1,7 @@
 package br.com.dengodecrianca.dominio;
 
 public class RegistroAtividades {
+	
 	private Long ID;
 	private String data = "";
 	private String descricao = "";

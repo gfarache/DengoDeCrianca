@@ -5,32 +5,30 @@ import java.io.ByteArrayInputStream;
 import br.com.dengodecrianca.util.Formatadores;
 
 public class Aluno {
+	
 	private String matricula;
-	private String respfin_cpf;
 	private String nome;
 	private String dataNascimento;
 	private String cpf;
 	private String rg;
 	private String sexo;
 	private String turno;
-	private String nomeMae;
-	private String nomePai;
 	private ByteArrayInputStream foto = null;
 	private String coAtivo;
 	private ResponsavelFinanceiro responsavel;
+	private Filiacao filiacao;
 	
 	public void limpar() {
 		matricula = "";
-		respfin_cpf = "";
 		nome = "";
 		dataNascimento = "";
 		cpf = "";
 		rg = "";
 		sexo = "";
 		turno = "";
-		nomeMae = "";
 		coAtivo = "";
-		nomePai = "";
+		responsavel = null;
+		filiacao = null;
 	}
 	
 	public String getMatricula() {
@@ -39,14 +37,6 @@ public class Aluno {
 
 	public void setMatricula(String matricula) {
 		this.matricula = matricula;
-	}
-
-	public String getRespfin_cpf() {
-		return respfin_cpf;
-	}
-
-	public void setRespfin_cpf(String respfin_cpf) {
-		this.respfin_cpf = respfin_cpf;
 	}
 
 	public String getNome() {
@@ -97,22 +87,6 @@ public class Aluno {
 		this.turno = turno;
 	}
 	
-	public String getNomeMae() {
-		return nomeMae;
-	}
-	
-	public void setNomeMae(String nomeMae) {
-		this.nomeMae = nomeMae;
-	}
-
-	public String getNomePai() {
-		return nomePai;
-	}
-	
-	public void setNomePai(String nomePai) {
-		this.nomePai = nomePai;
-	}
-
 	public ByteArrayInputStream getFoto() {
 		return foto;
 	}
@@ -135,6 +109,14 @@ public class Aluno {
 
 	public void setResponsavel(ResponsavelFinanceiro responsavel) {
 		this.responsavel = responsavel;
+	}
+
+	public Filiacao getFiliacao() {
+		return filiacao;
+	}
+
+	public void setFiliacao(Filiacao filiacao) {
+		this.filiacao = filiacao;
 	}
 
 	@Override

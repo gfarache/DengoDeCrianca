@@ -3,6 +3,7 @@ package br.com.dengodecrianca.dominio;
 import java.math.BigDecimal;
 
 public class ResponsavelFinanceiro {
+	
 	private String cpf = "";
 	private String parentesco = "";
 	private String nome = "";
@@ -18,6 +19,7 @@ public class ResponsavelFinanceiro {
 	private String email = "";
 	private BigDecimal mensalidade = BigDecimal.ZERO;
 	private String coAtivo = "";
+	private Pagamento pagamento = new Pagamento();
 	
 	public void limpar() {
 		cpf = "";
@@ -156,5 +158,11 @@ public class ResponsavelFinanceiro {
 		this.coAtivo = coAtivo;
 	}
 
-	
+	public Pagamento getPagamento() {
+		return pagamento;
+	}
+
+	public void setPagamento(Pagamento pagamento) {
+		this.pagamento = pagamento;
+	}
 }
