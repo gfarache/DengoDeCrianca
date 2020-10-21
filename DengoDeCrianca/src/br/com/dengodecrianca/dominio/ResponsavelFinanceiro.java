@@ -19,7 +19,7 @@ public class ResponsavelFinanceiro {
 	private String email = "";
 	private BigDecimal mensalidade = BigDecimal.ZERO;
 	private String coAtivo = "";
-	private Pagamento pagamento = new Pagamento();
+	private Pagamento pagamento;
 	
 	public void limpar() {
 		cpf = "";

@@ -14,6 +14,8 @@ import br.com.dengodecrianca.util.Idade;
 @ViewScoped
 public class AlunoBean {
 	private Aluno aluno = new Aluno();	
+	private String idade;
+	private String serie;
 	private ArrayList<Aluno> itens;
 	private ArrayList<Aluno> itensFiltrados;
 
@@ -24,6 +26,22 @@ public class AlunoBean {
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
 	}	
+
+	public String getIdade() {
+		return idade;
+	}
+
+	public void setIdade(String idade) {
+		this.idade = idade;
+	}
+
+	public String getSerie() {
+		return serie;
+	}
+
+	public void setSerie(String serie) {
+		this.serie = serie;
+	}
 
 	public ArrayList<Aluno> getItens() {
 		return itens;
@@ -53,11 +71,11 @@ public class AlunoBean {
 		}
 	}
 	
-	/*
+	
 	
 	public void calculaIdade() {
 		Idade i = new Idade();
-		this.idade = i.calculaIdade(dataNasc);			
+		this.idade = i.calculaIdade(aluno.getDataNascimento());
 	}
 	
 	public void selectSerie() {
@@ -86,6 +104,8 @@ public class AlunoBean {
 			serie = "5º ano - E.F.";
 		}
 	}
+	
+	/*
 	
 	public void getBancoMensalidade() {
 		if (turno == null || turno.equals("")) {

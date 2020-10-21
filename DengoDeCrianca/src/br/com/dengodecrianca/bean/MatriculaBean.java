@@ -1,14 +1,14 @@
 package br.com.dengodecrianca.bean;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 
 @ManagedBean(name = "MBMatricula")
-@ViewScoped
+@SessionScoped
 public class MatriculaBean {
 	
 	public void novo(String value) {
 		
-		System.out.println("teste "+value);
+		System.out.println("teste: "+value);
 	}
 }

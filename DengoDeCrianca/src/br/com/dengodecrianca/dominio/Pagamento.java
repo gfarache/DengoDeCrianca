@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class Pagamento {
 	
-	private ResponsavelFinanceiro responsavel = new ResponsavelFinanceiro();
+	private ResponsavelFinanceiro responsavel;
 	private int mes;
 	private int ano;
 	private String descricao;
