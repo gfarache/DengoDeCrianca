@@ -16,7 +16,7 @@ public class SelectBooleanView {
     private boolean paiRespFin = false;
     private boolean outroRespFin = false;
     private boolean editarSerieAluno = false;
-    private boolean editarValorMensalidade = false;
+    //private boolean editarValorMensalidade = false;
  
     public boolean isCpfCheck() {
 		return cpfCheck;
@@ -74,6 +74,7 @@ public class SelectBooleanView {
 		this.editarSerieAluno = editarSerieAluno;
 	}
 	
+	/*
 	public boolean isEditarValorMensalidade() {
 		return editarValorMensalidade;
 	}
@@ -81,6 +82,7 @@ public class SelectBooleanView {
 	public void setEditarValorMensalidade(boolean editarValorMensalidade) {
 		this.editarValorMensalidade = editarValorMensalidade;
 	}
+	*/
 
 	public void addMessageCPFAluno() {
         String checkCPF = cpfCheck ? "Campo para CPF do aluno habilitado" : "Campo para CPF do aluno desabilitado";

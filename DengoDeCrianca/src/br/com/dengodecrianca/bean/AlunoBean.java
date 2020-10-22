@@ -1,5 +1,6 @@
 package br.com.dengodecrianca.bean;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.annotation.PostConstruct;
@@ -8,12 +9,14 @@ import javax.faces.bean.ViewScoped;
 
 import br.com.dengodecrianca.dao.AlunosDAO;
 import br.com.dengodecrianca.dominio.Aluno;
+import br.com.dengodecrianca.dominio.ResponsavelFinanceiro;
 import br.com.dengodecrianca.util.Idade;
 
 @ManagedBean(name = "MBAluno")
 @ViewScoped
 public class AlunoBean {
-	private Aluno aluno = new Aluno();	
+	private Aluno aluno = new Aluno();
+	private ResponsavelFinanceiro responsavel = new ResponsavelFinanceiro();
 	private String idade;
 	private String serie;
 	private ArrayList<Aluno> itens;
@@ -26,6 +29,14 @@ public class AlunoBean {
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
 	}	
+
+	public ResponsavelFinanceiro getResponsavel() {
+		return responsavel;
+	}
+
+	public void setResponsavel(ResponsavelFinanceiro responsavel) {
+		this.responsavel = responsavel;
+	}
 
 	public String getIdade() {
 		return idade;
@@ -104,20 +115,16 @@ public class AlunoBean {
 			serie = "5º ano - E.F.";
 		}
 	}
-	
-	/*
-	
+		
 	public void getBancoMensalidade() {
-		if (turno == null || turno.equals("")) {
-			mensalidade = "R$ 0,00";			
-		} else if (turno != null && turno.equals("I")) {
-			mensalidade = "R$ 800,00";
-		} else if (turno != null && turno.equals("MPM")) {
-			mensalidade = "R$ 400,00";
-		} else if (turno != null && turno.equals("MPT")) {
-			mensalidade = "R$ 400,00";
+		if (aluno.getTurno() == null || aluno.getTurno().equals("")) {
+			responsavel.setMensalidade(BigDecimal.ZERO);			
+		} else if (aluno.getTurno() != null && aluno.getTurno().equals("I")) {
+			responsavel.setMensalidade(new BigDecimal(800));
+		} else if (aluno.getTurno() != null && aluno.getTurno().equals("MPM")) {
+			responsavel.setMensalidade(new BigDecimal(400));
+		} else if (aluno.getTurno() != null && aluno.getTurno().equals("MPT")) {
+			responsavel.setMensalidade(new BigDecimal(400));
 		}
 	}
-	
-	*/
 }

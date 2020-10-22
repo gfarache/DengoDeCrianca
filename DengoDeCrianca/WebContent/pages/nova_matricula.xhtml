@@ -49,7 +49,6 @@
 							<p:outputLabel for="nomeAluno" value="Nome completo: " />
 						</td>
 						<td colspan="2">
-							<!-- <p:inputText id="nomeAluno" binding="#{nome}" size="38" /> -->
 							<p:inputText id="nomeAluno" value="#{MBAluno.aluno.nome}"/>
 						</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -98,7 +97,7 @@
 						</td>
 						<td>
 							<p:inputText id="paiAluno" disabled="#{!MBBooleanCheckBox.paiCheck}"
-								value="#{MBAluno.aluno.filiacao.nomePai}" />
+								value="#{MBFiliacao.filiacao.nomePai}" />
 						</td>
 						<td>
 							<p:selectBooleanCheckbox id="checkPaiAluno" value="#{MBBooleanCheckBox.paiCheck}" itemLabel="Habilitar">
@@ -303,7 +302,7 @@
 							<p:outputLabel for="telefone" value="Telefone: "/>
 						</td>
 						<td>
-							<p:inputMask id="telefone" value="#{MBRespFin.respFin.telefone}" mask="(99) 99999-9999" size="15"/>
+							<p:inputMask id="telefone" value="#{MBRespFin.respFin.telefone}" mask="(99)99999-9999" size="15"/>
 						</td>
 						<td>
 							<p:outputLabel for="email" value="E-mail: "/>
@@ -320,10 +319,12 @@
 						<td>
 						<f:ajax event="change" listener="#{MBAluno.getBancoMensalidade}" render="mensalidade" >
 							<p:selectOneMenu id="turno"	value="#{MBAluno.aluno.turno}">
+								
 								<f:selectItem itemLabel="" itemValue="" />
-								<f:selectItem itemLabel="Integral" itemValue="I" />
+								<!-- <f:selectItem itemLabel="Integral" itemValue="I" />
 								<f:selectItem itemLabel="Meio-período (manhã)" itemValue="MPM" />
-								<f:selectItem itemLabel="Meio-período (tarde)" itemValue="MPT" />
+								<f:selectItem itemLabel="Meio-período (tarde)" itemValue="MPT" /> -->
+								<f:selectItems value="#{bean.someValues}"/>
 							</p:selectOneMenu>
 						</f:ajax>
 						</td>
@@ -340,9 +341,9 @@
 										
 					<tr>
 					<td align="center" colspan="11">
-						<p:commandButton value="Salvar" action="#{MBMatricula.novo(nome.value)}"/>
-						<p:commandButton value="Cancelar" />
-						<p:commandButton value="Limpar" />
+						<p:commandButton value="Salvar" action="#{MBMatricula.novaMatricula(MBAluno, MBFiliacao, MBRespFin, MBBooleanCheckBox)}"/>
+						<p:commandButton value="Cancelar" action="/pages/index.xhtml"/>
+						<p:commandButton value="Limpar" action="#{MBMatricula.limpar}"/>
 					</td>
 					</tr>
 					
