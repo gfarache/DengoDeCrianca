@@ -15,7 +15,7 @@
 			<p:growl id="msg" life="5000" />
 
 			<div align="center">
-				<table>
+				<table border ="1">
 					
 					<tr>
 						<td colspan="11">
@@ -299,12 +299,6 @@
 							<p:inputMask id="cep" value="#{MBRespFin.respFin.cep}" mask="99999-999" size="8"/>
 						</td>
 						<td>
-							<p:outputLabel for="telefone" value="Telefone: "/>
-						</td>
-						<td>
-							<p:inputMask id="telefone" value="#{MBRespFin.respFin.telefone}" mask="(99)99999-9999" size="15"/>
-						</td>
-						<td>
 							<p:outputLabel for="email" value="E-mail: "/>
 						</td>
 						<td>
@@ -321,13 +315,28 @@
 							<p:selectOneMenu id="turno"	value="#{MBAluno.aluno.turno}">
 								
 								<f:selectItem itemLabel="" itemValue="" />
-								<!-- <f:selectItem itemLabel="Integral" itemValue="I" />
+								<f:selectItem itemLabel="Integral" itemValue="I" />
 								<f:selectItem itemLabel="Meio-período (manhã)" itemValue="MPM" />
-								<f:selectItem itemLabel="Meio-período (tarde)" itemValue="MPT" /> -->
-								<f:selectItems value="#{bean.someValues}"/>
+								<f:selectItem itemLabel="Meio-período (tarde)" itemValue="MPT" />
+								<!-- <f:selectItems value="#{MBMenuView.listarTurnos}"/> -->
 							</p:selectOneMenu>
 						</f:ajax>
 						</td>
+						<td colspan="2"></td>
+						<td>
+						
+						
+							<p:outputLabel for="telefone" value="Telefone: "/></td>
+						<td>
+						
+							<p:inputMask id="telefone" value="#{MBRespFin.respFin.telefone}" mask="(99)99999-9999" size="15"/>&nbsp;&nbsp;&nbsp;
+							<p:commandButton id="btn_add" value="+" update="msg" title="Adicionar para a lista de contatos" action="#{CollectorBean.reinit}" >
+                				<p:collector value="#{CollectorBean.contato}" addTo="#{CollectorBean.contatos}" unique="true"/>
+            				</p:commandButton>
+            				<p:commandButton id="btn_reset" value="Limpar" type="reset"/>
+						</td>
+						<td></td>
+						
 					</tr>
 					
 					<tr>
@@ -336,6 +345,31 @@
 						</td>
 						<td>
 							<p:inputText id="mensalidade" readonly="true" value="#{MBRespFin.respFin.mensalidade}" size="10"/>
+						</td>
+						<td colspan="2"></td>
+						<td colspan="4">
+						<p:outputPanel id="contatos">
+							<p:dataTable value="#{CollectorBean.contatos}" var="contato" id="contatosTable">
+ 
+            <p:column headerText="Tipo">
+                <h:outputText value="#{contato.tipo}" />
+            </p:column>
+ 
+            <p:column headerText="Número">
+                <f:facet name="header">
+                    <h:outputText value="Número" />
+                </f:facet>
+                <h:outputText value="#{contato.contato}" />
+            </p:column>
+ 
+            <p:column headerText="Ação">
+                <p:commandLink value="Remove" update=":form:contatos" process=":form:contatos">
+                    <p:collector value="#{contato}" removeFrom="#{CollectorBean.contatos}" unique="true"/>
+                </p:commandLink>
+            </p:column>
+ 
+        </p:dataTable>
+							</p:outputPanel>
 						</td>
 					</tr>
 										

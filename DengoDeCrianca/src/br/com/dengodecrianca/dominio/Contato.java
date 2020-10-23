@@ -2,33 +2,55 @@ package br.com.dengodecrianca.dominio;
 
 public class Contato {
 	
-	private int idcontato;
-	private String contato1;
-	private String contato2;
-	private String contato3;
+	private Aluno aluno;
+	private ResponsavelFinanceiro responsavel;
+	private String contato;
+	private String descricao;
+	private String tipo;
 	
-	public int getIdcontato() {
-		return idcontato;
+	public Aluno getAluno() {
+		return aluno;
 	}
-	public void setIdcontato(int idcontato) {
-		this.idcontato = idcontato;
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
 	}
-	public String getContato1() {
-		return contato1;
+	public ResponsavelFinanceiro getResponsavel() {
+		return responsavel;
 	}
-	public void setContato1(String contato1) {
-		this.contato1 = contato1;
+	public void setResponsavel(ResponsavelFinanceiro responsavel) {
+		this.responsavel = responsavel;
 	}
-	public String getContato2() {
-		return contato2;
+	public String getContato() {
+		return contato;
 	}
-	public void setContato2(String contato2) {
-		this.contato2 = contato2;
+	public void setContato(String contato) {
+		this.contato = contato;
 	}
-	public String getContato3() {
-		return contato3;
+	public String getDescricao() {
+		return descricao;
 	}
-	public void setContato3(String contato3) {
-		this.contato3 = contato3;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
+	public String getTipo() {
+		return tipo;
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	public boolean equals(Object obj) {
+        if(!(obj instanceof Contato))
+            return false;
+         
+        Contato contato = (Contato) obj;
+         
+        return (contato.getContato() != null && contato.getContato().equals(contato));
+    }
+ 
+    public int hashCode() {
+        int hash = 1;
+        if(contato != null)
+            hash = hash * 31 + contato.hashCode(); 
+        return hash;
+    }
 }

@@ -17,6 +17,7 @@ public class Aluno {
 	private String coAtivo;
 	private ResponsavelFinanceiro responsavel;
 	private Filiacao filiacao;
+	private Contato contato;
 	
 	public void limpar() {
 		matricula = "";
@@ -117,6 +118,14 @@ public class Aluno {
 
 	public void setFiliacao(Filiacao filiacao) {
 		this.filiacao = filiacao;
+	}
+
+	public Contato getContato() {
+		return contato;
+	}
+
+	public void setContato(Contato contato) {
+		this.contato = contato;
 	}
 
 	@Override

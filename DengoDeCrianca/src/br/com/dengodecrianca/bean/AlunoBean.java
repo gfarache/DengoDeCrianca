@@ -10,6 +10,7 @@ import javax.faces.bean.ViewScoped;
 import br.com.dengodecrianca.dao.AlunosDAO;
 import br.com.dengodecrianca.dominio.Aluno;
 import br.com.dengodecrianca.dominio.ResponsavelFinanceiro;
+import br.com.dengodecrianca.dominio.Contato;
 import br.com.dengodecrianca.util.Idade;
 
 @ManagedBean(name = "MBAluno")
@@ -17,6 +18,7 @@ import br.com.dengodecrianca.util.Idade;
 public class AlunoBean {
 	private Aluno aluno = new Aluno();
 	private ResponsavelFinanceiro responsavel = new ResponsavelFinanceiro();
+	private Contato contato = new Contato();
 	private String idade;
 	private String serie;
 	private ArrayList<Aluno> itens;
@@ -36,6 +38,14 @@ public class AlunoBean {
 
 	public void setResponsavel(ResponsavelFinanceiro responsavel) {
 		this.responsavel = responsavel;
+	}
+
+	public Contato getContato() {
+		return contato;
+	}
+
+	public void setContato(Contato contato) {
+		this.contato = contato;
 	}
 
 	public String getIdade() {
