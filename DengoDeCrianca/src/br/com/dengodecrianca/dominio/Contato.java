@@ -7,7 +7,7 @@ public class Contato {
 	private String contato;
 	private String descricao;
 	private String tipo;
-	
+		
 	public Aluno getAluno() {
 		return aluno;
 	}
@@ -44,7 +44,8 @@ public class Contato {
          
         Contato contato = (Contato) obj;
          
-        return (contato.getContato() != null && contato.getContato().equals(contato));
+        return (contato.getContato() != null && contato.getContato().equals(this.contato) && 
+        		(contato.getTipo() != null && contato.getTipo().equals(this.tipo)));
     }
  
     public int hashCode() {

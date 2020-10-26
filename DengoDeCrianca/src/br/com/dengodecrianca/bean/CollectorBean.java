@@ -6,30 +6,36 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
 
 import br.com.dengodecrianca.dominio.Contato;
 
-@Named
+@ManagedBean (name = "CollectorBean")
 @ViewScoped
 public class CollectorBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	private Contato contato;    
+	private Contato contato;
     private List<Contato> contatos;
+    private String telefone;
+    private String tipoContato;
+    
+    public void ContatoBean() {
+    	contatos = new ArrayList<Contato>();
+    }
      
     @PostConstruct
     public void init() {
         contato = new Contato();
-        contatos = new ArrayList<Contato>();
-         
+        contatos = new ArrayList<Contato>();         
     }
      
-    public void addNovo() {
+    public void createNew() {
         if(contatos.contains(contato)) {
-            FacesMessage msg = new FacesMessage("Dublicated", "Este número já foi adicionado!");
+            FacesMessage msg = new FacesMessage("Duplicated", "Este número já foi adicionado!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } 
         else {
@@ -39,8 +45,7 @@ public class CollectorBean implements Serializable {
     }
      
     public String reinit() {
-        contato = new Contato();
-         
+        contato = new Contato();         
         return null;
     }
  
@@ -51,4 +56,20 @@ public class CollectorBean implements Serializable {
     public List<Contato> getContatos() {
         return contatos;
     }
+    
+    public String getTelefone() {
+		return telefone;
+	}
+    
+    public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+    
+    public String getTipoContato() {
+		return tipoContato;
+	}
+    
+    public void setTipoContato(String tipoContato) {
+		this.tipoContato = tipoContato;
+	}
 }

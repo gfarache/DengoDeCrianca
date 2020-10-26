@@ -11,11 +11,11 @@
 		<ui:include src="/includes/menu.xhtml" />
 	</ui:define>
 	<ui:define name="conteudo">
-		<h:form>
+		<h:form id="form">
 			<p:growl id="msg" life="5000" />
 
 			<div align="center">
-				<table border ="1">
+				<table>
 					
 					<tr>
 						<td colspan="11">
@@ -312,8 +312,7 @@
 						</td>
 						<td>
 						<f:ajax event="change" listener="#{MBAluno.getBancoMensalidade}" render="mensalidade" >
-							<p:selectOneMenu id="turno"	value="#{MBAluno.aluno.turno}">
-								
+							<p:selectOneMenu id="turno"	value="#{MBAluno.aluno.turno}">								
 								<f:selectItem itemLabel="" itemValue="" />
 								<f:selectItem itemLabel="Integral" itemValue="I" />
 								<f:selectItem itemLabel="Meio-período (manhã)" itemValue="MPM" />
@@ -324,18 +323,24 @@
 						</td>
 						<td colspan="2"></td>
 						<td>
-						
-						
-							<p:outputLabel for="telefone" value="Telefone: "/></td>
+							<p:outputLabel for="telefone" value="Telefone: "/>
+						</td>
 						<td>
-						
-							<p:inputMask id="telefone" value="#{MBRespFin.respFin.telefone}" mask="(99)99999-9999" size="15"/>&nbsp;&nbsp;&nbsp;
-							<p:commandButton id="btn_add" value="+" update="msg" title="Adicionar para a lista de contatos" action="#{CollectorBean.reinit}" >
+							<p:inputMask id="telefone" value="#{CollectorBean.telefone} " mask="(99)99999-9999" size="15"/><br/>
+							<p:commandButton id="btn_add" value="+" update="contatos msg @parent" title="Adicionar para a lista de contatos" 
+											 action="#{CollectorBean.reinit}" >
                 				<p:collector value="#{CollectorBean.contato}" addTo="#{CollectorBean.contatos}" unique="true"/>
             				</p:commandButton>
             				<p:commandButton id="btn_reset" value="Limpar" type="reset"/>
 						</td>
-						<td></td>
+						<td colspan="2">
+							<p:outputLabel for="radioContato" value="Tipo Contato:"/>
+							<p:selectOneRadio id="radioContato" value="#{CollectorBean.tipoContato}" unselectable="true">
+								<f:selectItem itemLabel="Residencial" itemValue="res"/>
+								<f:selectItem itemLabel="Comercial" itemValue="com"/>
+								<f:selectItem itemLabel="Outros" itemValue="out"/>
+							</p:selectOneRadio>
+						</td>
 						
 					</tr>
 					
@@ -348,27 +353,23 @@
 						</td>
 						<td colspan="2"></td>
 						<td colspan="4">
-						<p:outputPanel id="contatos">
-							<p:dataTable value="#{CollectorBean.contatos}" var="contato" id="contatosTable">
- 
-            <p:column headerText="Tipo">
-                <h:outputText value="#{contato.tipo}" />
-            </p:column>
- 
-            <p:column headerText="Número">
-                <f:facet name="header">
-                    <h:outputText value="Número" />
-                </f:facet>
-                <h:outputText value="#{contato.contato}" />
-            </p:column>
- 
-            <p:column headerText="Ação">
-                <p:commandLink value="Remove" update=":form:contatos" process=":form:contatos">
-                    <p:collector value="#{contato}" removeFrom="#{CollectorBean.contatos}" unique="true"/>
-                </p:commandLink>
-            </p:column>
- 
-        </p:dataTable>
+							<p:outputPanel id="contatos">
+								<p:dataTable value="#{CollectorBean.contatos}" var="tbContato" id="contatosTable" emptyMessage="Nenhum registro inserido!">
+            						<p:column headerText="Número">
+            							<f:facet name="header">
+            								<h:outputText value="Número" />
+                						</f:facet>
+                						<h:outputText value="#{tbContato.contato}" />
+                					</p:column>
+            						<p:column headerText="Tipo">
+                						<h:outputText value="#{tbContato.tipo}" />
+            						</p:column>
+            						<p:column headerText="Ação">
+            							<p:commandLink value="Remover" update=":form:contatos" process=":form:contatos" >
+                    						<p:collector value="#{tbContato}" removeFrom="#{CollectorBean.contatos}" unique="true"/>
+                						</p:commandLink>
+            						</p:column>
+            					</p:dataTable>
 							</p:outputPanel>
 						</td>
 					</tr>
