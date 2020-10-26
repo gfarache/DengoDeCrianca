@@ -4,7 +4,7 @@ public class Contato {
 	
 	private Aluno aluno;
 	private ResponsavelFinanceiro responsavel;
-	private String contato;
+	private String telefone;
 	private String descricao;
 	private String tipo;
 		
@@ -20,11 +20,11 @@ public class Contato {
 	public void setResponsavel(ResponsavelFinanceiro responsavel) {
 		this.responsavel = responsavel;
 	}
-	public String getContato() {
-		return contato;
+	public String getTelefone() {
+		return telefone;
 	}
-	public void setContato(String contato) {
-		this.contato = contato;
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 	public String getDescricao() {
 		return descricao;
@@ -44,14 +44,22 @@ public class Contato {
          
         Contato contato = (Contato) obj;
          
-        return (contato.getContato() != null && contato.getContato().equals(this.contato) && 
-        		(contato.getTipo() != null && contato.getTipo().equals(this.tipo)));
+        return (contato.getTelefone() != null && contato.getTelefone().equals(this.telefone) && 
+        		(contato.getTipo() != null && contato.getTipo().equals(this.tipo)) &&
+        		(contato.getDescricao() != null && contato.getDescricao().equals(this.descricao)));
     }
  
     public int hashCode() {
         int hash = 1;
-        if(contato != null)
-            hash = hash * 31 + contato.hashCode(); 
+        if (telefone != null)
+            hash = hash * 31 + telefone.hashCode();
+        
+        if (tipo != null)
+        	hash = hash * 29 + tipo.hashCode();
+        
+        if (descricao != null)
+        	hash = hash * 23 + tipo.hashCode();
+        
         return hash;
     }
 }

@@ -15,7 +15,7 @@
 			<p:growl id="msg" life="5000" />
 
 			<div align="center">
-				<table>
+				<table border="1">
 					
 					<tr>
 						<td colspan="11">
@@ -304,6 +304,12 @@
 						<td>
 							<p:inputText id="email" value="#{MBRespFin.respFin.email}" size="20"/>
 						</td>
+						<td>
+							<p:outputLabel for="mensalidade" value="Valor da mensalidade: "/>
+						</td>
+						<td>
+							<p:inputText id="mensalidade" readonly="true" value="#{MBRespFin.respFin.mensalidade}" size="10"/>
+						</td>
 					</tr>
 					
 					<tr>
@@ -326,7 +332,7 @@
 							<p:outputLabel for="telefone" value="Telefone: "/>
 						</td>
 						<td>
-							<p:inputMask id="telefone" value="#{CollectorBean.telefone} " mask="(99)99999-9999" size="15"/><br/>
+							<p:inputMask id="telefone" value="#{CollectorBean.contato.telefone}" mask="(99)99999-9999" size="15"/><br/>
 							<p:commandButton id="btn_add" value="+" update="contatos msg @parent" title="Adicionar para a lista de contatos" 
 											 action="#{CollectorBean.reinit}" >
                 				<p:collector value="#{CollectorBean.contato}" addTo="#{CollectorBean.contatos}" unique="true"/>
@@ -335,34 +341,34 @@
 						</td>
 						<td colspan="2">
 							<p:outputLabel for="radioContato" value="Tipo Contato:"/>
-							<p:selectOneRadio id="radioContato" value="#{CollectorBean.tipoContato}" unselectable="true">
+							<p:selectOneRadio id="radioContato" value="#{CollectorBean.contato.tipo}" unselectable="true">
 								<f:selectItem itemLabel="Residencial" itemValue="res"/>
 								<f:selectItem itemLabel="Comercial" itemValue="com"/>
 								<f:selectItem itemLabel="Outros" itemValue="out"/>
 							</p:selectOneRadio>
 						</td>
+						<td>
+							<p:outputLabel for="descricaoContato" value="Descrição:"/>
+						</td>
+						<td>
+							<p:inputText id="descricaoContato" value="#{CollectorBean.contato.descricao}" />
+						</td>
 						
 					</tr>
 					
 					<tr>
-						<td>
-							<p:outputLabel for="mensalidade" value="Valor da mensalidade: "/>
-						</td>
-						<td>
-							<p:inputText id="mensalidade" readonly="true" value="#{MBRespFin.respFin.mensalidade}" size="10"/>
-						</td>
-						<td colspan="2"></td>
+						<td colspan="4"></td>
 						<td colspan="4">
 							<p:outputPanel id="contatos">
 								<p:dataTable value="#{CollectorBean.contatos}" var="tbContato" id="contatosTable" emptyMessage="Nenhum registro inserido!">
             						<p:column headerText="Número">
-            							<f:facet name="header">
-            								<h:outputText value="Número" />
-                						</f:facet>
-                						<h:outputText value="#{tbContato.contato}" />
+                						<h:outputText value="#{tbContato.telefone}" />
                 					</p:column>
             						<p:column headerText="Tipo">
                 						<h:outputText value="#{tbContato.tipo}" />
+            						</p:column>
+            						<p:column headerText="Descrição">
+                						<h:outputText value="#{tbContato.descricao}" />
             						</p:column>
             						<p:column headerText="Ação">
             							<p:commandLink value="Remover" update=":form:contatos" process=":form:contatos" >

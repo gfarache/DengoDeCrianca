@@ -35,7 +35,7 @@ public class CollectorBean implements Serializable {
      
     public void createNew() {
         if(contatos.contains(contato)) {
-            FacesMessage msg = new FacesMessage("Duplicated", "Este número já foi adicionado!");
+            FacesMessage msg = new FacesMessage("Dublicated", "Este número já foi adicionado!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } 
         else {
@@ -60,12 +60,12 @@ public class CollectorBean implements Serializable {
     public String getTelefone() {
 		return telefone;
 	}
-    
-    public void setTelefone(String telefone) {
+
+	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-    
-    public String getTipoContato() {
+
+	public String getTipoContato() {
 		return tipoContato;
 	}
     
